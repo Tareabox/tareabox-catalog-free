@@ -11,7 +11,7 @@
 > - No tengo obligación de dar soporte, arreglar bugs, o aceptar PRs (aunque me encanta cuando lo hacen 💜).
 > - Sugerencias y feedback son super bienvenidos; demandas y reclamos legales no.
 >
-> **"HyperFrames" es marca de Heygen Inc.** Este catálogo es un proyecto independiente y NO está afiliado, patrocinado, ni respaldado por Heygen. Solo es compatible con su framework.
+> **"HyperFrames" es marca de Heygen Inc.** Soy **aficionada, no afiliada** 😄 — este catálogo es un proyecto independiente, NO está patrocinado ni respaldado por Heygen. Solo es compatible con su framework porque me re gusta lo que están haciendo.
 
 Registry de bloques de video para [HyperFrames](https://hyperframes.heygen.com).
 **+100 bloques de video** y creciendo — un catálogo vivo de bloques HyperFrames listos para instalar con `hyperframes add`.
