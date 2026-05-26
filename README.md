@@ -1,6 +1,15 @@
 # Tareabox HyperFrames Registry
 
-> ⚠️ **Catálogo no oficial / experimental.** Este NO es un repositorio oficial de HyperFrames ni de Heygen. Es mi espacio personal de experimentación: a medida que aprendo y pruebo cosas con HyperFrames, los bloques que me funcionan los guardo acá. Algunos pueden estar mejor codificados que otros, los voy mejorando con el tiempo. Si encontrás algo que se puede mejorar, abrí un issue o PR.
+> ⚠️ **Catálogo experimental — leer antes de usar**
+>
+> Este NO es un repositorio oficial de HyperFrames ni de Heygen. Es mi espacio personal donde guardo los bloques que me funcionan a medida que aprendo y experimento con HyperFrames.
+>
+> **Importante:**
+> - Algunos bloques están mejor codificados que otros — los voy puliendo con el tiempo.
+> - Lo publico "tal como está", sin garantías de que funcione en tu entorno.
+> - **No me hago responsable** si algo no anda como esperás, rompe tu proyecto, o causa pérdidas de cualquier tipo (ver [LICENSE](LICENSE)).
+> - No tengo obligación de dar soporte, arreglar bugs, o aceptar PRs (aunque me encanta cuando lo hacen 💜).
+> - Sugerencias y feedback son super bienvenidos; demandas y reclamos legales no.
 
 Registry de bloques de video para [HyperFrames](https://hyperframes.heygen.com).
 **+100 bloques de video** y creciendo — un catálogo vivo de bloques HyperFrames listos para instalar con `hyperframes add`.

@@ -40,7 +40,43 @@ and stream demo assets from the Pexels CDN (Pexels License, attribution
 not required). End users are responsible for complying with those licenses
 in their own projects.
 
-WARRANTY
-The blocks are provided "AS IS", without warranty of any kind, express or
-implied. The author is not liable for any damages or losses arising from
-the use of these blocks.
+EXPERIMENTAL STATUS
+This catalog is a personal experimental project. The author publishes
+blocks that worked for her own video production. Code quality varies —
+some blocks are polished, others are quick experiments saved because
+they were useful. There is no promise of consistency, completeness, or
+production-readiness across the catalog.
+
+NO WARRANTY
+THE BLOCKS ARE PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTY OF
+ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT,
+ACCURACY, RELIABILITY, OR AVAILABILITY. The author does not warrant that
+the blocks will meet your requirements, work in your environment, render
+correctly on all systems, remain compatible with future HyperFrames
+versions, or be free of defects.
+
+NO OBLIGATION TO MAINTAIN OR SUPPORT
+The author has NO obligation to:
+  - Provide technical support, bug fixes, or feature requests.
+  - Maintain backward compatibility when updating blocks.
+  - Respond to issues, pull requests, emails, or messages.
+  - Keep this catalog available, public, or unchanged at any future date.
+
+Issues and pull requests may be opened, but acceptance is at the author's
+sole discretion. Feedback is welcome; entitlement to action is not granted.
+
+LIMITATION OF LIABILITY
+IN NO EVENT SHALL THE AUTHOR OR COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+DAMAGES, OR OTHER LIABILITY (INCLUDING DIRECT, INDIRECT, INCIDENTAL,
+CONSEQUENTIAL, SPECIAL, EXEMPLARY, OR PUNITIVE DAMAGES) ARISING FROM,
+OUT OF, OR IN CONNECTION WITH:
+  - The blocks themselves, their use, or inability to use them.
+  - Any errors, omissions, or defects in the blocks.
+  - Any business losses, revenue losses, or production delays caused by
+    using or relying on the blocks.
+  - Any third-party services the blocks depend on (HyperFrames, GSAP,
+    Pexels CDN, Google Fonts) becoming unavailable or changing.
+
+By using these blocks, you accept full responsibility for testing them
+in your own environment and verifying they meet your needs.
