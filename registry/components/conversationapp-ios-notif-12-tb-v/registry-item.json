@@ -1,0 +1,35 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "conversationapp-ios-notif-12-tb-v",
+  "type": "hyperframes:component",
+  "title": "Conversationapp iOS Notif (Vertical)",
+  "description": "Vertical 9:16 \u2014 Banner de notificaci\u00f3n iOS lock-screen en formato vertical 9:16",
+  "tags": [
+    "conversationapp",
+    "ios",
+    "notification",
+    "vertical",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "duration": 3.5,
+  "files": [
+    {
+      "path": "conversationapp-ios-notif-12-tb-v.html",
+      "target": "compositions/components/conversationapp-ios-notif-12-tb-v.html",
+      "type": "hyperframes:snippet"
+    },
+    {
+      "path": "tb-media/tb-tareabox-logo.png",
+      "target": "assets/tb-media/tb-tareabox-logo.png",
+      "type": "hyperframes:asset"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-conversationapp-ios-notif-12-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-conversationapp-ios-notif-12-tb-v.png"
+  }
+}
