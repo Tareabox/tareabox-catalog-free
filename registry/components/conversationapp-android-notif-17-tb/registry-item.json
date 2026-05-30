@@ -1,7 +1,7 @@
 {
   "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
   "name": "conversationapp-android-notif-17-tb",
-  "type": "hyperframes:block",
+  "type": "hyperframes:component",
   "title": "Conversationapp Android Notif",
   "description": "Efecto Tareabox: Conversationapp Android Notif",
   "tags": [
@@ -16,8 +16,8 @@
   "files": [
     {
       "path": "conversationapp-android-notif-17-tb.html",
-      "target": "compositions/conversationapp-android-notif-17-tb.html",
-      "type": "hyperframes:composition"
+      "target": "compositions/components/conversationapp-android-notif-17-tb.html",
+      "type": "hyperframes:snippet"
     }
   ],
   "preview": {

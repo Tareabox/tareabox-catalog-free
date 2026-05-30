@@ -5,35 +5,35 @@
   "items": [
     {
       "name": "conversationapp-android-notif-17-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-android-notif-17-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-discord-13-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-discord-13-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-gif-chat-19-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-gif-chat-19-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-imessage-09-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-imessage-09-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-imessage-pure-18-tb",
@@ -93,11 +93,11 @@
     },
     {
       "name": "conversationapp-whatsapp-10-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "conversationapp-whatsapp-10-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "data-checklist-02-tb",

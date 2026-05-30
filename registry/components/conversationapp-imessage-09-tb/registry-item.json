@@ -1,7 +1,7 @@
 {
   "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
   "name": "conversationapp-imessage-09-tb",
-  "type": "hyperframes:block",
+  "type": "hyperframes:component",
   "title": "Conversationapp Imessage",
   "description": "Efecto Tareabox: Conversationapp Imessage",
   "tags": [
@@ -16,8 +16,8 @@
   "files": [
     {
       "path": "conversationapp-imessage-09-tb.html",
-      "target": "compositions/conversationapp-imessage-09-tb.html",
-      "type": "hyperframes:composition"
+      "target": "compositions/components/conversationapp-imessage-09-tb.html",
+      "type": "hyperframes:snippet"
     }
   ],
   "preview": {
