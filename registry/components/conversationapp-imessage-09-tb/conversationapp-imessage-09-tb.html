@@ -5,7 +5,8 @@
   {"id":"msg2","type":"string","label":"Message 2 (outgoing)","default":"no link?"},
   {"id":"msg3","type":"string","label":"Message 3 (incoming)","default":"tareabox.com — 52 layouts"},
   {"id":"msg4","type":"string","label":"Message 4 (incoming)","default":"ready to render"},
-  {"id":"msg5","type":"string","label":"Message 5 (outgoing)","default":"shut up. taking my money 🤝"}
+  {"id":"msg5","type":"string","label":"Message 5 (outgoing)","default":"shut up. taking my money 🤝"},
+  {"id":"bgVideo","type":"string","label":"Background video URL","default":"https://videos.pexels.com/video-files/6963836/6963836-hd_2048_1080_25fps.mp4"}
 ]'>
 <head>
   <!--
@@ -410,6 +411,7 @@
       setStr("--im-name", V.name);
       setStr("--im-1", V.msg1); setStr("--im-2", V.msg2); setStr("--im-3", V.msg3);
       setStr("--im-4", V.msg4); setStr("--im-5", V.msg5);
+      if (V.bgVideo) { const _bv = root.querySelector(".bg-video"); if (_bv) _bv.setAttribute("src", V.bgVideo); }
 
       $("#im09-name").textContent     = G("--im-name");
       $("#im09-avatar").textContent   = G("--im-name").charAt(0);

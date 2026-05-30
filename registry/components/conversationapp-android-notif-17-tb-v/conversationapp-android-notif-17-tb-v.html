@@ -15,7 +15,8 @@
   {"id":"an3From","type":"string","label":"Notif 3 from","default":"Daily review"},
   {"id":"an3Msg","type":"string","label":"Notif 3 message","default":"3 tasks remain — check before EOD"},
   {"id":"accent","type":"color","label":"Accent color","default":"#4CAF50"},
-  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#1a202c"}
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#1a202c"},
+  {"id":"bgVideo","type":"string","label":"Background video URL","default":"https://videos.pexels.com/video-files/7986195/7986195-hd_1920_1080_25fps.mp4"}
 ]'>
 <head>
   <meta charset="UTF-8" />
@@ -162,6 +163,7 @@
       setStr("--an-3-app",  V.an3App);  setStr("--an-3-from", V.an3From); setStr("--an-3-msg",  V.an3Msg);
       setRaw("--tb-accent", V.accent);
       setRaw("--tb-bg",     V.bg);
+      if (V.bgVideo) { const _bv = root.querySelector(".bg-video"); if (_bv) _bv.setAttribute("src", V.bgVideo); }
 
       [1,2,3].forEach(i => {
         $("#an17v-"+i+"-app").textContent  = G("--an-"+i+"-app");
