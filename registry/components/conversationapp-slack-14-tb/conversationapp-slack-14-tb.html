@@ -3,7 +3,16 @@
   © 2026 Natalie Digital · tareabox.com · Tareabox Pack Natalie
   conversationapp-slack-14-tb · Slack message with thread reply count · 4 seconds
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"slChannel","type":"string","label":"Channel","default":"# launches"},
+  {"id":"slName","type":"string","label":"User name","default":"Natalie Digital"},
+  {"id":"slTime","type":"string","label":"Time","default":"2:14 PM"},
+  {"id":"slMsg","type":"string","label":"Message","default":"Pack Natalie is live — 52 layouts, 23 text effects, all bundled. Render times shaved from 40min to 4min."},
+  {"id":"slReplies","type":"string","label":"Replies","default":"8 replies"},
+  {"id":"slLast","type":"string","label":"Last reply","default":"Last reply 2 minutes ago"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#4A154B"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#1a1d21"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=block" rel="stylesheet" />
@@ -162,6 +171,17 @@
       const cs   = getComputedStyle(root);
       const $    = (s) => root.querySelector(s);
       const G    = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g,"");
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--sl-channel", V.slChannel);
+      setStr("--sl-name",    V.slName);
+      setStr("--sl-time",    V.slTime);
+      setStr("--sl-msg",     V.slMsg);
+      setStr("--sl-replies", V.slReplies);
+      setStr("--sl-last",    V.slLast);
+      setRaw("--tb-accent",  V.accent);
+      setRaw("--tb-bg",      V.bg);
       $("#sl14-channel").textContent = G("--sl-channel");
       $("#sl14-name").textContent    = G("--sl-name");
       $("#sl14-time").textContent    = G("--sl-time");

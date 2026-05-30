@@ -3,7 +3,13 @@
   © 2026 Natalie Digital · tareabox.com · Tareabox Pack Natalie
   conversationapp-instagram-dm-11-tb · Instagram DM card · 4 seconds
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"igName","type":"string","label":"Username","default":"nataliedigital"},
+  {"id":"igTime","type":"string","label":"Activity","default":"Active 1m ago"},
+  {"id":"igMsg","type":"string","label":"DM message","default":"saw your reel — that pack is insane 🔥 how did you make it?"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#E1306C"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#000000"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=block" rel="stylesheet" />
@@ -123,6 +129,14 @@
       const cs   = getComputedStyle(root);
       const $    = (s) => root.querySelector(s);
       const G    = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g,"");
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--ig-name", V.igName);
+      setStr("--ig-time", V.igTime);
+      setStr("--ig-msg",  V.igMsg);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       $("#ig11-name").textContent = G("--ig-name");
       $("#ig11-time").textContent = G("--ig-time");
       $("#ig11-msg").textContent  = G("--ig-msg");

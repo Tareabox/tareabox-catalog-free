@@ -3,7 +3,17 @@
   © 2026 Natalie Digital · tareabox.com · Tareabox Pack Natalie
   conversationapp-tweet-08-tb · Single tweet card overlay · 4 seconds
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"twName","type":"string","label":"Display name","default":"Tareabox"},
+  {"id":"twHandle","type":"string","label":"Handle","default":"@tareabox"},
+  {"id":"twTime","type":"string","label":"Time","default":"2h"},
+  {"id":"twBody","type":"string","label":"Tweet body","default":"Just shipped 52 video layouts that turn topics into tutorials. Pick one, edit one CONFIG block, render. That\u0027s it."},
+  {"id":"twReplies","type":"string","label":"Replies","default":"284"},
+  {"id":"twRt","type":"string","label":"Retweets","default":"1.2K"},
+  {"id":"twLikes","type":"string","label":"Likes","default":"9.4K"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#1d9bf0"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0f1419"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=block" rel="stylesheet" />
@@ -141,6 +151,16 @@
       const root = document.querySelector('[data-composition-id="conversationapp-tweet-08-tb"]');
       const cs   = getComputedStyle(root);
       const $    = (s) => root.querySelector(s);
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--tw-name",    V.twName);
+      setStr("--tw-handle",  V.twHandle);
+      setStr("--tw-time",    V.twTime);
+      setStr("--tw-body",    V.twBody);
+      setStr("--tw-replies", V.twReplies);
+      setStr("--tw-rt",      V.twRt);
+      setStr("--tw-likes",   V.twLikes);
       $("#tw08-name").textContent    = cs.getPropertyValue("--tw-name").trim().replace(/^["']|["']$/g,"");
       $("#tw08-handle").textContent  = cs.getPropertyValue("--tw-handle").trim().replace(/^["']|["']$/g,"");
       $("#tw08-time").textContent    = cs.getPropertyValue("--tw-time").trim().replace(/^["']|["']$/g,"");

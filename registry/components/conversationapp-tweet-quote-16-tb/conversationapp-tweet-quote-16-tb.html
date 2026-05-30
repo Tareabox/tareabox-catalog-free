@@ -3,7 +3,17 @@
   © 2026 Natalie Digital · tareabox.com · Tareabox Pack Natalie
   conversationapp-tweet-quote-16-tb · Twitter quote-tweet card · 4 seconds
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"tqName","type":"string","label":"Display name","default":"Natalie Digital"},
+  {"id":"tqHandle","type":"string","label":"Handle","default":"@nataliedigital"},
+  {"id":"tqMsg","type":"string","label":"Top tweet","default":"this is the cleanest layout pack I\u0027ve seen in 2026 →"},
+  {"id":"qtName","type":"string","label":"Quoted name","default":"Tareabox"},
+  {"id":"qtHandle","type":"string","label":"Quoted handle","default":"@tareabox"},
+  {"id":"qtTime","type":"string","label":"Quoted time","default":"Aug 4"},
+  {"id":"qtMsg","type":"string","label":"Quoted tweet","default":"Just shipped 52 video layouts that turn topics into tutorials. One CONFIG block per scene. Render in 4 minutes."},
+  {"id":"accent","type":"color","label":"Accent color","default":"#1d9bf0"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0f1419"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800&display=block" rel="stylesheet" />
@@ -151,6 +161,18 @@
       const cs   = getComputedStyle(root);
       const $    = (s) => root.querySelector(s);
       const G    = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g,"");
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--tq-name",   V.tqName);
+      setStr("--tq-handle", V.tqHandle);
+      setStr("--tq-msg",    V.tqMsg);
+      setStr("--qt-name",   V.qtName);
+      setStr("--qt-handle", V.qtHandle);
+      setStr("--qt-time",   V.qtTime);
+      setStr("--qt-msg",    V.qtMsg);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       $("#tq16-name").textContent     = G("--tq-name");
       $("#tq16-handle").textContent   = G("--tq-handle");
       $("#tq16-msg").textContent      = G("--tq-msg");

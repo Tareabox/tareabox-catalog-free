@@ -3,7 +3,19 @@
   © 2026 Natalie Digital · tareabox.com · Tareabox Pack Natalie
   conversationapp-android-notif-17-tb · Android-style stacked notifications · 4 seconds
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"an1App","type":"string","label":"Notif 1 app","default":"Gmail"},
+  {"id":"an1From","type":"string","label":"Notif 1 from","default":"Stripe"},
+  {"id":"an1Msg","type":"string","label":"Notif 1 message","default":"Payment of $897.00 from new customer"},
+  {"id":"an2App","type":"string","label":"Notif 2 app","default":"YouTube"},
+  {"id":"an2From","type":"string","label":"Notif 2 from","default":"TareaboxTV"},
+  {"id":"an2Msg","type":"string","label":"Notif 2 message","default":"🔥 You hit 10K subscribers"},
+  {"id":"an3App","type":"string","label":"Notif 3 app","default":"Notion"},
+  {"id":"an3From","type":"string","label":"Notif 3 from","default":"Daily review"},
+  {"id":"an3Msg","type":"string","label":"Notif 3 message","default":"3 tasks remain — check before EOD"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#4CAF50"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#1a202c"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=block" rel="stylesheet" />
@@ -144,6 +156,14 @@
       const cs   = getComputedStyle(root);
       const $    = (s) => root.querySelector(s);
       const G    = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g,"");
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--an-1-app",  V.an1App);  setStr("--an-1-from", V.an1From); setStr("--an-1-msg",  V.an1Msg);
+      setStr("--an-2-app",  V.an2App);  setStr("--an-2-from", V.an2From); setStr("--an-2-msg",  V.an2Msg);
+      setStr("--an-3-app",  V.an3App);  setStr("--an-3-from", V.an3From); setStr("--an-3-msg",  V.an3Msg);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       [1,2,3].forEach(i => {
         $("#an17-"+i+"-app").textContent  = G("--an-"+i+"-app");
         $("#an17-"+i+"-from").textContent = G("--an-"+i+"-from");

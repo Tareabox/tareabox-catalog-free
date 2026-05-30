@@ -3,7 +3,15 @@
   © 2026 Natalie Digital · tareabox.com · Tareabox Pack Natalie
   conversationapp-instagram-comment-15-tb · Instagram comment with likes/heart · 4 seconds
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"icName","type":"string","label":"Username","default":"alex.designs"},
+  {"id":"icTime","type":"string","label":"Time ago","default":"3m"},
+  {"id":"icMsg","type":"string","label":"Comment text","default":"wait HOW does the typewriter sync to the audio?? need this immediately 😭"},
+  {"id":"icLikes","type":"string","label":"Likes label","default":"234 likes"},
+  {"id":"icReply","type":"string","label":"Reply label","default":"Reply"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#E1306C"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#000000"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=block" rel="stylesheet" />
@@ -120,6 +128,16 @@
       const cs   = getComputedStyle(root);
       const $    = (s) => root.querySelector(s);
       const G    = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g,"");
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--ic-name",  V.icName);
+      setStr("--ic-time",  V.icTime);
+      setStr("--ic-msg",   V.icMsg);
+      setStr("--ic-likes", V.icLikes);
+      setStr("--ic-reply", V.icReply);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       $("#ic15-name").textContent  = G("--ic-name");
       $("#ic15-msg").textContent   = " " + G("--ic-msg");
       $("#ic15-time").textContent  = G("--ic-time");

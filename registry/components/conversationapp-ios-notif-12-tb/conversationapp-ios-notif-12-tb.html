@@ -3,7 +3,14 @@
   © 2026 Natalie Digital · tareabox.com · Tareabox Pack Natalie
   conversationapp-ios-notif-12-tb · iOS lock-screen notification banner · 3.5 seconds
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"noApp","type":"string","label":"App name","default":"Tareabox"},
+  {"id":"noTime","type":"string","label":"Time","default":"now"},
+  {"id":"noTitle","type":"string","label":"Title","default":"New pack ready to render"},
+  {"id":"noBody","type":"string","label":"Body","default":"tareabox-pack-natalie · 52 layouts staged for export"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#007AFF"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#1a2027"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=block" rel="stylesheet" />
@@ -120,6 +127,15 @@
       const cs   = getComputedStyle(root);
       const $    = (s) => root.querySelector(s);
       const G    = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g,"");
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--no-app",   V.noApp);
+      setStr("--no-time",  V.noTime);
+      setStr("--no-title", V.noTitle);
+      setStr("--no-body",  V.noBody);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       $("#no12-app").textContent   = G("--no-app");
       $("#no12-time").textContent  = G("--no-time");
       $("#no12-title").textContent = G("--no-title");
