@@ -3,7 +3,21 @@
   © 2026 Natalie Digital · tareabox.com · Tareabox Pack Natalie
   conversationapp-discord-13-tb · Discord chat message · 4 seconds
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"dcName","type":"string","label":"Username","default":"Jon Smith"},
+  {"id":"dcTime","type":"string","label":"Timestamp","default":"Today at 2:14 PM"},
+  {"id":"dcMsg","type":"string","label":"Message","default":"shipping the pack tonight 🚀  who wants early access?"},
+  {"id":"dcTag","type":"string","label":"Tag (MOD/BOT)","default":"MOD"},
+  {"id":"dcRxn1Emoji","type":"string","label":"Reaction 1 emoji","default":"🔥"},
+  {"id":"dcRxn1Count","type":"string","label":"Reaction 1 count","default":"12"},
+  {"id":"dcRxn2Emoji","type":"string","label":"Reaction 2 emoji","default":"🙋"},
+  {"id":"dcRxn2Count","type":"string","label":"Reaction 2 count","default":"47"},
+  {"id":"dcRxn3Emoji","type":"string","label":"Reaction 3 emoji","default":"✨"},
+  {"id":"dcRxn3Count","type":"string","label":"Reaction 3 count","default":"8"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#5865F2"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#313338"},
+  {"id":"bgVideo","type":"string","label":"Background video URL","default":"https://videos.pexels.com/video-files/6963836/6963836-hd_2048_1080_25fps.mp4"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=block" rel="stylesheet" />
@@ -166,6 +180,20 @@
       const cs   = getComputedStyle(root);
       const $    = (s) => root.querySelector(s);
       const G    = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g,"");
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--dc-name", V.dcName);
+      setStr("--dc-time", V.dcTime);
+      setStr("--dc-msg",  V.dcMsg);
+      setStr("--dc-tag",  V.dcTag);
+      setStr("--dc-rxn1-emoji", V.dcRxn1Emoji); setStr("--dc-rxn1-count", V.dcRxn1Count);
+      setStr("--dc-rxn2-emoji", V.dcRxn2Emoji); setStr("--dc-rxn2-count", V.dcRxn2Count);
+      setStr("--dc-rxn3-emoji", V.dcRxn3Emoji); setStr("--dc-rxn3-count", V.dcRxn3Count);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
+      if (V.bgVideo) { const _bv = $(".bg-video"); if (_bv) _bv.setAttribute("src", V.bgVideo); }
 
       $("#dc13-name").textContent  = G("--dc-name");
       $("#dc13-tag").textContent   = G("--dc-tag");
