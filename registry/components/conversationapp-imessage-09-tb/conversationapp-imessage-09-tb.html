@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en" data-composition-variables='[
   {"id":"name","type":"string","label":"Contact name","default":"Alex"},
-  {"id":"msg1","type":"string","label":"Message 1 (incoming)","default":"Hey did you see the new pack?"},
-  {"id":"msg2","type":"string","label":"Message 2 (outgoing)","default":"no link?"},
-  {"id":"msg3","type":"string","label":"Message 3 (incoming)","default":"tareabox.com — 52 layouts"},
-  {"id":"msg4","type":"string","label":"Message 4 (incoming)","default":"ready to render"},
-  {"id":"msg5","type":"string","label":"Message 5 (outgoing)","default":"shut up. taking my money 🤝"},
+  {"id":"msg1","type":"string","label":"Message 1 (incoming)","default":"Hey did you see the game last night?"},
+  {"id":"msg2","type":"string","label":"Message 2 (outgoing)","default":"no I missed it 😩"},
+  {"id":"msg3","type":"string","label":"Message 3 (incoming)","default":"best ending of the season"},
+  {"id":"msg4","type":"string","label":"Message 4 (incoming)","default":"you have to watch the replay"},
+  {"id":"msg5","type":"string","label":"Message 5 (outgoing)","default":"ok doing it tonight 🍿"},
   {"id":"bgVideo","type":"string","label":"Background video URL","default":"https://videos.pexels.com/video-files/6963836/6963836-hd_2048_1080_25fps.mp4"}
 ]'>
 <head>
@@ -36,11 +36,11 @@
       --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
 
       --im-name:  "Alex";
-      --im-1: "Hey did you see the new pack?";          --im-1-side: "in";
-      --im-2: "no link?";                                --im-2-side: "out";
-      --im-3: "tareabox.com — 52 layouts";              --im-3-side: "in";
-      --im-4: "ready to render";                         --im-4-side: "in";
-      --im-5: "shut up. taking my money 🤝";             --im-5-side: "out";
+      --im-1: "Hey did you see the game last night?";          --im-1-side: "in";
+      --im-2: "no I missed it 😩";                                --im-2-side: "out";
+      --im-3: "best ending of the season";              --im-3-side: "in";
+      --im-4: "you have to watch the replay";                         --im-4-side: "in";
+      --im-5: "ok doing it tonight 🍿";             --im-5-side: "out";
     }
     /* ⛔ EFFECT CODE */
     [data-composition-id="conversationapp-imessage-09-tb"] {
@@ -447,7 +447,6 @@
       /* Delivered after last bubble */
       tl.to($("#im09-delivered"), { opacity: 1, duration: 0.3, ease: "power2.out" }, 4.3);
 
-      tl.to({}, { duration: 6 }, 0);
       return tl;
     })();
   </script>

@@ -141,7 +141,6 @@
       $("#no12v-body").textContent  = G("--no-body");
       const tl = gsap.timeline({ paused: true });
       tl.to($("#no12v-notif"), { y: "0%", duration: 0.55, ease: "back.out(1.4)" }, 0.15);
-      tl.to({}, { duration: 3.5 }, 0);
       return tl;
     })();
   </script>
