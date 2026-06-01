@@ -10,11 +10,6 @@
     "vertical",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1080,
-    "height": 1920
-  },
-  "duration": 4.0,
   "files": [
     {
       "path": "layout-recap-card-03-tb-v.html",

@@ -3,7 +3,7 @@
   "name": "text-warp-diagonal-wave-10-tb-v",
   "type": "hyperframes:component",
   "title": "Text Warp Diagonal Wave (Vertical)",
-  "description": "Vertical 9:16 \u2014 Texto fluye por una onda diagonal que va de arriba-izquierda a abajo-derecha",
+  "description": "Vertical 9:16 — Texto fluye por una onda diagonal que va de arriba-izquierda a abajo-derecha",
   "tags": [
     "text",
     "warp",
@@ -12,11 +12,6 @@
     "vertical",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1080,
-    "height": 1920
-  },
-  "duration": 7.0,
   "files": [
     {
       "path": "text-warp-diagonal-wave-10-tb-v.html",

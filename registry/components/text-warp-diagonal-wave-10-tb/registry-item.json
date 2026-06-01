@@ -8,11 +8,6 @@
     "text",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 7.0,
   "files": [
     {
       "path": "text-warp-diagonal-wave-10-tb.html",

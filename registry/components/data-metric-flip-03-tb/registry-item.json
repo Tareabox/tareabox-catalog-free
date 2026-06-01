@@ -8,11 +8,6 @@
     "data",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 3.0,
   "files": [
     {
       "path": "data-metric-flip-03-tb.html",

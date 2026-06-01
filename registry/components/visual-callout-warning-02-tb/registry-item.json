@@ -8,11 +8,6 @@
     "visual",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 3.0,
   "files": [
     {
       "path": "visual-callout-warning-02-tb.html",

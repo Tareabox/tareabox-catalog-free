@@ -8,11 +8,6 @@
     "text",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 8,
   "files": [
     {
       "path": "text-warp-arc-18-tb.html",

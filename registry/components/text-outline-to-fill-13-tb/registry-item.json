@@ -8,11 +8,6 @@
     "text",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 3.5,
   "files": [
     {
       "path": "text-outline-to-fill-13-tb.html",

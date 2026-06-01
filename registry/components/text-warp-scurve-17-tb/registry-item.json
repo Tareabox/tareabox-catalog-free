@@ -8,11 +8,6 @@
     "text",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 6,
   "files": [
     {
       "path": "text-warp-scurve-17-tb.html",

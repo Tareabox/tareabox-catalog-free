@@ -3,7 +3,7 @@
   "name": "layout-video-hook-05-tb",
   "type": "hyperframes:component",
   "title": "Layout Video Hook (Horizontal)",
-  "description": "Horizontal 16:9 \u2014 b-roll full-screen con hook dramatico al centro",
+  "description": "Horizontal 16:9 — b-roll full-screen con hook dramatico al centro",
   "tags": [
     "layout",
     "video",
@@ -11,11 +11,6 @@
     "horizontal",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 5.0,
   "files": [
     {
       "path": "layout-video-hook-05-tb.html",

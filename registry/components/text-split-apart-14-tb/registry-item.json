@@ -8,11 +8,6 @@
     "text",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 3.5,
   "files": [
     {
       "path": "text-split-apart-14-tb.html",

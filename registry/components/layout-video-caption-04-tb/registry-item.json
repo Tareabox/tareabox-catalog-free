@@ -3,7 +3,7 @@
   "name": "layout-video-caption-04-tb",
   "type": "hyperframes:component",
   "title": "Layout Video Caption (Horizontal)",
-  "description": "Horizontal 16:9 \u2014 talking head con caption card (avatar + autor + cita)",
+  "description": "Horizontal 16:9 — talking head con caption card (avatar + autor + cita)",
   "tags": [
     "layout",
     "video",
@@ -11,11 +11,6 @@
     "horizontal",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 5.0,
   "files": [
     {
       "path": "layout-video-caption-04-tb.html",

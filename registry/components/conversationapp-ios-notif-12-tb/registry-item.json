@@ -8,11 +8,6 @@
     "conversationapp",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 3.5,
   "files": [
     {
       "path": "conversationapp-ios-notif-12-tb.html",

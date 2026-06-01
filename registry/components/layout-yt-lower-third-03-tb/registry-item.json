@@ -8,11 +8,6 @@
     "layout",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 5.0,
   "files": [
     {
       "path": "layout-yt-lower-third-03-tb.html",

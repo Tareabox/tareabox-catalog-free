@@ -8,11 +8,6 @@
     "conversationapp",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 6.0,
   "files": [
     {
       "path": "conversationapp-imessage-09-tb.html",

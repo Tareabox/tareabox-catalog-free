@@ -11,11 +11,6 @@
     "horizontal",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 6,
   "files": [
     {
       "path": "conversationapp-gif-chat-19-tb.html",

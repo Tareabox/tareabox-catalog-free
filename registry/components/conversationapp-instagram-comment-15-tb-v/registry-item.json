@@ -3,7 +3,7 @@
   "name": "conversationapp-instagram-comment-15-tb-v",
   "type": "hyperframes:component",
   "title": "Conversationapp Instagram Comment (Vertical)",
-  "description": "Vertical 9:16 \u2014 Comentario de Instagram con likes y heart animation en formato vertical 9:16",
+  "description": "Vertical 9:16 — Comentario de Instagram con likes y heart animation en formato vertical 9:16",
   "tags": [
     "conversationapp",
     "instagram",
@@ -11,11 +11,6 @@
     "vertical",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1080,
-    "height": 1920
-  },
-  "duration": 4.0,
   "files": [
     {
       "path": "conversationapp-instagram-comment-15-tb-v.html",

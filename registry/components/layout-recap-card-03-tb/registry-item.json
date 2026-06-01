@@ -8,11 +8,6 @@
     "layout",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 4.0,
   "files": [
     {
       "path": "layout-recap-card-03-tb.html",

@@ -8,11 +8,6 @@
     "conversationapp",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1920,
-    "height": 1080
-  },
-  "duration": 4.0,
   "files": [
     {
       "path": "conversationapp-instagram-comment-15-tb.html",

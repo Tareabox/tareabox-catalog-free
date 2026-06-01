@@ -10,11 +10,6 @@
     "vertical",
     "tareabox"
   ],
-  "dimensions": {
-    "width": 1080,
-    "height": 1920
-  },
-  "duration": 4.0,
   "files": [
     {
       "path": "text-delete-rewrite-07-tb-v.html",
