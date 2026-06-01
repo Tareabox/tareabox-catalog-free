@@ -8,7 +8,7 @@
 <html lang="en" data-composition-variables='[
   {"id":"burstLabel","type":"string","label":"Burst label","default":"🔥 ICONIC 🔥"},
   {"id":"accent","type":"color","label":"Accent color","default":"#EA9F84"},
-  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0a"}
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"}
 ]'>
 <head>
   <meta charset="UTF-8" />
@@ -23,7 +23,7 @@
     /* 🎨 CUSTOMIZE HERE                                       */
     /* ═══════════════════════════════════════════════════════ */
     [data-composition-id="visual-gif-burst-10-tb"] {
-      --tb-bg:           #0a0a0a;
+      --tb-bg:           transparent;
       --tb-accent:       var(--tb-brand-accent, #EA9F84);
       --tb-text:         #ffffff;
       --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
@@ -225,7 +225,6 @@
         }, 4.7 + (i * 0.03));
       });
 
-      tl.to({}, { duration: TOTAL }, 0);
       return tl;
     })();
   </script>

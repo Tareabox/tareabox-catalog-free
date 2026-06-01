@@ -4,7 +4,7 @@
   {"id":"label2","type":"string","label":"Sticker 2 label","default":"CLAP"},
   {"id":"label3","type":"string","label":"Sticker 3 label","default":"MIND BLOWN"},
   {"id":"accent","type":"color","label":"Accent color","default":"#EA9F84"},
-  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0a"}
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"}
 ]'>
 <head>
   <!--
@@ -26,7 +26,7 @@
     /* 🎨 CUSTOMIZE HERE                                       */
     /* ═══════════════════════════════════════════════════════ */
     [data-composition-id="visual-gif-stickers-08-tb-v"] {
-      --tb-bg:           #0a0a0a;
+      --tb-bg:           transparent;
       --tb-text:         #ffffff;
       --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
 
@@ -243,7 +243,6 @@
         }, at + 2.5);
       });
 
-      tl.to({}, { duration: TOTAL }, 0);
       return tl;
     })();
   </script>

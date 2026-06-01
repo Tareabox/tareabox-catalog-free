@@ -473,27 +473,27 @@
     },
     {
       "name": "visual-gif-burst-10-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "visual-gif-burst-10-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "visual-gif-crumple-11-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "visual-gif-crumple-11-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "visual-gif-stickers-08-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "visual-gif-stickers-08-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "visual-keyboard-shortcut-04-tb",
@@ -505,11 +505,11 @@
     },
     {
       "name": "visual-meme-cutin-09-tb",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "visual-meme-cutin-09-tb-v",
-      "type": "hyperframes:block"
+      "type": "hyperframes:component"
     },
     {
       "name": "visual-progress-bar-05-tb",

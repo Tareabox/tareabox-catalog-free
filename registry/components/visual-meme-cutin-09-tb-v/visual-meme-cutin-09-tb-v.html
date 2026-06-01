@@ -9,7 +9,7 @@
   {"id":"labelPrefix","type":"string","label":"Label prefix","default":"MOOD:"},
   {"id":"labelText","type":"string","label":"Label text","default":"ABSOLUTE CHAOS"},
   {"id":"accent","type":"color","label":"Accent color","default":"#EA9F84"},
-  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#000000"}
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"}
 ]'>
 <head>
   <meta charset="UTF-8" />
@@ -24,7 +24,7 @@
     /* 🎨 CUSTOMIZE HERE                                       */
     /* ═══════════════════════════════════════════════════════ */
     [data-composition-id="visual-meme-cutin-09-tb-v"] {
-      --tb-bg:           #000000;
+      --tb-bg:           transparent;
       --tb-accent:       var(--tb-brand-accent, #EA9F84);
       --tb-text:         #ffffff;
       --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
@@ -194,7 +194,6 @@
         duration: 0.5, ease: "back.out(1.4)"
       }, 4.4);
 
-      tl.to({}, { duration: TOTAL }, 0);
       return tl;
     })();
   </script>

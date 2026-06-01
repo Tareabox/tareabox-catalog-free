@@ -8,7 +8,7 @@
 <html lang="en" data-composition-variables='[
   {"id":"gifLabel","type":"string","label":"GIF label","default":"MOOD"},
   {"id":"accent","type":"color","label":"Accent color","default":"#EA9F84"},
-  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0a"}
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"}
 ]'>
 <head>
   <meta charset="UTF-8" />
@@ -23,7 +23,7 @@
     /* 🎨 CUSTOMIZE HERE                                       */
     /* ═══════════════════════════════════════════════════════ */
     [data-composition-id="visual-gif-crumple-11-tb"] {
-      --tb-bg:           #0a0a0a;
+      --tb-bg:           transparent;
       --tb-accent:       var(--tb-brand-accent, #EA9F84);
       --tb-text:         #ffffff;
       --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
@@ -194,7 +194,6 @@
         duration: 0.15, ease: "expo.in"
       }, CRUMPLE_AT + 0.3);
 
-      tl.to({}, { duration: TOTAL }, 0);
       return tl;
     })();
   </script>
