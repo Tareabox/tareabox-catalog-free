@@ -71,10 +71,6 @@
       vertical-align: text-bottom;
       transform: translateY(0.05em);
     }
-    [data-composition-id="text-delete-rewrite-07-tb"] .cursor.blink {
-      animation: dr07-blink 0.5s steps(2, end) infinite;
-    }
-    @keyframes dr07-blink { 50% { opacity: 0; } }
     [data-composition-id="text-delete-rewrite-07-tb"] .strikethrough {
       position: absolute; top: 50%; left: 10%;
       height: 3px; width: 0;
@@ -118,9 +114,7 @@
       }, 0.1);
 
       // Hold A then delete
-      tl.call(() => cursor.classList.add("blink"), [], 0.1 + TYPE_A);
       const startDel = 0.1 + TYPE_A + HOLD_A;
-      tl.call(() => cursor.classList.remove("blink"), [], startDel);
       tl.to(cA, {
         v: 0, duration: DEL_A, ease: "none", snap: { v: 1 },
         onUpdate: () => { typedEl.textContent = phraseA.slice(0, Math.floor(cA.v)); }
@@ -133,7 +127,13 @@
         v: phraseB.length, duration: TYPE_B, ease: "none", snap: { v: 1 },
         onUpdate: () => { typedEl.textContent = phraseB.slice(0, Math.floor(cB.v)); }
       }, startB);
-      tl.call(() => cursor.classList.add("blink"), [], startB + TYPE_B);
+      // Seekable cursor blink — tl.set ranges (CSS animation NOT seekable; contribute-catalog Step 3)
+      const BLINK_HALF = 0.25;
+      const blinkRange = (s, e) => { for (let bt = s, off = true; bt < e; bt += BLINK_HALF, off = !off) tl.set(cursor, { opacity: off ? 0 : 1 }, bt); };
+      blinkRange(0.1 + TYPE_A, startDel);
+      tl.set(cursor, { opacity: 1 }, startDel);
+      blinkRange(startB + TYPE_B, TOTAL);
+
 
       tl.to({}, { duration: TOTAL }, 0);
       return tl;

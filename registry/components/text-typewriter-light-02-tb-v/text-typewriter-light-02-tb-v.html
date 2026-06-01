@@ -74,10 +74,6 @@
       vertical-align: baseline;
       transform: translateY(-0.1em);
     }
-    [data-composition-id="text-typewriter-light-02-tb-v"] .cursor.blink {
-      animation: tw-l02v-blink 0.6s steps(2, end) infinite;
-    }
-    @keyframes tw-l02v-blink { 50% { opacity: 0; } }
     [data-composition-id="text-typewriter-light-02-tb-v"] .accent-bar {
       width: 64px; height: 5px;
       background: var(--tb-accent);
@@ -156,7 +152,8 @@
         snap: { v: 1 },
         onUpdate: () => { typedEl.textContent = text.slice(0, Math.floor(counter.v)); }
       }, 0.35);
-      tl.call(() => cursor.classList.add("blink"), [], 0.35 + TYPE_D);
+      const BLINK_START = 0.35 + TYPE_D, BLINK_HALF = 0.3;
+      for (let bt = BLINK_START, off = true; bt < TOTAL; bt += BLINK_HALF, off = !off) { tl.set(cursor, { opacity: off ? 0 : 1 }, bt); }
       tl.to({}, { duration: TOTAL }, 0);
       return tl;
     })();

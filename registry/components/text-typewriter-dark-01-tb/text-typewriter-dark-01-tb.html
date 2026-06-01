@@ -79,10 +79,6 @@
       transform: translateY(0.05em);
       box-shadow: 0 0 16px var(--tb-accent);
     }
-    [data-composition-id="text-typewriter-dark-01-tb"] .cursor.blink {
-      animation: tw-d01-blink 0.55s steps(2, end) infinite;
-    }
-    @keyframes tw-d01-blink { 50% { opacity: 0; } }
     [data-composition-id="text-typewriter-dark-01-tb"] .vignette {
       position: absolute; inset: 0; pointer-events: none;
       background: radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.55) 100%);
@@ -140,7 +136,11 @@
         snap: { v: 1 },
         onUpdate: () => { typedEl.textContent = text.slice(0, Math.floor(counter.v)); }
       }, 0.3);
-      tl.call(() => cursor.classList.add("blink"), [], 0.3 + TYPE_D);
+      // Seekable cursor blink — tl.set at intervals (CSS animation is NOT seekable; contribute-catalog Step 3)
+      const BLINK_START = 0.3 + TYPE_D, BLINK_HALF = 0.275;
+      for (let bt = BLINK_START, off = true; bt < TOTAL; bt += BLINK_HALF, off = !off) {
+        tl.set(cursor, { opacity: off ? 0 : 1 }, bt);
+      }
       tl.to({}, { duration: TOTAL }, 0);
       return tl;
     })();
