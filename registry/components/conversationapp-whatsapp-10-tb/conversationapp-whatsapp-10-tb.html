@@ -9,7 +9,8 @@
   {"id":"msg5","type":"string","label":"Message 5 (outgoing)","default":"Rendering now 🚀"},
   {"id":"oldMsg1","type":"string","label":"Old message 1","default":"ok perfect, sending the brief"},
   {"id":"oldMsg2","type":"string","label":"Old message 2","default":"sounds good"},
-  {"id":"oldMsg3","type":"string","label":"Old message 3","default":"demo ready by tomorrow?"}
+  {"id":"oldMsg3","type":"string","label":"Old message 3","default":"demo ready by tomorrow?"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"linear-gradient(135deg, #1f3a4d 0%, #0c1e2b 100%)"}
 ]'>
 <head>
   <!--
@@ -29,7 +30,7 @@
     /* 🎨 CUSTOMIZE HERE */
     [data-composition-id="conversationapp-whatsapp-10-tb"] {
       --tb-accent: var(--tb-brand-accent, #25D366);
-      --tb-bg: #0c1e2b;
+      --tb-bg: linear-gradient(135deg, #1f3a4d 0%, #0c1e2b 100%);
       --tb-chat-bg:    #efeae2;        /* WhatsApp tile cream */
       --tb-bubble-out: #d9fdd3;        /* WhatsApp green-out bubble */
       --tb-bubble-in:  #ffffff;        /* white in-bubble */
@@ -70,7 +71,7 @@
     /* ⛔ EFFECT CODE */
     [data-composition-id="conversationapp-whatsapp-10-tb"] {
       position: relative; width: 100%; height: 100%;
-      background: linear-gradient(135deg, #1f3a4d 0%, #0c1e2b 100%);
+      background: var(--tb-bg);
       overflow: hidden;
       font-family: var(--tb-font-display);
       display: flex; align-items: center; justify-content: center;
@@ -516,6 +517,8 @@
       setStr("--wa-1", V.msg1); setStr("--wa-2", V.msg2); setStr("--wa-3", V.msg3);
       setStr("--wa-4", V.msg4); setStr("--wa-5", V.msg5);
       setStr("--wa-old-1", V.oldMsg1); setStr("--wa-old-2", V.oldMsg2); setStr("--wa-old-3", V.oldMsg3);
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setRaw("--tb-bg", V.bg);
 
       $("#wa10-name").textContent     = G("--wa-name");
       $("#wa10-status").textContent   = G("--wa-status");

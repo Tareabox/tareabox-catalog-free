@@ -10,7 +10,7 @@
   {"id":"noTitle","type":"string","label":"Title","default":"New pack ready to render"},
   {"id":"noBody","type":"string","label":"Body","default":"tareabox-pack-natalie · 52 layouts staged for export"},
   {"id":"accent","type":"color","label":"Accent color","default":"#007AFF"},
-  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#1a2027"}
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0c"}
 ]'>
 <head>
   <meta charset="UTF-8" />
@@ -24,7 +24,7 @@
     /* 🎨 CUSTOMIZE HERE */
     [data-composition-id="conversationapp-ios-notif-12-tb-v"] {
       --tb-accent: var(--tb-brand-accent, #007AFF);
-      --tb-bg: #1a2027;
+      --tb-bg: #0a0a0c;
       --tb-text: #ffffff;
       --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
       --no-app:   "Tareabox";
@@ -37,7 +37,7 @@
     /* ⛔ EFFECT CODE */
     [data-composition-id="conversationapp-ios-notif-12-tb-v"] {
       position: relative; width: 100%; height: 100%;
-      background: #0a0a0c;
+      background: var(--tb-bg);
       overflow: hidden;
       font-family: var(--tb-font-display);
       display: flex; align-items: center; justify-content: center;

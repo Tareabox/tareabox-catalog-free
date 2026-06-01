@@ -11,7 +11,7 @@
   {"id":"oldMsg2","type":"string","label":"Old message 2","default":"sounds good"},
   {"id":"oldMsg3","type":"string","label":"Old message 3","default":"demo ready by tomorrow?"},
   {"id":"accent","type":"color","label":"Accent color","default":"#25D366"},
-  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0c1e2b"}
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"linear-gradient(135deg, #1f3a4d 0%, #0c1e2b 100%)"}
 ]'>
 <head>
   <!--
@@ -30,7 +30,7 @@
     /* 🎨 CUSTOMIZE HERE */
     [data-composition-id="conversationapp-whatsapp-10-tb-v"] {
       --tb-accent: var(--tb-brand-accent, #25D366);
-      --tb-bg: #0c1e2b;
+      --tb-bg: linear-gradient(135deg, #1f3a4d 0%, #0c1e2b 100%);
       --tb-chat-bg:    #efeae2;
       --tb-bubble-out: #d9fdd3;
       --tb-bubble-in:  #ffffff;
@@ -68,7 +68,7 @@
     /* ⛔ EFFECT CODE */
     [data-composition-id="conversationapp-whatsapp-10-tb-v"] {
       position: relative; width: 100%; height: 100%;
-      background: linear-gradient(135deg, #1f3a4d 0%, #0c1e2b 100%);
+      background: var(--tb-bg);
       overflow: hidden;
       font-family: var(--tb-font-display);
       display: flex; align-items: center; justify-content: center;
