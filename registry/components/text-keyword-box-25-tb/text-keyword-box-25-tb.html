@@ -1,0 +1,167 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  text-keyword-box-25-tb (horizontal 1920x1080)
+  Tareabox Hyperframes Effect
+  Description: Horizontal 16:9 — Bold caption lines rise in, then a solid color box "stamps" in behind the key word(s). Punchy hook-title style for YouTube / landscape.
+  Category: text
+  Duration: 3.5 seconds
+  REQUIRES: gsap (CDN)
+  Mark the boxed word(s) with {*word*}. Multiple boxes per caption supported.
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"text","type":"string","label":"Caption (box words with {*word*}, line breaks with \\n)","default":"Save this\n{*for later*}"},
+  {"id":"accent","type":"color","label":"Box color","default":"#ff3b3b"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="text-keyword-box-25-tb" data-composition-id="text-keyword-box-25-tb"
+       data-width="1920" data-height="1080"
+       data-start="0" data-duration="3.5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="text-keyword-box-25-tb"] {
+      --tb-bg:           transparent;
+      --tb-text:         #ffffff;
+      --tb-box-text:     #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #ff3b3b);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="text-keyword-box-25-tb"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="text-keyword-box-25-tb"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="text-keyword-box-25-tb"] .bg-video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center center;
+      filter: brightness(0.62);
+      z-index: 0;
+    }
+    [data-composition-id="text-keyword-box-25-tb"] .vignette {
+      position: absolute; inset: 0; pointer-events: none; z-index: 1;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.62) 100%);
+    }
+    [data-composition-id="text-keyword-box-25-tb"] .stage {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 8% 8%; gap: 1.8vmin;
+    }
+    [data-composition-id="text-keyword-box-25-tb"] .line {
+      font-size: clamp(40px, 8vmin, 120px);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      line-height: 1.04;
+      color: var(--tb-text);
+      text-align: center;
+      text-shadow:
+        0 0.4vmin 1.6vmin rgba(0,0,0,0.85),
+        0 0.15vmin 0.4vmin rgba(0,0,0,0.95);
+    }
+    /* boxed keyword */
+    [data-composition-id="text-keyword-box-25-tb"] .kw {
+      position: relative;
+      display: inline-block;
+      padding: 0.2vmin 1.8vmin 0.6vmin;
+      margin: 0 0.4vmin;
+    }
+    [data-composition-id="text-keyword-box-25-tb"] .kw .kw-box {
+      position: absolute; inset: 0;
+      background: var(--tb-accent);
+      border-radius: 1.4vmin;
+      box-shadow: 0 1vmin 3vmin color-mix(in srgb, var(--tb-accent) 45%, transparent);
+      z-index: 0;
+      opacity: 0;
+      transform-origin: 50% 60%;
+    }
+    [data-composition-id="text-keyword-box-25-tb"] .kw .kw-text {
+      position: relative; z-index: 1;
+      color: var(--tb-box-text);
+      font-weight: 900;
+      text-shadow: none;
+    }
+</style>
+
+    <!--
+      ASSET (horizontal) — demo from Pexels (free license, attribution in README).
+      To use your own footage, replace the `src` (or set bg to a solid color / "transparent").
+        Public URL:   src="https://yourdomain.com/your-video.mp4"
+        Local path:   src="../assets/tb-media/your-video.mp4"
+    -->
+    <video id="kb25h-bg" class="bg-video"
+           src="https://videos.pexels.com/video-files/4112430/4112430-hd_1920_1080_25fps.mp4"
+           crossorigin="anonymous" data-tb-asset="horizontal"
+           data-start="0" data-duration="3.5" data-track-index="0"
+           muted playsinline loop></video>
+    <div class="vignette"></div>
+    <div class="stage" id="kb25h-stage"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["text-keyword-box-25-tb"] = (function () {
+      const root  = document.querySelector('[data-composition-id="text-keyword-box-25-tb"]');
+      const stage = root.querySelector("#kb25h-stage");
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.bg)     root.style.setProperty("--tb-bg", V.bg);
+
+      const text = (V.text != null && V.text !== "")
+        ? V.text
+        : "Save this\n{*for later*}";
+
+      const escapeHTML = (s) => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      const lines = text.split("\n");
+      stage.innerHTML = lines.map((line) => {
+        const inner = escapeHTML(line).replace(/\{\*(.+?)\*\}/g, (_, w) =>
+          '<span class="kw"><span class="kw-box"></span><span class="kw-text">' + w + '</span></span>'
+        );
+        return '<div class="line">' + inner + '</div>';
+      }).join("");
+
+      const lineEls = stage.querySelectorAll(".line");
+      const boxes   = stage.querySelectorAll(".kw-box");
+      const kwTexts = stage.querySelectorAll(".kw-text");
+
+      const TOTAL = 3.5;
+      const tl = gsap.timeline({ paused: true });
+
+      // lines rise in
+      tl.from(lineEls, { opacity: 0, y: 28, duration: 0.5, stagger: 0.12, ease: "power3.out" }, 0.15);
+
+      // boxes stamp in behind the keyword(s)
+      const BOX_START = 1.1;
+      const BOX_GAP   = 0.42;
+      boxes.forEach((box, i) => {
+        const t = BOX_START + i * BOX_GAP;
+        gsap.set(box, { opacity: 0, scale: 0.55, rotate: -5 });
+        tl.to(box, { opacity: 1, scale: 1, rotate: 0, duration: 0.34, ease: "back.out(2.4)" }, t);
+        tl.to(box, { scale: 1.04, duration: 0.12, ease: "power1.inOut", yoyo: true, repeat: 1 }, t + 0.34);
+        if (kwTexts[i]) tl.from(kwTexts[i], { opacity: 0, duration: 0.18, ease: "power2.out" }, t + 0.06);
+      });
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

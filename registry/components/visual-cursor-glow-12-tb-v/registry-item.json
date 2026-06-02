@@ -1,0 +1,26 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-cursor-glow-12-tb-v",
+  "type": "hyperframes:component",
+  "title": "Visual Cursor Glow (Vertical)",
+  "description": "Highlight de tap/cursor con glow azul que se desliza sobre un control y lo activa con anillo de pulso, estilo tutorial screen-recording, en formato vertical 9:16",
+  "tags": [
+    "visual",
+    "cursor",
+    "tap",
+    "glow",
+    "vertical",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "visual-cursor-glow-12-tb-v.html",
+      "target": "compositions/components/visual-cursor-glow-12-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-cursor-glow-12-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-cursor-glow-12-tb-v.png"
+  }
+}

@@ -348,6 +348,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "text-keyword-box-25-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "text-keyword-box-25-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "text-kinetic-08-tb",
       "type": "hyperframes:component"
     },
@@ -488,6 +496,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "visual-cursor-glow-12-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-cursor-glow-12-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "visual-gif-burst-10-tb",
       "type": "hyperframes:component"
     },
@@ -534,6 +550,14 @@
     {
       "name": "visual-progress-bar-05-tb-v",
       "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-spotlight-focus-13-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "visual-spotlight-focus-13-tb-v",
+      "type": "hyperframes:block"
     },
     {
       "name": "visual-timestamp-cue-07-tb",

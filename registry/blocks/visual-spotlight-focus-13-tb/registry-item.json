@@ -1,0 +1,30 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-spotlight-focus-13-tb",
+  "type": "hyperframes:block",
+  "title": "Visual Spotlight Focus (Horizontal)",
+  "description": "Una lista de opciones se oscurece y una fila queda iluminada al frente con un focus-box de acento que la enmarca, para dirigir la atención a un elemento de UI, en formato horizontal 16:9",
+  "tags": [
+    "visual",
+    "spotlight",
+    "focus",
+    "horizontal",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "duration": 3.5,
+  "files": [
+    {
+      "path": "visual-spotlight-focus-13-tb.html",
+      "target": "compositions/visual-spotlight-focus-13-tb.html",
+      "type": "hyperframes:composition"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-spotlight-focus-13-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-spotlight-focus-13-tb.png"
+  }
+}

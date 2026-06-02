@@ -1,0 +1,278 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-cursor-glow-12-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Vertical 9:16 — A glowing tap/cursor highlight glides onto a UI control and "taps" it (pulse ring + toggle flip), focusing the active row. Screen-recording tutorial vibe.
+  Category: visual
+  Duration: 3.5 seconds
+  REQUIRES: gsap (CDN)
+  NOTE: the dark settings card is a DEMO backdrop — replace it with your own screen recording / UI and keep the .tap-glow + .tap-ring layer to reuse the effect.
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"title","type":"string","label":"Card title","default":"Preferences"},
+  {"id":"icon1","type":"string","label":"Row 1 icon (emoji)","default":"🌙"},
+  {"id":"row1","type":"string","label":"Row 1 label","default":"Night theme"},
+  {"id":"icon2","type":"string","label":"Row 2 icon (emoji)","default":"🔊"},
+  {"id":"row2","type":"string","label":"Row 2 label","default":"Sound effects"},
+  {"id":"targetIcon","type":"string","label":"Tapped row icon (emoji)","default":"💾"},
+  {"id":"targetLabel","type":"string","label":"Tapped row label","default":"Auto-save"},
+  {"id":"accent","type":"color","label":"Glow & highlight color","default":"#4da3ff"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0b0f"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="visual-cursor-glow-12-tb-v" data-composition-id="visual-cursor-glow-12-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="3.5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-cursor-glow-12-tb-v"] {
+      --tb-bg:           #0a0b0f;
+      --tb-card:         #14151b;
+      --tb-row:          #1b1d25;
+      --tb-text:         #f4f5f7;
+      --tb-text-dim:     #8a8d99;
+      --tb-accent:       var(--tb-brand-accent, #4da3ff);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+
+      --title:        "Preferences";
+      --icon1:        "🌙";
+      --row1:         "Night theme";
+      --icon2:        "🔊";
+      --row2:         "Sound effects";
+      --target-icon:  "💾";
+      --target-label: "Auto-save";
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-cursor-glow-12-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ── DEMO backdrop: dark settings card (replace with your screen recording) ── */
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .stage {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 0 7vmin;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .card {
+      width: 100%;
+      background: var(--tb-card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 6vmin;
+      padding: 5vmin 4vmin;
+      box-shadow: 0 4vmin 12vmin rgba(0,0,0,0.55);
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .card-title {
+      font-size: clamp(26px, 4vmin, 46px);
+      font-weight: 700; color: var(--tb-text);
+      letter-spacing: -0.01em;
+      padding: 0 1.5vmin 3.5vmin;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .row {
+      position: relative;
+      display: flex; align-items: center; gap: 3vmin;
+      padding: 3.4vmin 3vmin;
+      border-radius: 3.5vmin;
+      background: var(--tb-row);
+      margin-bottom: 2.4vmin;
+      transition: none;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .row:last-child { margin-bottom: 0; }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .ic {
+      width: 8vmin; height: 8vmin; flex: 0 0 auto;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.6vmin;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .row-label {
+      flex: 1 1 auto;
+      font-size: clamp(20px, 3.2vmin, 38px);
+      font-weight: 500; color: var(--tb-text);
+    }
+    /* toggle pill */
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .toggle {
+      position: relative; flex: 0 0 auto;
+      width: 13vmin; height: 7vmin;
+      border-radius: 999px;
+      background: #3a3d47;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .toggle .knob {
+      position: absolute; top: 0.9vmin; left: 0.9vmin;
+      width: 5.2vmin; height: 5.2vmin;
+      border-radius: 50%; background: #f4f5f7;
+      box-shadow: 0 0.4vmin 1.2vmin rgba(0,0,0,0.4);
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .toggle.on  { background: var(--tb-accent); }
+
+    /* ── the reusable EFFECT layer: tap glow + pulse ring (CSS-anchored to the toggle, no JS measurement) ── */
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .tap-anchor {
+      position: absolute; left: 50%; top: 50%;
+      width: 0; height: 0;
+      z-index: 6; pointer-events: none;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .tap-ring {
+      position: absolute; left: 0; top: 0;
+      width: 16vmin; height: 16vmin;
+      margin-left: -8vmin; margin-top: -8vmin;
+      border-radius: 50%;
+      border: 0.7vmin solid var(--tb-accent);
+      opacity: 0;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .tap-cursor {
+      position: absolute; left: 0; top: 0;
+      width: 22vmin; height: 22vmin;
+      margin-left: -11vmin; margin-top: -11vmin;
+      opacity: 0;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .tap-glow {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle,
+        rgba(255,255,255,0.98) 0%,
+        var(--tb-accent) 30%,
+        color-mix(in srgb, var(--tb-accent) 55%, transparent) 52%,
+        transparent 72%);
+      filter: blur(0.6vmin);
+      mix-blend-mode: screen;
+    }
+    [data-composition-id="visual-cursor-glow-12-tb-v"] .tap-core {
+      position: absolute; left: 50%; top: 50%;
+      width: 6vmin; height: 6vmin;
+      margin-left: -3vmin; margin-top: -3vmin;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffffff 0%, rgba(255,255,255,0.7) 45%, transparent 70%);
+    }
+</style>
+
+    <div class="stage">
+      <div class="card" id="cg12v-card">
+        <div class="card-title" id="cg12v-title">Preferences</div>
+        <div class="row" id="cg12v-r1">
+          <div class="ic" id="cg12v-i1">🌙</div>
+          <div class="row-label" id="cg12v-l1">Night theme</div>
+          <div class="toggle on"><div class="knob" style="left:auto;right:0.9vmin"></div></div>
+        </div>
+        <div class="row" id="cg12v-r2">
+          <div class="ic" id="cg12v-i2">🔊</div>
+          <div class="row-label" id="cg12v-l2">Sound effects</div>
+          <div class="toggle on"><div class="knob" style="left:auto;right:0.9vmin"></div></div>
+        </div>
+        <div class="row" id="cg12v-r3">
+          <div class="ic" id="cg12v-i3">💾</div>
+          <div class="row-label" id="cg12v-label">Auto-save</div>
+          <div class="toggle" id="cg12v-toggle">
+            <div class="knob" id="cg12v-knob"></div>
+            <div class="tap-anchor">
+              <div class="tap-ring" id="cg12v-ring"></div>
+              <div class="tap-cursor" id="cg12v-cursor">
+                <div class="tap-glow"></div>
+                <div class="tap-core"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["visual-cursor-glow-12-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="visual-cursor-glow-12-tb-v"]');
+      const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      const readVar = (cssVar) => cs.getPropertyValue(cssVar).trim().replace(/^["']|["']$/g, "");
+      setStr("--title",        V.title);
+      setStr("--icon1",        V.icon1);
+      setStr("--row1",         V.row1);
+      setStr("--icon2",        V.icon2);
+      setStr("--row2",         V.row2);
+      setStr("--target-icon",  V.targetIcon);
+      setStr("--target-label", V.targetLabel);
+      setRaw("--tb-accent",    V.accent);
+      setRaw("--tb-bg",        V.bg);
+
+      // apply editable text + icons
+      root.querySelector("#cg12v-title").textContent = readVar("--title");
+      root.querySelector("#cg12v-i1").textContent    = readVar("--icon1");
+      root.querySelector("#cg12v-l1").textContent    = readVar("--row1");
+      root.querySelector("#cg12v-i2").textContent    = readVar("--icon2");
+      root.querySelector("#cg12v-l2").textContent    = readVar("--row2");
+      root.querySelector("#cg12v-i3").textContent    = readVar("--target-icon");
+      root.querySelector("#cg12v-label").textContent = readVar("--target-label");
+
+      // accent → rgba helper so the row highlight also follows the chosen color
+      const accentHex = cs.getPropertyValue("--tb-accent").trim() || "#4da3ff";
+      const hexToRgba = (hex, a) => {
+        const m = hex.replace("#","").match(/[0-9a-f]{2}/gi);
+        if (!m || m.length !== 3) return hex;
+        return "rgba(" + parseInt(m[0],16) + "," + parseInt(m[1],16) + "," + parseInt(m[2],16) + "," + a + ")";
+      };
+      const accBg   = hexToRgba(accentHex, 0.16);
+      const accRing = hexToRgba(accentHex, 0.55);
+
+      const rows    = [root.querySelector("#cg12v-r1"), root.querySelector("#cg12v-r2"), root.querySelector("#cg12v-r3")];
+      const target  = root.querySelector("#cg12v-r3");
+      const toggle  = root.querySelector("#cg12v-toggle");
+      const knob    = root.querySelector("#cg12v-knob");
+      const card    = root.querySelector("#cg12v-card");
+      const cursor  = root.querySelector("#cg12v-cursor");
+      const ring    = root.querySelector("#cg12v-ring");
+
+      const TOTAL = 3.5;
+      const tl = gsap.timeline({ paused: true });
+
+      // card + rows settle in
+      gsap.set(card, { transformOrigin: "50% 50%" });
+      tl.from(card, { opacity: 0, y: 36, scale: 0.97, duration: 0.5, ease: "power3.out" }, 0);
+      tl.from(rows, { opacity: 0, y: 18, duration: 0.4, stagger: 0.08, ease: "power2.out" }, 0.12);
+
+      // cursor glides in toward the toggle (offsets are % of its OWN size → deterministic, no measuring)
+      gsap.set(cursor, { xPercent: 72, yPercent: -118, opacity: 0, scale: 1, transformOrigin: "50% 50%" });
+      tl.to(cursor, { opacity: 1, duration: 0.3, ease: "power2.out" }, 0.7);
+      tl.to(cursor, { xPercent: 0, yPercent: 0, duration: 0.75, ease: "power3.inOut" }, 0.7);
+
+      // arrival "tap": cursor pops, ring expands, row focuses, toggle flips on
+      tl.to(cursor, { scale: 0.8,  duration: 0.12, ease: "power2.in" }, 1.5);
+      tl.to(cursor, { scale: 1.16, duration: 0.28, ease: "back.out(2.2)" }, 1.62);
+      tl.to(cursor, { scale: 1.0,  duration: 0.3,  ease: "power2.out" }, 1.9);
+
+      gsap.set(ring, { opacity: 0, scale: 0.4, transformOrigin: "50% 50%" });
+      tl.set(ring,  { opacity: 0.85, scale: 0.4, borderColor: accentHex }, 1.55);
+      tl.to(ring,   { scale: 1.9, opacity: 0, duration: 0.6, ease: "power2.out" }, 1.55);
+
+      // focus the active row, dim the others
+      tl.to(target, { backgroundColor: accBg, boxShadow: "0 0 0 0.4vmin " + accRing, scale: 1.03, duration: 0.35, ease: "power2.out", transformOrigin: "50% 50%" }, 1.55);
+      tl.to([rows[0], rows[1]], { opacity: 0.4, duration: 0.35, ease: "power2.out" }, 1.55);
+
+      // toggle flips ON: track to accent + knob slides right (xPercent of knob width → deterministic)
+      tl.to(toggle, { backgroundColor: accentHex, duration: 0.25, ease: "power1.out" }, 1.62);
+      tl.to(knob,   { xPercent: 115, duration: 0.32, ease: "back.out(1.8)" }, 1.62);
+
+      // settle hold
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

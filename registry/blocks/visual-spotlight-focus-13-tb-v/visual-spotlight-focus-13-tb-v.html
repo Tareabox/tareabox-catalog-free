@@ -1,0 +1,199 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-spotlight-focus-13-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Vertical 9:16 — A list of options darkens, then one row is spotlit: it stays bright above the dim, pops forward, and an accent focus-box draws around it. Directs attention to a single UI element, tutorial-style.
+  Category: visual
+  Duration: 3.5 seconds
+  REQUIRES: gsap (CDN)
+  NOTE: the option list is a DEMO backdrop — swap in your own screen recording / UI. Keep the .mask + focused-row (z-index) + .focus-box to reuse the spotlight effect.
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"title","type":"string","label":"List title","default":"Dashboard"},
+  {"id":"icon1","type":"string","label":"Row 1 icon (emoji)","default":"📈"},
+  {"id":"row1","type":"string","label":"Row 1 label","default":"Analytics"},
+  {"id":"icon2","type":"string","label":"Row 2 icon (emoji)","default":"🎬"},
+  {"id":"row2","type":"string","label":"Row 2 label","default":"Content"},
+  {"id":"icon3","type":"string","label":"Row 3 icon — SPOTLIT (emoji)","default":"💰"},
+  {"id":"row3","type":"string","label":"Row 3 label — SPOTLIT","default":"Monetization"},
+  {"id":"icon4","type":"string","label":"Row 4 icon (emoji)","default":"👥"},
+  {"id":"row4","type":"string","label":"Row 4 label","default":"Audience"},
+  {"id":"icon5","type":"string","label":"Row 5 icon (emoji)","default":"⚙️"},
+  {"id":"row5","type":"string","label":"Row 5 label","default":"Settings"},
+  {"id":"accent","type":"color","label":"Spotlight color","default":"#4da3ff"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0b0f"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="visual-spotlight-focus-13-tb-v" data-composition-id="visual-spotlight-focus-13-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="3.5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] {
+      --tb-bg:           #0a0b0f;
+      --tb-row:          #1b1d25;
+      --tb-text:         #f4f5f7;
+      --tb-text-dim:     #8a8d99;
+      --tb-accent:       var(--tb-brand-accent, #4da3ff);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+
+      --title: "Dashboard";
+      --icon1: "📈";  --row1: "Analytics";
+      --icon2: "🎬";  --row2: "Content";
+      --icon3: "💰";  --row3: "Monetization";
+      --icon4: "👥";  --row4: "Audience";
+      --icon5: "⚙️";  --row5: "Settings";
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .stage {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 6vmin;
+      isolation: isolate;            /* scope the z-index stacking to the list */
+    }
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .heading {
+      font-size: clamp(28px, 4.4vmin, 52px);
+      font-weight: 800; color: var(--tb-text);
+      letter-spacing: -0.01em;
+      padding: 0 2vmin 4vmin;
+    }
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .row {
+      position: relative;
+      display: flex; align-items: center; gap: 3.2vmin;
+      padding: 3.6vmin 3.4vmin;
+      border-radius: 3.6vmin;
+      background: var(--tb-row);
+      margin-bottom: 2.6vmin;
+    }
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .row:last-child { margin-bottom: 0; }
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .ic {
+      width: 9vmin; height: 9vmin; flex: 0 0 auto;
+      border-radius: 2.4vmin;
+      background: rgba(255,255,255,0.07);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4vmin;
+    }
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .row-label {
+      flex: 1 1 auto;
+      font-size: clamp(22px, 3.4vmin, 40px);
+      font-weight: 500; color: var(--tb-text);
+    }
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .chev {
+      flex: 0 0 auto; color: var(--tb-text-dim);
+      font-size: 4.2vmin; font-weight: 400;
+    }
+
+    /* dark mask: above the normal rows (z 1), below the spotlit row (z 2) */
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .mask {
+      position: absolute; inset: 0; z-index: 1;
+      background: rgba(6,7,10,0.82);
+      opacity: 0; pointer-events: none;
+    }
+    /* the spotlit row stays bright above the mask — no clone, no measuring */
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .row.is-focus {
+      z-index: 2;
+      box-shadow: 0 2vmin 6vmin rgba(0,0,0,0.6);
+    }
+    [data-composition-id="visual-spotlight-focus-13-tb-v"] .focus-box {
+      position: absolute; inset: -1.4vmin;
+      border-radius: 5vmin;
+      border: 0.6vmin solid var(--tb-accent);
+      box-shadow: 0 0 5vmin color-mix(in srgb, var(--tb-accent) 60%, transparent),
+                  inset 0 0 2vmin color-mix(in srgb, var(--tb-accent) 30%, transparent);
+      opacity: 0; pointer-events: none;
+    }
+</style>
+
+    <div class="stage" id="sf13v-stage">
+      <div class="heading" id="sf13v-title">Dashboard</div>
+      <div class="row"><div class="ic" id="sf13v-i1">📈</div><div class="row-label" id="sf13v-l1">Analytics</div><div class="chev">›</div></div>
+      <div class="row"><div class="ic" id="sf13v-i2">🎬</div><div class="row-label" id="sf13v-l2">Content</div><div class="chev">›</div></div>
+      <div class="row is-focus" id="sf13v-target">
+        <div class="focus-box" id="sf13v-box"></div>
+        <div class="ic" id="sf13v-i3">💰</div><div class="row-label" id="sf13v-l3">Monetization</div><div class="chev">›</div>
+      </div>
+      <div class="row"><div class="ic" id="sf13v-i4">👥</div><div class="row-label" id="sf13v-l4">Audience</div><div class="chev">›</div></div>
+      <div class="row"><div class="ic" id="sf13v-i5">⚙️</div><div class="row-label" id="sf13v-l5">Settings</div><div class="chev">›</div></div>
+      <div class="mask" id="sf13v-mask"></div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["visual-spotlight-focus-13-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="visual-spotlight-focus-13-tb-v"]');
+      const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      const readVar = (cssVar) => cs.getPropertyValue(cssVar).trim().replace(/^["']|["']$/g, "");
+      setStr("--title", V.title);
+      setStr("--icon1", V.icon1); setStr("--row1", V.row1);
+      setStr("--icon2", V.icon2); setStr("--row2", V.row2);
+      setStr("--icon3", V.icon3); setStr("--row3", V.row3);
+      setStr("--icon4", V.icon4); setStr("--row4", V.row4);
+      setStr("--icon5", V.icon5); setStr("--row5", V.row5);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
+
+      // apply editable text + icons
+      root.querySelector("#sf13v-title").textContent = readVar("--title");
+      for (let i = 1; i <= 5; i++) {
+        root.querySelector("#sf13v-i" + i).textContent = readVar("--icon" + i);
+        root.querySelector("#sf13v-l" + i).textContent = readVar("--row" + i);
+      }
+
+      const stage = root.querySelector("#sf13v-stage");
+      const mask  = root.querySelector("#sf13v-mask");
+      const box   = root.querySelector("#sf13v-box");
+      const target = root.querySelector("#sf13v-target");
+      const allRows = stage.querySelectorAll(".row");
+      const heading = stage.querySelector(".heading");
+
+      const TOTAL = 3.5;
+      const tl = gsap.timeline({ paused: true });
+
+      // list settles in
+      tl.from(heading,  { opacity: 0, y: 20, duration: 0.4, ease: "power2.out" }, 0);
+      tl.from(allRows,  { opacity: 0, y: 22, duration: 0.45, stagger: 0.07, ease: "power3.out" }, 0.1);
+
+      // dim everything except the spotlit row (it lives above the mask via z-index)
+      tl.to(mask, { opacity: 1, duration: 0.45, ease: "power2.inOut" }, 1.1);
+
+      // spotlit row pops forward + focus box draws
+      gsap.set(target, { transformOrigin: "50% 50%" });
+      tl.fromTo(target, { scale: 1 }, { scale: 1.06, duration: 0.5, ease: "back.out(1.7)" }, 1.2);
+
+      gsap.set(box, { transformOrigin: "50% 50%", scale: 1.12 });
+      tl.to(box, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 1.32);
+
+      // subtle breathing glow on the box while held
+      tl.to(box, { boxShadow: "0 0 8vmin color-mix(in srgb, var(--tb-accent) 75%, transparent), inset 0 0 2vmin color-mix(in srgb, var(--tb-accent) 35%, transparent)", duration: 0.9, ease: "sine.inOut", yoyo: true, repeat: 1 }, 1.9);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

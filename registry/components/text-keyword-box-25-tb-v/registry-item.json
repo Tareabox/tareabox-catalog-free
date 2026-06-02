@@ -1,0 +1,26 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "text-keyword-box-25-tb-v",
+  "type": "hyperframes:component",
+  "title": "Text Keyword Box (Vertical)",
+  "description": "Caption bold en mayúsculas donde una caja de color sólida estampa detrás de la palabra clave, estilo hook-title para Reels/Shorts, en formato vertical 9:16",
+  "tags": [
+    "text",
+    "keyword",
+    "box",
+    "highlight",
+    "vertical",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "text-keyword-box-25-tb-v.html",
+      "target": "compositions/components/text-keyword-box-25-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-keyword-box-25-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-keyword-box-25-tb-v.png"
+  }
+}
