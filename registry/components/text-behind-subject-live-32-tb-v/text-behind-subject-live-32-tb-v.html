@@ -1,0 +1,210 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  text-behind-subject-live-32-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Big headline DROPS in letter-by-letter BEHIND a LIVE (moving) cut-out subject for layered 3D-depth, then an accent word slams in front. Subject bottom fades out; swap tb-subject.webm with your own transparent clip.
+  Category: text
+  Duration: 4.5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"backtext","type":"string","label":"Big text (drops behind subject)","default":"2026"},
+  {"id":"frontword","type":"string","label":"Front word (over subject)","default":"Goals"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#33EFE0"},
+  {"id":"bg","type":"color","label":"Background base color","default":"#1D1F31"},
+  {"id":"subject","type":"string","label":"Subject cut-out URL — transparent .webm (make one: npx hyperframes remove-background clip.mp4 -o out.webm)","default":""}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="text-behind-subject-live-32-tb-v" data-composition-id="text-behind-subject-live-32-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="4.5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="text-behind-subject-live-32-tb-v"] {
+      --tb-bg:           #1D1F31;
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+
+      --backtext:  "2026";
+      --frontword: "Goals";
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="text-behind-subject-live-32-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="text-behind-subject-live-32-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* layer 0 — background + glow */
+    [data-composition-id="text-behind-subject-live-32-tb-v"] .bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(120% 90% at 50% 30%, color-mix(in srgb, var(--tb-accent) 18%, transparent) 0%, transparent 55%),
+        linear-gradient(180deg, color-mix(in srgb, var(--tb-bg) 80%, #000) 0%, var(--tb-bg) 45%, color-mix(in srgb, var(--tb-bg) 70%, #000) 100%);
+    }
+    [data-composition-id="text-behind-subject-live-32-tb-v"] .grain {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.5;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.45) 100%);
+    }
+
+    /* layer 1 — BIG text that DROPS in behind subject */
+    [data-composition-id="text-behind-subject-live-32-tb-v"] .backtext {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+      transform: translateY(-13%);
+    }
+    [data-composition-id="text-behind-subject-live-32-tb-v"] .bt-word {
+      display: flex; flex-wrap: nowrap; white-space: nowrap;
+    }
+    [data-composition-id="text-behind-subject-live-32-tb-v"] .bt-ch {
+      display: inline-block;
+      font-size: clamp(140px, 30vmin, 440px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--tb-text);
+      text-transform: uppercase;
+      will-change: transform;
+      text-shadow: 0 1vmin 5vmin rgba(0,0,0,0.45);
+    }
+
+    /* layer 2 — LIVE subject cut-out (transparent video), bottom fades out */
+    [data-composition-id="text-behind-subject-live-32-tb-v"] .subject {
+      position: absolute; z-index: 3;
+      bottom: 0; left: 50%;
+      height: 90%;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 2vmin 4vmin rgba(0,0,0,0.5));
+      object-fit: contain; object-position: bottom center;
+      -webkit-mask-image: linear-gradient(to top, transparent 0%, #000 26%, #000 100%);
+              mask-image: linear-gradient(to top, transparent 0%, #000 26%, #000 100%);
+    }
+
+    /* layer 3 — accent word in front */
+    [data-composition-id="text-behind-subject-live-32-tb-v"] .frontword {
+      position: absolute; z-index: 4;
+      bottom: 9%; left: 0; width: 100%;
+      display: flex; justify-content: center;
+    }
+    [data-composition-id="text-behind-subject-live-32-tb-v"] .frontword span {
+      font-size: clamp(56px, 13vmin, 200px);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--tb-accent);
+      white-space: nowrap;
+      text-shadow:
+        0 0.4vmin 1.6vmin rgba(0,0,0,0.85),
+        0 0.15vmin 0.4vmin rgba(0,0,0,0.95);
+    }
+</style>
+
+    <div class="bg"></div>
+    <div class="grain"></div>
+    <div class="backtext"><div class="bt-word" id="tbl32v-back"></div></div>
+    <!--
+      ───────────────────────────────────────────────────────────────
+      LIVE SUBJECT CUT-OUT (video)  →  tb-media/tb-subject.webm
+      Demo: a free Pexels clip with its background removed to a
+      transparent WebM (VP9 + alpha). The bottom is faded with a CSS
+      mask so a seated / half-body subject blends out cleanly.
+
+      To use YOUR OWN moving subject, replace tb-subject.webm. Make one
+      in ONE command (local AI, u2net — nothing is uploaded):
+
+          npx hyperframes remove-background my-clip.mp4 -o tb-media/tb-subject.webm
+
+      • For a STILL subject use a .png + <img> instead — see the sibling
+        effect text-behind-subject-30.
+      ───────────────────────────────────────────────────────────────
+    -->
+    <video class="subject" id="tbl32v-subj"
+           src="../assets/tb-media/tb-subject.webm"
+           crossorigin="anonymous" data-tb-asset="subject-cutout"
+           data-start="0" data-duration="4.5" data-track-index="2"
+           muted playsinline loop></video>
+    <div class="frontword"><span id="tbl32v-front"></span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["text-behind-subject-live-32-tb-v"] = (function () {
+      const root  = document.querySelector('[data-composition-id="text-behind-subject-live-32-tb-v"]');
+      const backWord = root.querySelector("#tbl32v-back");
+      const frontEl  = root.querySelector("#tbl32v-front");
+      const subjEl   = root.querySelector("#tbl32v-subj");
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.bg)     root.style.setProperty("--tb-bg", V.bg);
+      if (V.subject) subjEl.src = V.subject;   // editor users can point to their own transparent cut-out
+
+      const cs = getComputedStyle(root);
+      const rd = (k, d) => {
+        const v = cs.getPropertyValue(k).trim().replace(/^["']|["']$/g, "");
+        return v || d;
+      };
+      const back  = String(V.backtext  != null && V.backtext  !== "" ? V.backtext  : rd("--backtext", "2026")).toUpperCase();
+      const front = String(V.frontword != null && V.frontword !== "" ? V.frontword : rd("--frontword", "Goals")).toUpperCase();
+
+      // split the big text into characters that drop in
+      const escapeHTML = (s) => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      backWord.innerHTML = back.split("").map((c) =>
+        '<span class="bt-ch">' + (c === " " ? "&nbsp;" : escapeHTML(c)) + '</span>'
+      ).join("");
+      const chEls = backWord.querySelectorAll(".bt-ch");
+
+      frontEl.textContent = front;
+      if (window.__hyperframes && window.__hyperframes.fitTextFontSize) {
+        try {
+          const ecs = getComputedStyle(frontEl);
+          const cur = parseFloat(ecs.fontSize);
+          const pw  = (frontEl.closest(".frontword") || frontEl.parentElement).getBoundingClientRect().width || 0;
+          if (pw >= 40) {
+            const ff = (ecs.fontFamily.split(",")[0] || "Geist").replace(/["']/g, "").trim();
+            const fw = parseInt(ecs.fontWeight) || 800;
+            const fitPx = window.__hyperframes.fitTextFontSize(front, { maxWidth: pw * 0.9, fontFamily: ff, fontWeight: fw });
+            if (fitPx && fitPx < cur) frontEl.style.fontSize = fitPx + "px";
+          }
+        } catch (e) {}
+      }
+
+      const TOTAL = 4.5;
+      const tl = gsap.timeline({ paused: true });
+
+      // DROP: each character falls from above and lands with a small bounce
+      tl.from(chEls, {
+        yPercent: -260, opacity: 0,
+        duration: 0.85, ease: "bounce.out", stagger: 0.09
+      }, 0.15);
+
+      // subject rises in front
+      tl.from(subjEl, { yPercent: 14, scale: 1.05, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.5);
+
+      // accent word slams in front
+      tl.set(frontEl, { transformOrigin: "50% 50%" }, 0);
+      tl.from(frontEl, { scale: 1.7, opacity: 0, duration: 0.4, ease: "back.out(2.2)" }, 1.25);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

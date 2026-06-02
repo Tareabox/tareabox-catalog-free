@@ -9,10 +9,11 @@
   REQUIRES: gsap (CDN)
 -->
 <html lang="en" data-composition-variables='[
-  {"id":"backtext","type":"string","label":"Big text (behind subject)","default":"12×30"},
-  {"id":"frontword","type":"string","label":"Front word (over subject)","default":"Challenge"},
+  {"id":"backtext","type":"string","label":"Big text (behind subject)","default":"Focus"},
+  {"id":"frontword","type":"string","label":"Front word (over subject)","default":"Mode"},
   {"id":"accent","type":"color","label":"Accent color","default":"#33EFE0"},
-  {"id":"bg","type":"color","label":"Background base color","default":"#1D1F31"}
+  {"id":"bg","type":"color","label":"Background base color","default":"#1D1F31"},
+  {"id":"subject","type":"string","label":"Subject cut-out URL — transparent .png (make one: npx hyperframes remove-background photo.jpg -o out.png)","default":""}
 ]'>
 <head>
   <meta charset="UTF-8" />
@@ -34,8 +35,8 @@
       --tb-accent:       var(--tb-brand-accent, #33EFE0);
       --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
 
-      --backtext:  "12×30";
-      --frontword: "Challenge";
+      --backtext:  "Focus";
+      --frontword: "Mode";
     }
     /* ═══════════════════════════════════════════════════════ */
     /* ⛔ EFFECT CODE                                          */
@@ -141,14 +142,15 @@
         ? window.__hyperframes.getVariables() : {};
       if (V.accent) root.style.setProperty("--tb-accent", V.accent);
       if (V.bg)     root.style.setProperty("--tb-bg", V.bg);
+      if (V.subject) subjEl.src = V.subject;   // editor users can point to their own transparent cut-out
 
       const cs = getComputedStyle(root);
       const rd = (k, d) => {
         const v = cs.getPropertyValue(k).trim().replace(/^["']|["']$/g, "");
         return v || d;
       };
-      const back  = String(V.backtext  != null && V.backtext  !== "" ? V.backtext  : rd("--backtext", "12×30")).toUpperCase();
-      const front = String(V.frontword != null && V.frontword !== "" ? V.frontword : rd("--frontword", "Challenge")).toUpperCase();
+      const back  = String(V.backtext  != null && V.backtext  !== "" ? V.backtext  : rd("--backtext", "Focus")).toUpperCase();
+      const front = String(V.frontword != null && V.frontword !== "" ? V.frontword : rd("--frontword", "Mode")).toUpperCase();
       backEl.textContent  = back;
       frontEl.textContent = front;
 

@@ -272,6 +272,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "text-behind-subject-live-32-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "text-behind-subject-live-32-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "text-caption-box-29-tb",
       "type": "hyperframes:component"
     },
