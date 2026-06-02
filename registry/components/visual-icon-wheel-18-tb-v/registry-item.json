@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-icon-wheel-18-tb-v",
+  "type": "hyperframes:component",
+  "title": "Visual Icon Wheel (Vertical)",
+  "description": "Efecto Tareabox: Visual Icon Wheel",
+  "tags": [
+    "visual",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "visual-icon-wheel-18-tb-v.html",
+      "target": "compositions/components/visual-icon-wheel-18-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-icon-wheel-18-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-icon-wheel-18-tb-v.png"
+  }
+}

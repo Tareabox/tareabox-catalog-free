@@ -624,6 +624,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "visual-icon-wheel-18-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-icon-wheel-18-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "visual-keyboard-shortcut-04-tb",
       "type": "hyperframes:component"
     },
