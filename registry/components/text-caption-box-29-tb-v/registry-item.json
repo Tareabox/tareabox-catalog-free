@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "text-caption-box-29-tb-v",
+  "type": "hyperframes:component",
+  "title": "Text Caption Box (Vertical)",
+  "description": "Efecto Tareabox: Text Caption Box",
+  "tags": [
+    "text",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "text-caption-box-29-tb-v.html",
+      "target": "compositions/components/text-caption-box-29-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-caption-box-29-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-caption-box-29-tb-v.png"
+  }
+}

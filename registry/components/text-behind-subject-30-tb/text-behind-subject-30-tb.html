@@ -1,0 +1,193 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  text-behind-subject-30-tb (horizontal 1920x1080)
+  Tareabox Hyperframes Effect
+  Description: Giant headline sits BEHIND a cut-out subject for a layered 3D-depth title — big text rises from behind the person, an accent word slams in front. Swap tb-subject.png with your own cut-out.
+  Category: text
+  Duration: 4.5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"backtext","type":"string","label":"Big text (behind subject)","default":"12×30"},
+  {"id":"frontword","type":"string","label":"Front word (over subject)","default":"Challenge"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#33EFE0"},
+  {"id":"bg","type":"color","label":"Background base color","default":"#1D1F31"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="text-behind-subject-30-tb" data-composition-id="text-behind-subject-30-tb"
+       data-width="1920" data-height="1080"
+       data-start="0" data-duration="4.5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="text-behind-subject-30-tb"] {
+      --tb-bg:           #1D1F31;
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+
+      --backtext:  "12×30";
+      --frontword: "Challenge";
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="text-behind-subject-30-tb"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="text-behind-subject-30-tb"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* layer 0 — background + glow */
+    [data-composition-id="text-behind-subject-30-tb"] .bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(110% 110% at 50% 32%, color-mix(in srgb, var(--tb-accent) 18%, transparent) 0%, transparent 55%),
+        linear-gradient(180deg, color-mix(in srgb, var(--tb-bg) 80%, #000) 0%, var(--tb-bg) 45%, color-mix(in srgb, var(--tb-bg) 70%, #000) 100%);
+    }
+    [data-composition-id="text-behind-subject-30-tb"] .grain {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: 0.5;
+      background: radial-gradient(ellipse at center, transparent 52%, rgba(0,0,0,0.45) 100%);
+    }
+
+    /* layer 1 — BIG text behind subject */
+    [data-composition-id="text-behind-subject-30-tb"] .backtext {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      transform: translateY(-7%);
+    }
+    [data-composition-id="text-behind-subject-30-tb"] .backtext span {
+      font-size: clamp(160px, 38vmin, 540px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.9;
+      color: var(--tb-text);
+      white-space: nowrap;
+      text-transform: uppercase;
+      text-shadow: 0 1vmin 5vmin rgba(0,0,0,0.45);
+    }
+
+    /* layer 2 — subject cut-out */
+    [data-composition-id="text-behind-subject-30-tb"] .subject {
+      position: absolute; z-index: 3;
+      bottom: 0; left: 50%;
+      height: 97%;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 2vmin 4vmin rgba(0,0,0,0.55));
+      object-fit: contain; object-position: bottom center;
+    }
+
+    /* layer 3 — accent word in front */
+    [data-composition-id="text-behind-subject-30-tb"] .frontword {
+      position: absolute; z-index: 4;
+      bottom: 6%; left: 0; width: 100%;
+      display: flex; justify-content: center;
+    }
+    [data-composition-id="text-behind-subject-30-tb"] .frontword span {
+      font-size: clamp(56px, 12vmin, 200px);
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--tb-accent);
+      white-space: nowrap;
+      text-shadow:
+        0 0.4vmin 1.6vmin rgba(0,0,0,0.85),
+        0 0.15vmin 0.4vmin rgba(0,0,0,0.95);
+    }
+</style>
+
+    <div class="bg"></div>
+    <div class="grain"></div>
+    <div class="backtext"><span id="tbs30h-back"></span></div>
+    <!--
+      ───────────────────────────────────────────────────────────────
+      SUBJECT CUT-OUT  →  tb-media/tb-subject.png
+      Demo: a free Pexels studio photo with its background removed.
+
+      To put YOUR OWN face/product behind the headline, replace
+      tb-subject.png with a transparent PNG. Make one in ONE command
+      (runs a local AI model, u2net — nothing is uploaded):
+
+          npx hyperframes remove-background my-photo.jpg -o tb-media/tb-subject.png
+
+      • Works on images (.png) and videos (.webm/.mov).
+      • For a MOVING subject, export .webm and swap this <img> for a
+        <video ... muted playsinline loop> layer (same class/position).
+      ───────────────────────────────────────────────────────────────
+    -->
+    <img class="subject" id="tbs30h-subj" src="../assets/tb-media/tb-subject.png" alt="" crossorigin="anonymous" />
+    <div class="frontword"><span id="tbs30h-front"></span></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["text-behind-subject-30-tb"] = (function () {
+      const root  = document.querySelector('[data-composition-id="text-behind-subject-30-tb"]');
+      const backEl  = root.querySelector("#tbs30h-back");
+      const frontEl = root.querySelector("#tbs30h-front");
+      const subjEl  = root.querySelector("#tbs30h-subj");
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.bg)     root.style.setProperty("--tb-bg", V.bg);
+
+      const cs = getComputedStyle(root);
+      const rd = (k, d) => {
+        const v = cs.getPropertyValue(k).trim().replace(/^["']|["']$/g, "");
+        return v || d;
+      };
+      const back  = String(V.backtext  != null && V.backtext  !== "" ? V.backtext  : rd("--backtext", "12×30")).toUpperCase();
+      const front = String(V.frontword != null && V.frontword !== "" ? V.frontword : rd("--frontword", "Challenge")).toUpperCase();
+      backEl.textContent  = back;
+      frontEl.textContent = front;
+
+      // shrink-to-fit (buyer text may be longer than designed width)
+      const fit = (el, maxFrac) => {
+        if (!(window.__hyperframes && window.__hyperframes.fitTextFontSize)) return;
+        try {
+          const ecs = getComputedStyle(el);
+          const cur = parseFloat(ecs.fontSize);
+          const pw  = (el.closest(".backtext, .frontword") || el.parentElement).getBoundingClientRect().width || 0;
+          if (pw < 40) return;
+          const ff = (ecs.fontFamily.split(",")[0] || "Geist").replace(/["']/g, "").trim();
+          const fw = parseInt(ecs.fontWeight) || 800;
+          const fitPx = window.__hyperframes.fitTextFontSize(el.textContent, { maxWidth: pw * maxFrac, fontFamily: ff, fontWeight: fw });
+          if (fitPx && fitPx < cur) el.style.fontSize = fitPx + "px";
+        } catch (e) {}
+      };
+      fit(backEl, 0.96);
+      fit(frontEl, 0.9);
+
+      const TOTAL = 4.5;
+      const tl = gsap.timeline({ paused: true });
+
+      // big text rises from behind
+      tl.from(backEl, { yPercent: 16, scale: 0.86, opacity: 0, duration: 0.75, ease: "expo.out" }, 0.15);
+      tl.to(backEl,   { scale: 1.04, duration: TOTAL - 0.4, ease: "none" }, 0.9);   // slow parallax push
+
+      // subject rises in front
+      tl.from(subjEl, { yPercent: 12, scale: 1.05, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.35);
+      tl.to(subjEl,   { yPercent: -1.2, duration: TOTAL - 1.1, ease: "sine.inOut" }, 1.1);  // subtle float
+
+      // accent word slams in front
+      tl.set(frontEl, { transformOrigin: "50% 50%" }, 0);
+      tl.from(frontEl, { scale: 1.7, opacity: 0, duration: 0.4, ease: "back.out(2.2)" }, 1.0);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

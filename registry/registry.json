@@ -264,6 +264,22 @@
       "type": "hyperframes:block"
     },
     {
+      "name": "text-behind-subject-30-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "text-behind-subject-30-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "text-caption-box-29-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "text-caption-box-29-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "text-chapter-reveal-21-tb",
       "type": "hyperframes:block"
     },
