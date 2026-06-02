@@ -13,6 +13,11 @@
       "path": "visual-freeze-peel-17-tb-v.html",
       "target": "compositions/components/visual-freeze-peel-17-tb-v.html",
       "type": "hyperframes:snippet"
+    },
+    {
+      "path": "tb-media/tb-freeze.jpg",
+      "target": "assets/tb-media/tb-freeze.jpg",
+      "type": "hyperframes:asset"
     }
   ],
   "preview": {
