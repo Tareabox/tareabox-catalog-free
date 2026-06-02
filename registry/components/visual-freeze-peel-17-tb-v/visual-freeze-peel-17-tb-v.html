@@ -12,6 +12,7 @@
   {"id":"headline","type":"string","label":"Kinetic headline (mark accent words with {*word*})","default":"Game {*changer*}"},
   {"id":"accent","type":"color","label":"Accent (freeze highlight)","default":"#33EFE0"},
   {"id":"grade","type":"color","label":"Freeze grade tint","default":"#0a1f2e"},
+  {"id":"exit","type":"string","label":"Exit style: peel · recede · flip · drop","default":"recede"},
   {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"}
 ]'>
 <head>
@@ -51,7 +52,7 @@
     [data-composition-id="visual-freeze-peel-17-tb-v"] .stage {
       position: relative; width: 100%; height: 100%; overflow: hidden;
       transform-style: preserve-3d; will-change: transform;
-      background: #05070c;
+      background: #05070c; border: 0 solid rgba(255,255,255,0.22);
     }
     [data-composition-id="visual-freeze-peel-17-tb-v"] .bg-video {
       position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
@@ -68,7 +69,7 @@
     [data-composition-id="visual-freeze-peel-17-tb-v"] .head {
       position: absolute; inset: 0; z-index: 2;
       display: flex; flex-wrap: wrap; align-items: center; justify-content: center; align-content: center;
-      gap: 0.06em 0.18em; padding: 0 8%;
+      gap: 0.1em 0.42em; padding: 0 8%;
     }
     [data-composition-id="visual-freeze-peel-17-tb-v"] .head .w {
       font-size: clamp(64px, 13vmin, 190px); font-weight: 900; letter-spacing: -0.03em;
@@ -146,14 +147,29 @@
       tl.to(hl, { scale: 1.1, duration: 0.5, stagger: 0.05, ease: "back.out(2)", transformOrigin: "50% 50%" }, FREEZE + 0.02);
       tl.to(stage, { scale: 1.1, duration: PEEL - FREEZE, ease: "sine.out" }, FREEZE);  // slow zoom (tension)
 
-      // PHASE 3 — PEEL: the whole frame becomes a card, tilts back, shrinks and falls away
-      tl.to(grade, { opacity: 0.4, duration: 0.4, ease: "power1.out" }, PEEL);          // lift grade so the card face shows
-      tl.to(stage, {
-        rotationX: -46, rotationZ: -4, scale: 0.46, yPercent: 60,
-        borderRadius: "4vmin", duration: 1.15, ease: "power2.in",
-        boxShadow: "0 8vmin 16vmin rgba(0,0,0,0.7)"
-      }, PEEL);
-      tl.to(stage, { opacity: 0, duration: 0.45, ease: "power1.in" }, PEEL + 0.85);     // fade out only at the very end
+      // PHASE 3 — EXIT: the frozen card leaves. The grade + accent STAY on until it's gone
+      // (no return to natural color). Pick the style with the "exit" variable.
+      const exit = String(V.exit && V.exit !== "" ? V.exit : "recede").trim().toLowerCase();
+      tl.set(stage, { borderRadius: "4vmin" }, PEEL);
+      if (exit === "peel") {
+        tl.to(stage, { rotationX: -46, rotationZ: -4, scale: 0.46, yPercent: 60, borderWidth: "0.5vmin",
+          duration: 1.15, ease: "power2.in", boxShadow: "0 8vmin 16vmin rgba(0,0,0,0.7)" }, PEEL);
+        tl.to(stage, { opacity: 0, duration: 0.4, ease: "power1.in" }, PEEL + 0.95);
+      } else if (exit === "flip") {
+        tl.set(stage, { transformOrigin: "50% 0%" }, PEEL);
+        tl.to(stage, { rotationX: -92, scale: 0.9, yPercent: -3, borderWidth: "0.5vmin",
+          duration: 1.0, ease: "power2.in", boxShadow: "0 8vmin 16vmin rgba(0,0,0,0.7)" }, PEEL);
+        tl.to(stage, { opacity: 0, duration: 0.35, ease: "power1.in" }, PEEL + 0.8);
+      } else if (exit === "drop") {
+        tl.to(stage, { yPercent: 125, rotationZ: 7, scale: 0.7, borderWidth: "0.5vmin",
+          duration: 1.0, ease: "power2.in", boxShadow: "0 8vmin 16vmin rgba(0,0,0,0.7)" }, PEEL);
+        tl.to(stage, { opacity: 0, duration: 0.3, ease: "power1.in" }, PEEL + 0.85);
+      } else {  // "recede" — push back into depth + soft blur dissolve (modern, polished)
+        tl.to(stage, { z: -820, yPercent: -5, scale: 0.94, borderWidth: "0.4vmin",
+          duration: 1.25, ease: "power2.inOut", boxShadow: "0 6vmin 16vmin rgba(0,0,0,0.6)" }, PEEL);
+        tl.fromTo(stage, { filter: "blur(0px)" }, { filter: "blur(20px)", duration: 1.0, ease: "power2.in" }, PEEL + 0.25);
+        tl.to(stage, { opacity: 0, duration: 0.6, ease: "power1.in" }, PEEL + 0.7);
+      }
 
       tl.to({}, { duration: TOTAL }, 0);
       return tl;
