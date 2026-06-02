@@ -84,6 +84,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "conversationapp-search-results-23-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "conversationapp-search-results-23-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "conversationapp-slack-14-tb",
       "type": "hyperframes:component"
     },
@@ -581,6 +589,14 @@
     },
     {
       "name": "visual-flash-zoom-15-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-freeze-peel-17-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-freeze-peel-17-tb-v",
       "type": "hyperframes:component"
     },
     {

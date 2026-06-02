@@ -1,0 +1,147 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  conversationapp-search-results-23-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: A search query types itself in, one keyword gets painted with a marker highlight, then the results list reveals row by row. Generic brand, fully editable.
+  Category: conversationapp
+  Duration: 5.5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"query","type":"string","label":"Search query","default":"get viral fonts for free"},
+  {"id":"highlight","type":"string","label":"Word to paint","default":"free"},
+  {"id":"brand","type":"string","label":"Search brand","default":"searchly"},
+  {"id":"accent","type":"color","label":"Paint / accent color","default":"#33EFE0"},
+  {"id":"page","type":"color","label":"Page color","default":"#ffffff"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="conversationapp-search-results-23-tb-v" data-composition-id="conversationapp-search-results-23-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5.5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="conversationapp-search-results-23-tb-v"] {
+      --tb-accent: var(--tb-brand-accent, #33EFE0);
+      --page: #ffffff; --ink: #1f2330; --muted: #70757a; --line: #e6e8eb;
+      --link: #2a5bd7; --url: #1a7f37;
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="conversationapp-search-results-23-tb-v"] {
+      position: relative; width: 100%; height: 100%; overflow: hidden;
+      background: var(--page); font-family: var(--tb-font-display); color: var(--ink);
+    }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .wrap { position: absolute; inset: 0; z-index: 2; padding: 12% 7% 0; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .logo { display: flex; align-items: center; gap: 1.4vmin; margin-bottom: 4vmin; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .lens { width: 6vmin; height: 6vmin; border-radius: 50%; border: 1.2vmin solid var(--tb-accent); position: relative; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .lens::after { content: ""; position: absolute; right: -2vmin; bottom: -0.8vmin; width: 3vmin; height: 1.2vmin; background: var(--tb-accent); border-radius: 1vmin; transform: rotate(45deg); }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .brand { font-size: clamp(24px, 4.6vmin, 64px); font-weight: 800; letter-spacing: -0.03em; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .bar {
+      display: flex; align-items: center; gap: 2.4vmin; background: #fff;
+      border: 0.3vmin solid var(--line); border-radius: 6vmin; padding: 2.8vmin 4vmin;
+      box-shadow: 0 1.4vmin 4vmin rgba(0,0,0,0.08);
+    }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .bar svg { flex: none; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .qtext { flex: 1; font-size: clamp(16px, 2.7vmin, 38px); font-weight: 500; white-space: nowrap; overflow: hidden; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .cursor { display: inline-block; width: 0.28vmin; height: 1em; background: var(--tb-accent); vertical-align: -0.12em; margin-left: 0.06em; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .kw { position: relative; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .kw .mark {
+      position: absolute; left: -0.12em; right: -0.12em; top: 0.04em; bottom: 0.02em; z-index: 0;
+      background: color-mix(in srgb, var(--tb-accent) 55%, transparent); border-radius: 0.16em;
+      transform: scaleX(0); transform-origin: left;
+    }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .kw .t { position: relative; z-index: 1; font-weight: 700; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .meta { font-size: clamp(11px, 1.7vmin, 22px); color: var(--muted); margin: 3vmin 0 1vmin; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .results { display: flex; flex-direction: column; gap: 4vmin; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .res .u { font-size: clamp(12px, 1.9vmin, 26px); color: var(--url); font-weight: 600; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .res .ti { font-size: clamp(17px, 2.9vmin, 40px); color: var(--link); font-weight: 700; line-height: 1.2; margin: 0.6vmin 0; }
+    [data-composition-id="conversationapp-search-results-23-tb-v"] .res .sn { font-size: clamp(13px, 2.1vmin, 28px); color: #4b5563; line-height: 1.35; }
+</style>
+
+    <div class="wrap">
+      <div class="logo"><div class="lens"></div><div class="brand" id="sr-brand">searchly</div></div>
+      <div class="bar">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#70757a" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <div class="qtext"><span id="sr-q"></span><span class="cursor" id="sr-cur"></span></div>
+      </div>
+      <div class="meta" id="sr-meta">About 4,120,000 results (0.42 seconds)</div>
+      <div class="results" id="sr-results">
+        <div class="res"><div class="u">fontsly.com › free</div><div class="ti">Get Viral Fonts — Free Pack</div><div class="sn">Download 120+ trending display fonts, free for commercial use. No sign-up required…</div></div>
+        <div class="res"><div class="u">creators.io › fonts</div><div class="ti">Top 10 Fonts Going Viral in 2026</div><div class="sn">The exact fonts creators use for hooks, titles and reels — with free alternatives…</div></div>
+        <div class="res"><div class="u">typegallery.app</div><div class="ti">Free Bold Condensed Fonts</div><div class="sn">Hand-picked condensed typefaces you can use today. Free download, instant access…</div></div>
+      </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["conversationapp-search-results-23-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="conversationapp-search-results-23-tb-v"]');
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.page)   root.style.setProperty("--page", V.page);
+      if (V.brand && V.brand !== "") root.querySelector("#sr-brand").textContent = V.brand;
+
+      const query = String(V.query && V.query !== "" ? V.query : "get viral fonts for free");
+      const kw    = String(V.highlight && V.highlight !== "" ? V.highlight : "free").toLowerCase();
+      const qEl = root.querySelector("#sr-q"), cur = root.querySelector("#sr-cur");
+      const escapeHTML = (s) => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+
+      // marked HTML: wrap the keyword (whole-word, case-insensitive) with a paint mark
+      const markedHTML = query.split(/(\s+)/).map(tok => {
+        if (tok.trim().toLowerCase().replace(/[^a-z0-9]/gi, "") === kw.replace(/[^a-z0-9]/gi, "") && kw)
+          return '<span class="kw"><span class="mark"></span><span class="t">' + escapeHTML(tok) + '</span></span>';
+        return escapeHTML(tok);
+      }).join("");
+
+      const results = root.querySelectorAll("#sr-results .res");
+      const TOTAL = 5.5, TYPE_D = 1.5, TYPE_START = 0.6;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from(".logo", { y: -18, opacity: 0, duration: 0.45, ease: "power2.out" }, 0.1);
+      tl.from(".bar", { y: 20, opacity: 0, duration: 0.45, ease: "power3.out" }, 0.25);
+
+      // typewriter (plain text), then swap to marked HTML at the end
+      qEl.textContent = "";
+      const counter = { v: 0 };
+      tl.to(counter, {
+        v: query.length, duration: TYPE_D, ease: "none", snap: { v: 1 },
+        onUpdate: () => { qEl.textContent = query.slice(0, Math.floor(counter.v)); }
+      }, TYPE_START);
+      const TYPE_END = TYPE_START + TYPE_D;
+      tl.add(() => { qEl.innerHTML = markedHTML; }, TYPE_END);
+
+      // cursor blink, hidden after typing
+      const BSTART = TYPE_START, BHALF = 0.3;
+      for (let bt = BSTART, off = true; bt < TYPE_END; bt += BHALF, off = !off) tl.set(cur, { opacity: off ? 1 : 0 }, bt);
+      tl.set(cur, { opacity: 0 }, TYPE_END);
+
+      // paint the keyword
+      tl.fromTo(root.querySelectorAll(".mark"), { scaleX: 0 }, { scaleX: 1, duration: 0.4, ease: "power2.out" }, TYPE_END + 0.1);
+
+      // results reveal row by row
+      root.querySelector("#sr-meta").style.opacity = 0;
+      tl.to("#sr-meta", { opacity: 1, duration: 0.3 }, TYPE_END + 0.45);
+      tl.from(results, { y: 26, opacity: 0, duration: 0.45, stagger: 0.18, ease: "power3.out" }, TYPE_END + 0.55);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

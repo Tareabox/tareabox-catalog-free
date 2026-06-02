@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-freeze-peel-17-tb",
+  "type": "hyperframes:component",
+  "title": "Visual Freeze Peel (Horizontal)",
+  "description": "Efecto Tareabox: Visual Freeze Peel",
+  "tags": [
+    "visual",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "visual-freeze-peel-17-tb.html",
+      "target": "compositions/components/visual-freeze-peel-17-tb.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-freeze-peel-17-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-freeze-peel-17-tb.png"
+  }
+}

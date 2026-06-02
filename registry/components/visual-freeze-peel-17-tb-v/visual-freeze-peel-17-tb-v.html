@@ -1,0 +1,150 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-freeze-peel-17-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Kinetic headline plays over a clip, then everything FREEZES — a white flash hits, the shot darkens + grades, the words snap to accent and a slow zoom builds tension — then the whole frame peels back into a 3D card, shrinks and falls away. Swap the bg clip for your own.
+  Category: visual
+  Duration: 5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"headline","type":"string","label":"Kinetic headline","default":"Game changer"},
+  {"id":"accent","type":"color","label":"Accent (freeze highlight)","default":"#33EFE0"},
+  {"id":"grade","type":"color","label":"Freeze grade tint","default":"#0a1f2e"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="visual-freeze-peel-17-tb-v" data-composition-id="visual-freeze-peel-17-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-freeze-peel-17-tb-v"] {
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --grade:           #0a1f2e;
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-freeze-peel-17-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      overflow: hidden; background: #05070c;
+      font-family: var(--tb-font-display); color: #fff;
+    }
+    [data-composition-id="visual-freeze-peel-17-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="visual-freeze-peel-17-tb-v"] .world {
+      position: absolute; inset: 0; perspective: 1500px; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+    }
+    [data-composition-id="visual-freeze-peel-17-tb-v"] .stage {
+      position: relative; width: 100%; height: 100%; overflow: hidden;
+      transform-style: preserve-3d; will-change: transform;
+      background: #05070c;
+    }
+    [data-composition-id="visual-freeze-peel-17-tb-v"] .bg-video {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+    }
+    [data-composition-id="visual-freeze-peel-17-tb-v"] .grade {
+      position: absolute; inset: 0; z-index: 1; opacity: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse at center, transparent 38%, rgba(0,0,0,0.6) 100%),
+        linear-gradient(180deg, color-mix(in srgb, var(--grade) 75%, #000), color-mix(in srgb, var(--grade) 40%, #000));
+    }
+    [data-composition-id="visual-freeze-peel-17-tb-v"] .head {
+      position: absolute; left: 0; right: 0; bottom: 16%; z-index: 2;
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+      gap: 0.1em 0.18em; padding: 0 8%;
+    }
+    [data-composition-id="visual-freeze-peel-17-tb-v"] .head .w {
+      font-size: clamp(64px, 13vmin, 190px); font-weight: 900; letter-spacing: -0.03em;
+      line-height: 1.0; text-transform: uppercase; color: #fff;
+      text-shadow: 0 0.4vmin 1.6vmin rgba(0,0,0,0.85), 0 0.15vmin 0.4vmin rgba(0,0,0,0.95);
+    }
+    [data-composition-id="visual-freeze-peel-17-tb-v"] .flash {
+      position: absolute; inset: 0; z-index: 8; background: #fff; opacity: 0; pointer-events: none;
+    }
+    [data-composition-id="visual-freeze-peel-17-tb-v"] .floor {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: linear-gradient(180deg, #05070c, #0b0e16);
+    }
+</style>
+
+    <div class="floor"></div>
+    <div class="world">
+      <div class="stage" id="fpv-stage">
+        <!-- ASSET (vertical) — demo from Pexels (free license). Replace src with your own clip,
+             or set Background to a color to use a flat backdrop instead of footage. -->
+        <video id="fpv-vid" class="bg-video"
+               src="https://videos.pexels.com/video-files/8688204/8688204-hd_1080_1920_25fps.mp4"
+               crossorigin="anonymous" data-tb-asset="vertical"
+               data-start="0" data-duration="5" data-track-index="0" muted playsinline loop></video>
+        <div class="grade" id="fpv-grade"></div>
+        <div class="head" id="fpv-head"></div>
+        <div class="flash" id="fpv-flash"></div>
+      </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["visual-freeze-peel-17-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="visual-freeze-peel-17-tb-v"]');
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.grade)  root.style.setProperty("--grade", V.grade);
+      if (V.bg && V.bg !== "transparent") { const vid = root.querySelector(".bg-video"); if (vid) vid.style.display = "none"; root.querySelector("#fpv-stage").style.background = V.bg; }
+
+      const headEl = root.querySelector("#fpv-head");
+      const head = String(V.headline && V.headline !== "" ? V.headline : "Game changer").toUpperCase();
+      const escapeHTML = (s) => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      headEl.innerHTML = head.split(/\s+/).filter(Boolean).map(w => '<span class="w">' + escapeHTML(w) + '</span>').join("");
+      const words = headEl.querySelectorAll(".w");
+
+      const stage = root.querySelector("#fpv-stage");
+      const grade = root.querySelector("#fpv-grade");
+      const flash = root.querySelector("#fpv-flash");
+      const accent = getComputedStyle(root).getPropertyValue("--tb-accent").trim() || "#33EFE0";
+
+      const TOTAL = 5, FREEZE = 1.5, PEEL = 3.5;
+      const tl = gsap.timeline({ paused: true });
+
+      // PHASE 1 — kinetic headline in
+      tl.from(words, { yPercent: 60, opacity: 0, duration: 0.5, stagger: 0.12, ease: "back.out(1.8)" }, 0.2);
+
+      // PHASE 2 — FREEZE: flash hit + darken/grade + words snap to accent + slow zoom
+      tl.fromTo(flash, { opacity: 0 }, { opacity: 0.6, duration: 0.1, ease: "power2.in" }, FREEZE);
+      tl.to(flash, { opacity: 0, duration: 0.3, ease: "power2.out" }, FREEZE + 0.1);
+      tl.to(grade, { opacity: 0.82, duration: 0.35, ease: "power2.out" }, FREEZE);
+      tl.to(words, { color: accent, duration: 0.01 }, FREEZE + 0.04);
+      tl.to(words, { scale: 1.08, duration: 0.5, stagger: 0.04, ease: "back.out(2)", transformOrigin: "50% 50%" }, FREEZE + 0.02);
+      tl.to(stage, { scale: 1.1, duration: PEEL - FREEZE, ease: "sine.out" }, FREEZE);  // slow zoom (tension)
+
+      // PHASE 3 — PEEL: the whole frame becomes a card, tilts back, shrinks and falls away
+      tl.to(grade, { opacity: 0.4, duration: 0.4, ease: "power1.out" }, PEEL);          // lift grade so the card face shows
+      tl.to(stage, {
+        rotationX: -46, rotationZ: -4, scale: 0.46, yPercent: 60,
+        borderRadius: "4vmin", duration: 1.15, ease: "power2.in",
+        boxShadow: "0 8vmin 16vmin rgba(0,0,0,0.7)"
+      }, PEEL);
+      tl.to(stage, { opacity: 0, duration: 0.45, ease: "power1.in" }, PEEL + 0.85);     // fade out only at the very end
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>
