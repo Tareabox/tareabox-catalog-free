@@ -120,19 +120,20 @@
     }
     [data-composition-id="visual-device-showcase-14-tb-v"] .card {
       aspect-ratio: 3 / 4; border-radius: 2vmin; position: relative; overflow: hidden;
+      background-size: cover; background-position: center; background-color: #222;
       box-shadow: 0 1vmin 2vmin rgba(0,0,0,0.35);
     }
-    [data-composition-id="visual-device-showcase-14-tb-v"] .card .play {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    [data-composition-id="visual-device-showcase-14-tb-v"] .card::before {
+      content: ""; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0) 48%);
     }
-    [data-composition-id="visual-device-showcase-14-tb-v"] .card .play::before {
-      content: ""; width: 0; height: 0;
-      border-left: 2.2vmin solid rgba(255,255,255,0.92);
-      border-top: 1.3vmin solid transparent; border-bottom: 1.3vmin solid transparent;
-      filter: drop-shadow(0 0.4vmin 0.6vmin rgba(0,0,0,0.5));
+    [data-composition-id="visual-device-showcase-14-tb-v"] .card .dur {
+      position: absolute; right: 0.7vmin; top: 0.7vmin; z-index: 2;
+      font-size: clamp(6px, 1vmin, 13px); font-weight: 700; color: #fff;
+      background: rgba(0,0,0,0.55); padding: 0.2vmin 0.8vmin; border-radius: 0.8vmin;
     }
     [data-composition-id="visual-device-showcase-14-tb-v"] .card .lbl {
-      position: absolute; left: 0.9vmin; bottom: 0.7vmin; right: 0.9vmin;
+      position: absolute; left: 0.9vmin; bottom: 0.7vmin; right: 0.9vmin; z-index: 2;
       font-size: clamp(7px, 1.15vmin, 15px); font-weight: 700; color: #fff;
       text-shadow: 0 0.2vmin 0.6vmin rgba(0,0,0,0.8); line-height: 1;
     }
@@ -177,14 +178,15 @@
       setTxt("#dsv-sub", V.subtitle);
       setTxt("#dsv-brand", V.brand);
 
-      // deterministic gradient cards (no external assets, no faces)
-      const labels = ["Bold","Retro","Neon","Clean","Pop","Wave","Mono","Glow","Drift","Bloom","Edge","Sharp","Flux","Pulse","Haze","Mint","Onyx","Sol","Verge","Halo","Rise","Crisp"];
+      // real thumbnails streamed from Pexels (free license) — swap THUMBS for your own screenshots/posters
+      const THUMBS = ["https://images.pexels.com/photos/12432695/pexels-photo-12432695.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/12674093/pexels-photo-12674093.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/13018456/pexels-photo-13018456.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/13018457/pexels-photo-13018457.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/13421495/pexels-photo-13421495.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/17370251/pexels-photo-17370251.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/188916/pexels-photo-188916.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/20716167/pexels-photo-20716167.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/28052948/pexels-photo-28052948.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/28157258/pexels-photo-28157258.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/30608991/pexels-photo-30608991.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/31589335/pexels-photo-31589335.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/32155471/pexels-photo-32155471.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/32445530/pexels-photo-32445530.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/33386712/pexels-photo-33386712.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/34256516/pexels-photo-34256516.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/34802062/pexels-photo-34802062.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop","https://images.pexels.com/photos/34921744/pexels-photo-34921744.jpeg?auto=compress&cs=tinysrgb&w=420&h=560&fit=crop"];
+      const labels = ["Bold cut","Retro pop","Neon flow","Clean type","Pop drop","Wave","Mono","Glow up","Drift","Bloom","Edge","Sharp","Flux","Pulse","Haze","Mint","Onyx","Solstice","Verge","Halo","Rise"];
+      const durs = ["0:15","0:30","0:21","1:02","0:45","0:12","0:38","0:27","0:52","0:19","0:41","0:33","0:24","0:48","0:16","0:55","0:29","0:37","0:22","0:44","0:31"];
       const N = 21;
       let html = "";
       for (let i = 0; i < N; i++) {
-        const h1 = (i * 47) % 360, h2 = (h1 + 38) % 360;
-        const bg = "linear-gradient(135deg, hsl(" + h1 + ",62%,46%), hsl(" + h2 + ",58%,28%))";
-        html += '<div class="card" style="background:' + bg + '"><div class="play"></div><div class="lbl">' + labels[i % labels.length] + '</div></div>';
+        const url = THUMBS[i % THUMBS.length];
+        html += '<div class="card" style="background-image:url(\'' + url + '\')"><div class="dur">' + durs[i % durs.length] + '</div><div class="lbl">' + labels[i % labels.length] + '</div></div>';
       }
       grid.innerHTML = html;
 
