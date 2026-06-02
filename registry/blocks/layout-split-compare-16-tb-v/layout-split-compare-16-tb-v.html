@@ -1,0 +1,270 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  layout-split-compare-16-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Vertical 9:16 — A cut-out presenter stands IN FRONT while a "Person A vs Person B" comparison floats behind: two image cards flanking, a center divider, and view-count metrics that count up. Talking-head + split comparison, hook style.
+  Category: layout
+  Duration: 5 seconds
+  REQUIRES: gsap (CDN)
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ ⚠ HOW THIS EFFECT WORKS — THE PRESENTER MUST BE A CUT-OUT (transparent)   │
+  │                                                                           │
+  │ The presenter sits IN FRONT of the comparison graphics. For that the      │
+  │ `presenterVideo` MUST have its background removed (transparent alpha),     │
+  │ otherwise it shows as an opaque rectangle covering everything.            │
+  │                                                                           │
+  │ Accepted formats: .webm (VP9 alpha) or .mov (ProRes 4444) with alpha.     │
+  │                                                                           │
+  │ HOW TO MAKE ONE from normal talking footage (the tool that ships with     │
+  │ HyperFrames — local AI, no upload):                                       │
+  │     npx hyperframes remove-background your-clip.mp4 -o presenter.webm     │
+  │ Then point `presenterVideo` at presenter.webm. (Or film on greenscreen    │
+  │ and key it out.) The bundled demo (tb-media/presenter-cutout.webm) was    │
+  │ produced exactly this way from a Pexels clip.                             │
+  │                                                                           │
+  │ imageA / imageB accept an IMAGE (.jpg/.png/.webp) OR a VIDEO              │
+  │ (.mp4/.webm/.mov) — the slot auto-detects by file extension.              │
+  └─────────────────────────────────────────────────────────────────────────┘
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"title","type":"string","label":"Title","default":"Which one wins?"},
+  {"id":"labelA","type":"string","label":"Left label","default":"PERSON A"},
+  {"id":"labelB","type":"string","label":"Right label","default":"PERSON B"},
+  {"id":"metricA","type":"string","label":"Left metric (e.g. 100K)","default":"100K"},
+  {"id":"metricB","type":"string","label":"Right metric (e.g. 100K)","default":"100K"},
+  {"id":"imageA","type":"string","label":"Left media — image OR video URL (.jpg/.png/.mp4/.webm)","default":"https://images.pexels.com/photos/10500054/pexels-photo-10500054.jpeg?auto=compress&cs=tinysrgb&h=900&w=675"},
+  {"id":"imageB","type":"string","label":"Right media — image OR video URL (.jpg/.png/.mp4/.webm)","default":"https://images.pexels.com/photos/5861277/pexels-photo-5861277.jpeg?auto=compress&cs=tinysrgb&h=900&w=675"},
+  {"id":"presenterVideo","type":"string","label":"Presenter — CUT-OUT/transparent video (.webm/.mov alpha). Make one: npx hyperframes remove-background clip.mp4 -o p.webm","default":"../assets/tb-media/presenter-cutout.webm"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#4da3ff"},
+  {"id":"bg","type":"string","label":"Background (color)","default":"#0a0b0f"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="layout-split-compare-16-tb-v" data-composition-id="layout-split-compare-16-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="layout-split-compare-16-tb-v"] {
+      --tb-bg:           #0a0b0f;
+      --tb-text:         #ffffff;
+      --tb-text-dim:     #c4c8d4;
+      --tb-accent:       var(--tb-brand-accent, #4da3ff);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="layout-split-compare-16-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="layout-split-compare-16-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* background: studio gradient (behind everything) */
+    [data-composition-id="layout-split-compare-16-tb-v"] .bg-grad {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(120% 70% at 50% 8%, color-mix(in srgb, var(--tb-accent) 16%, transparent) 0%, transparent 55%),
+        radial-gradient(100% 100% at 50% 100%, #14161e 0%, var(--tb-bg) 70%);
+    }
+
+    /* comparison panel — floats BEHIND the presenter */
+    [data-composition-id="layout-split-compare-16-tb-v"] .panel {
+      position: absolute; top: 0; left: 0; right: 0;
+      z-index: 1;
+      padding: 6vmin 5vmin 0;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    [data-composition-id="layout-split-compare-16-tb-v"] .title {
+      font-size: clamp(30px, 5vmin, 64px);
+      font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em;
+      color: var(--tb-text); text-align: center;
+      margin-bottom: 3.5vmin;
+      text-shadow: 0 0.4vmin 1.6vmin rgba(0,0,0,0.85), 0 0.15vmin 0.4vmin rgba(0,0,0,0.95);
+    }
+    [data-composition-id="layout-split-compare-16-tb-v"] .cols {
+      position: relative;
+      width: 100%;
+      display: flex; align-items: flex-start; justify-content: space-between;
+    }
+    [data-composition-id="layout-split-compare-16-tb-v"] .divider {
+      position: absolute; top: 1vmin; height: 46vmin; left: 50%;
+      width: 0.35vmin; margin-left: -0.175vmin;
+      background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--tb-accent) 85%, white) 40%, transparent);
+      transform-origin: 50% 0%;
+      z-index: 2;
+    }
+    [data-composition-id="layout-split-compare-16-tb-v"] .col {
+      width: 33vmin;
+      display: flex; flex-direction: column; align-items: center; gap: 2vmin;
+    }
+    [data-composition-id="layout-split-compare-16-tb-v"] .col-label {
+      font-size: clamp(15px, 2.4vmin, 28px);
+      font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--tb-text-dim);
+      text-shadow: 0 0.2vmin 0.8vmin rgba(0,0,0,0.85);
+    }
+    [data-composition-id="layout-split-compare-16-tb-v"] .card {
+      position: relative;
+      width: 100%; aspect-ratio: 3 / 4;
+      border-radius: 3.2vmin; overflow: hidden;
+      border: 0.3vmin solid rgba(255,255,255,0.18);
+      box-shadow: 0 2vmin 6vmin rgba(0,0,0,0.6);
+      background: #1b1d25;
+    }
+    [data-composition-id="layout-split-compare-16-tb-v"] .card img,
+    [data-composition-id="layout-split-compare-16-tb-v"] .card video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    /* view-count badge sits ON the card (bottom), above the presenter → always visible */
+    [data-composition-id="layout-split-compare-16-tb-v"] .metric {
+      position: absolute; left: 50%; bottom: 1.8vmin; transform: translateX(-50%);
+      z-index: 2;
+      display: inline-flex; align-items: center; gap: 1.2vmin;
+      padding: 1.1vmin 2.4vmin;
+      border-radius: 999px;
+      background: rgba(10,12,18,0.92);
+      border: 0.25vmin solid color-mix(in srgb, var(--tb-accent) 60%, transparent);
+      box-shadow: 0 0.6vmin 2vmin rgba(0,0,0,0.65), 0 0 3vmin color-mix(in srgb, var(--tb-accent) 35%, transparent);
+      white-space: nowrap;
+    }
+    /* push each badge to the OUTER corner so the centered presenter never covers it */
+    [data-composition-id="layout-split-compare-16-tb-v"] #sc16v-colA .metric { left: 1.6vmin; transform: none; }
+    [data-composition-id="layout-split-compare-16-tb-v"] #sc16v-colB .metric { left: auto; right: 1.6vmin; transform: none; }
+    [data-composition-id="layout-split-compare-16-tb-v"] .metric .eye { font-size: clamp(16px, 2.6vmin, 32px); line-height: 1; }
+    [data-composition-id="layout-split-compare-16-tb-v"] .metric .num {
+      font-size: clamp(20px, 3.2vmin, 40px);
+      font-weight: 800; color: var(--tb-text);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* presenter — cut-out (transparent), sits IN FRONT of the comparison.
+       translateY pushes the head BELOW the floating cards so they stay visible above. */
+    [data-composition-id="layout-split-compare-16-tb-v"] .presenter {
+      position: absolute; inset: 0; z-index: 3;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center bottom;
+      transform: translateY(14%);
+      transform-origin: 50% 100%;
+      pointer-events: none;
+    }
+</style>
+
+    <div class="bg-grad"></div>
+
+    <div class="panel">
+      <div class="title" id="sc16v-title">Which one wins?</div>
+      <div class="cols" id="sc16v-cols">
+        <div class="divider" id="sc16v-divider"></div>
+        <div class="col" id="sc16v-colA">
+          <div class="col-label" id="sc16v-labelA">PERSON A</div>
+          <div class="card">
+            <img id="sc16v-imgA" crossorigin="anonymous" src="https://images.pexels.com/photos/10500054/pexels-photo-10500054.jpeg?auto=compress&cs=tinysrgb&h=900&w=675" alt="" />
+            <div class="metric"><span class="eye">👁</span><span class="num" id="sc16v-numA">0</span></div>
+          </div>
+        </div>
+        <div class="col" id="sc16v-colB">
+          <div class="col-label" id="sc16v-labelB">PERSON B</div>
+          <div class="card">
+            <img id="sc16v-imgB" crossorigin="anonymous" src="https://images.pexels.com/photos/5861277/pexels-photo-5861277.jpeg?auto=compress&cs=tinysrgb&h=900&w=675" alt="" />
+            <div class="metric"><span class="eye">👁</span><span class="num" id="sc16v-numB">0</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- presenter cut-out (DEMO, bg removed) — replace via the presenterVideo variable with your own transparent footage -->
+    <video id="sc16v-presenter" class="presenter"
+           src="../assets/tb-media/presenter-cutout.webm"
+           crossorigin="anonymous" data-tb-asset="vertical"
+           data-start="0" data-duration="5" data-track-index="0"
+           muted playsinline></video>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["layout-split-compare-16-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="layout-split-compare-16-tb-v"]');
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      const setText = (id, val) => { if (val !== undefined && val !== null && val !== "") root.querySelector(id).textContent = String(val); };
+      const setSrc  = (id, val) => { if (val !== undefined && val !== null && val !== "") root.querySelector(id).setAttribute("src", String(val)); };
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
+      setText("#sc16v-title",  V.title);
+      setText("#sc16v-labelA", V.labelA);
+      setText("#sc16v-labelB", V.labelB);
+      setSrc("#sc16v-presenter", V.presenterVideo);
+
+      // each comparison slot accepts an IMAGE or a VIDEO — auto-detect by extension.
+      // (video element is created on demand so the default/image case stays lint-clean)
+      const isVideo = (u) => /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(String(u || ""));
+      const setMedia = (imgEl, url, trackIndex) => {
+        if (url === undefined || url === null || url === "") return;
+        if (!isVideo(url)) { imgEl.setAttribute("src", url); return; }
+        imgEl.style.display = "none";
+        const v = document.createElement("video");
+        v.setAttribute("src", url);
+        v.setAttribute("data-start", "0");
+        v.setAttribute("data-duration", "5");
+        v.setAttribute("data-track-index", String(trackIndex));
+        v.muted = true; v.loop = true; v.playsInline = true;
+        v.setAttribute("muted", ""); v.setAttribute("loop", ""); v.setAttribute("playsinline", ""); v.setAttribute("crossorigin", "anonymous");
+        imgEl.parentNode.insertBefore(v, imgEl);
+      };
+      setMedia(root.querySelector("#sc16v-imgA"), V.imageA, 2);
+      setMedia(root.querySelector("#sc16v-imgB"), V.imageB, 3);
+
+      const title = root.querySelector("#sc16v-title");
+      const colA  = root.querySelector("#sc16v-colA");
+      const colB  = root.querySelector("#sc16v-colB");
+      const divider = root.querySelector("#sc16v-divider");
+      const numA  = root.querySelector("#sc16v-numA");
+      const numB  = root.querySelector("#sc16v-numB");
+
+      const parseMetric = (str) => {
+        const m = String(str == null ? "" : str).trim().match(/^([\d.]+)\s*([kKmMbB]?)$/);
+        return m ? { n: parseFloat(m[1]), suf: m[2].toUpperCase() } : { n: 0, suf: "" };
+      };
+      const fmt = (v, suf) => {
+        if (suf === "") return Math.round(v).toLocaleString("en-US");
+        if (v >= 10 || Math.round(v) === v) return String(Math.round(v)) + suf;
+        return v.toFixed(1) + suf;
+      };
+      const tA = parseMetric((V.metricA != null && V.metricA !== "") ? V.metricA : "100K");
+      const tB = parseMetric((V.metricB != null && V.metricB !== "") ? V.metricB : "100K");
+      const pA = { v: 0 }, pB = { v: 0 };
+
+      const TOTAL = 5;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from(title, { opacity: 0, y: -22, duration: 0.5, ease: "power3.out" }, 0.1);
+      tl.from(colA, { opacity: 0, x: -64, duration: 0.6, ease: "power3.out" }, 0.35);
+      tl.from(colB, { opacity: 0, x: 64,  duration: 0.6, ease: "power3.out" }, 0.35);
+
+      gsap.set(divider, { scaleY: 0 });
+      tl.to(divider, { scaleY: 1, duration: 0.6, ease: "power2.out" }, 0.5);
+
+      tl.to(pA, { v: tA.n, duration: 1.4, ease: "power2.out", onUpdate: () => { numA.textContent = fmt(pA.v, tA.suf); } }, 0.7);
+      tl.to(pB, { v: tB.n, duration: 1.4, ease: "power2.out", onUpdate: () => { numB.textContent = fmt(pB.v, tB.suf); } }, 0.7);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

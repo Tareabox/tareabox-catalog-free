@@ -136,6 +136,14 @@
       "type": "hyperframes:block"
     },
     {
+      "name": "layout-split-compare-16-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "layout-split-compare-16-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "layout-tutorial-step-01-tb",
       "type": "hyperframes:block"
     },

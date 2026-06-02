@@ -1,0 +1,36 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "layout-split-compare-16-tb",
+  "type": "hyperframes:block",
+  "title": "Layout Split Compare (Horizontal)",
+  "description": "Un presentador recortado (fondo removido) habla AL FRENTE mientras una comparación 'Person A vs Person B' lo flanquea: dos tarjetas de imagen o video, con métricas de vistas que cuentan hacia arriba. El presenter debe ser un video transparente/cut-out (usar `hyperframes remove-background`). Formato horizontal 16:9",
+  "tags": [
+    "layout",
+    "split",
+    "compare",
+    "presenter",
+    "horizontal",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "duration": 5.0,
+  "files": [
+    {
+      "path": "layout-split-compare-16-tb.html",
+      "target": "compositions/layout-split-compare-16-tb.html",
+      "type": "hyperframes:composition"
+    },
+    {
+      "path": "tb-media/presenter-cutout.webm",
+      "target": "assets/tb-media/presenter-cutout.webm",
+      "type": "hyperframes:asset"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-layout-split-compare-16-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-layout-split-compare-16-tb.png"
+  }
+}
