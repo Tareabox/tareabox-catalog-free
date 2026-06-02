@@ -144,6 +144,14 @@
       "type": "hyperframes:block"
     },
     {
+      "name": "layout-phone-showcase-18-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "layout-phone-showcase-18-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "layout-recap-card-03-tb",
       "type": "hyperframes:component"
     },
@@ -209,6 +217,14 @@
     },
     {
       "name": "layout-video-split-02-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "layout-vs-react-17-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "layout-vs-react-17-tb-v",
       "type": "hyperframes:block"
     },
     {

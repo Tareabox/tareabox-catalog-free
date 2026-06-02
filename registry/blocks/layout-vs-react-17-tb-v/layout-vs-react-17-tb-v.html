@@ -1,0 +1,226 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  layout-vs-react-17-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Two contents compared side by side (image OR video each) with a VS badge, while a background-removed presenter reacts on top.
+  Category: layout
+  Duration: 5 seconds
+  REQUIRES: gsap (CDN)
+  EDITABLE (HyperFrames variables): leftSrc · rightSrc · avatarSrc (transparent cutout) · labelLeft · labelRight · vsText · accent.
+  Each of leftSrc / rightSrc / avatarSrc accepts an IMAGE or a VIDEO — auto-detected by extension. avatarSrc should be a transparent webm/mov (or transparent png).
+  The demo cutout (tb-media/cutout-demo.webm) was made with: npx hyperframes remove-background subject.mp4 -o cutout-demo.webm
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"leftSrc","type":"string","label":"Left content — image or video URL","default":"https://videos.pexels.com/video-files/12871514/12871514-hd_1080_1920_30fps.mp4"},
+  {"id":"rightSrc","type":"string","label":"Right content — image or video URL","default":"https://videos.pexels.com/video-files/32022379/13648929_1080_1920_30fps.mp4"},
+  {"id":"avatarSrc","type":"string","label":"Cutout presenter — transparent webm/mov or png","default":"../assets/tb-media/cutout-demo.webm"},
+  {"id":"labelLeft","type":"string","label":"Left label","default":"BEFORE"},
+  {"id":"labelRight","type":"string","label":"Right label","default":"AFTER"},
+  {"id":"vsText","type":"string","label":"Center badge text","default":"VS"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#33efe0"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="layout-vs-react-17-tb-v" data-composition-id="layout-vs-react-17-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE  (defaults — overridable via variables) */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="layout-vs-react-17-tb-v"] {
+      --tb-bg:           #0c0d14;
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33efe0);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+
+      --left-src:   "https://videos.pexels.com/video-files/12871514/12871514-hd_1080_1920_30fps.mp4";
+      --right-src:  "https://videos.pexels.com/video-files/32022379/13648929_1080_1920_30fps.mp4";
+      --avatar-src: "../assets/tb-media/cutout-demo.webm";
+      --label-left:  "BEFORE";
+      --label-right: "AFTER";
+      --vs-text:     "VS";
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="layout-vs-react-17-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="layout-vs-react-17-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Split comparison (bottom layer) */
+    [data-composition-id="layout-vs-react-17-tb-v"] .split {
+      position: absolute; inset: 0; z-index: 0; display: flex;
+    }
+    [data-composition-id="layout-vs-react-17-tb-v"] .panel {
+      position: relative; width: 50%; height: 100%; overflow: hidden;
+      will-change: transform;
+    }
+    [data-composition-id="layout-vs-react-17-tb-v"] .media {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    [data-composition-id="layout-vs-react-17-tb-v"] .panel::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, transparent 22%, transparent 55%, rgba(0,0,0,0.55) 100%);
+    }
+    [data-composition-id="layout-vs-react-17-tb-v"] .divider {
+      position: absolute; left: 50%; top: 0; width: 0.7vmin; height: 100%;
+      transform: translateX(-50%) scaleY(0); transform-origin: center;
+      background: var(--tb-accent); z-index: 3;
+      box-shadow: 0 0 3vmin color-mix(in srgb, var(--tb-accent) 70%, transparent);
+    }
+
+    /* Labels */
+    [data-composition-id="layout-vs-react-17-tb-v"] .label {
+      position: absolute; top: 7%; z-index: 5;
+      font-size: clamp(22px, 4.6vmin, 60px);
+      font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase;
+      color: var(--tb-text);
+      text-shadow: 0 0.4vmin 1.6vmin rgba(0,0,0,0.85), 0 0.15vmin 0.4vmin rgba(0,0,0,0.95);
+      opacity: 0;
+    }
+    [data-composition-id="layout-vs-react-17-tb-v"] .label-left  { left: 6%; }
+    [data-composition-id="layout-vs-react-17-tb-v"] .label-right { right: 6%; }
+
+    /* VS badge (center) */
+    [data-composition-id="layout-vs-react-17-tb-v"] .vs-badge {
+      position: absolute; left: 50%; top: 16%;
+      transform: translate(-50%, -50%) scale(0);
+      z-index: 6;
+      width: 22vmin; height: 22vmin; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--tb-bg);
+      border: 0.8vmin solid var(--tb-accent);
+      box-shadow: 0 0 5vmin color-mix(in srgb, var(--tb-accent) 55%, transparent), 0 1vmin 3vmin rgba(0,0,0,0.5);
+      font-size: clamp(28px, 7vmin, 96px);
+      font-weight: 900; font-style: italic; letter-spacing: -0.04em;
+      color: var(--tb-accent);
+    }
+
+    /* Cutout presenter (top layer) */
+    [data-composition-id="layout-vs-react-17-tb-v"] .avatar-wrap {
+      position: absolute; inset: 0; z-index: 4;
+      will-change: transform, opacity;
+    }
+    [data-composition-id="layout-vs-react-17-tb-v"] .cutout {
+      width: 100%; height: 100%; object-fit: cover; object-position: bottom center;
+      filter: drop-shadow(0 1.5vmin 3vmin rgba(0,0,0,0.55));
+    }
+</style>
+
+    <!-- BOTTOM LAYER: split comparison. Each side accepts an image OR a video (auto-detected). -->
+    <div class="split">
+      <div class="panel left" id="vr17v-left">
+        <video class="media" id="vr17v-left-vid"
+               src="https://videos.pexels.com/video-files/12871514/12871514-hd_1080_1920_30fps.mp4"
+               crossorigin="anonymous" data-tb-asset="compare-left"
+               data-start="0" data-duration="5" data-track-index="10"
+               muted playsinline loop></video>
+        <img class="media" id="vr17v-left-img" alt="" crossorigin="anonymous"
+             data-tb-asset="compare-left" data-start="0" data-duration="5" style="display:none" />
+      </div>
+      <div class="panel right" id="vr17v-right">
+        <video class="media" id="vr17v-right-vid"
+               src="https://videos.pexels.com/video-files/32022379/13648929_1080_1920_30fps.mp4"
+               crossorigin="anonymous" data-tb-asset="compare-right"
+               data-start="0" data-duration="5" data-track-index="11"
+               muted playsinline loop></video>
+        <img class="media" id="vr17v-right-img" alt="" crossorigin="anonymous"
+             data-tb-asset="compare-right" data-start="0" data-duration="5" style="display:none" />
+      </div>
+    </div>
+    <div class="divider" id="vr17v-divider"></div>
+
+    <span class="label label-left"  id="vr17v-label-left"></span>
+    <span class="label label-right" id="vr17v-label-right"></span>
+    <div class="vs-badge" id="vr17v-vs"></div>
+
+    <!-- TOP LAYER: background-removed presenter. EDITABLE via avatarSrc (transparent webm/mov or png). -->
+    <div class="avatar-wrap" id="vr17v-avatar">
+      <video class="cutout" id="vr17v-cutout-vid"
+             src="../assets/tb-media/cutout-demo.webm"
+             crossorigin="anonymous" data-tb-asset="presenter-cutout"
+             data-start="0" data-duration="5" data-track-index="20"
+             muted playsinline></video>
+      <img class="cutout" id="vr17v-cutout-img" alt="" crossorigin="anonymous"
+           data-tb-asset="presenter-cutout" data-start="0" data-duration="5" style="display:none" />
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["layout-vs-react-17-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="layout-vs-react-17-tb-v"]');
+      const cs   = getComputedStyle(root);
+      const rd   = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g, "");
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const val = (key, cssName) => {
+        if (V[key] !== undefined && V[key] !== null && V[key] !== "") return V[key];
+        return rd(cssName);
+      };
+
+      const leftSrc   = val("leftSrc",   "--left-src");
+      const rightSrc  = val("rightSrc",  "--right-src");
+      const avatarSrc = val("avatarSrc", "--avatar-src");
+      const labelL    = val("labelLeft", "--label-left");
+      const labelR    = val("labelRight","--label-right");
+      const vsText    = val("vsText",    "--vs-text");
+      const accent    = (V.accent !== undefined && V.accent !== "") ? V.accent : "";
+      if (accent) root.style.setProperty("--tb-accent", accent);
+
+      const isImg = (u) => /\.(jpe?g|png|webp|gif|avif)(\?|#|$)/i.test(String(u || ""));
+      const place = (vidEl, imgEl, src) => {
+        if (!src) return;
+        if (isImg(src)) { imgEl.src = src; imgEl.style.display = "block"; vidEl.style.display = "none"; }
+        else { vidEl.src = src; vidEl.style.display = "block"; imgEl.style.display = "none"; }
+      };
+      place(root.querySelector("#vr17v-left-vid"),   root.querySelector("#vr17v-left-img"),   leftSrc);
+      place(root.querySelector("#vr17v-right-vid"),  root.querySelector("#vr17v-right-img"),  rightSrc);
+      place(root.querySelector("#vr17v-cutout-vid"), root.querySelector("#vr17v-cutout-img"), avatarSrc);
+
+      root.querySelector("#vr17v-label-left").textContent  = labelL;
+      root.querySelector("#vr17v-label-right").textContent = labelR;
+      root.querySelector("#vr17v-vs").textContent          = vsText;
+
+      const leftP   = root.querySelector("#vr17v-left");
+      const rightP  = root.querySelector("#vr17v-right");
+      const divider = root.querySelector("#vr17v-divider");
+      const labLeft = root.querySelector("#vr17v-label-left");
+      const labRight= root.querySelector("#vr17v-label-right");
+      const vs      = root.querySelector("#vr17v-vs");
+      const avatar  = root.querySelector("#vr17v-avatar");
+
+      const TOTAL = 5;
+      const tl = gsap.timeline({ paused: true });
+
+      // panels slide in from the sides
+      tl.fromTo(leftP,  { xPercent: -100 }, { xPercent: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      tl.fromTo(rightP, { xPercent:  100 }, { xPercent: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+      // divider grows
+      tl.to(divider, { scaleY: 1, duration: 0.5, ease: "expo.out" }, 0.55);
+      // labels in
+      tl.fromTo(labLeft,  { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.7);
+      tl.fromTo(labRight, { opacity: 0, y: -16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.78);
+      // VS badge pops
+      tl.to(vs, { scale: 1, duration: 0.5, ease: "back.out(2.2)" }, 0.85);
+      // presenter cutout rises in and reacts
+      tl.fromTo(avatar, { yPercent: 34, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8, ease: "back.out(1.2)" }, 0.5);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

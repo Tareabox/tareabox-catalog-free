@@ -1,0 +1,224 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  layout-phone-showcase-18-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: A presenter looks down at a phone that rises into frame and reveals your image OR video on its screen, with a gentle float and brand glow.
+  Category: layout
+  Duration: 5 seconds
+  REQUIRES: gsap (CDN)
+  EDITABLE (HyperFrames variables): avatarSrc · screenSrc · headline · accent · scrim.
+  Both avatarSrc and screenSrc accept an IMAGE or a VIDEO url — the block auto-detects by extension and places it correctly.
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"avatarSrc","type":"string","label":"Avatar (presenter) — image or video URL","default":"https://videos.pexels.com/video-files/6535054/6535054-hd_1080_1920_24fps.mp4"},
+  {"id":"screenSrc","type":"string","label":"Phone screen — image or video URL","default":"https://videos.pexels.com/video-files/12871514/12871514-hd_1080_1920_30fps.mp4"},
+  {"id":"headline","type":"string","label":"Headline (empty to hide)","default":"WATCH THIS"},
+  {"id":"accent","type":"color","label":"Accent / glow color","default":"#33efe0"},
+  {"id":"scrim","type":"number","label":"Background darken (0 to 1)","default":0.32}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="layout-phone-showcase-18-tb-v" data-composition-id="layout-phone-showcase-18-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE  (defaults — overridable via variables) */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="layout-phone-showcase-18-tb-v"] {
+      --tb-bg:           #1d1f31;
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33efe0);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+
+      --avatar-src:      "https://videos.pexels.com/video-files/6535054/6535054-hd_1080_1920_24fps.mp4";
+      --screen-src:      "https://videos.pexels.com/video-files/12871514/12871514-hd_1080_1920_30fps.mp4";
+      --headline:        "WATCH THIS";   /* set to "" to hide */
+      --scrim:           0.32;           /* 0 = no darkening, 1 = very dark */
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="layout-phone-showcase-18-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="layout-phone-showcase-18-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Avatar (presenter) — image OR video, swappable via avatarSrc variable */
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .avatar {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; z-index: 0;
+    }
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .scrim {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background:
+        radial-gradient(ellipse 70% 55% at 50% 60%, rgba(0,0,0,calc(var(--scrim) + 0.12)) 0%, transparent 70%),
+        linear-gradient(180deg, rgba(0,0,0,calc(var(--scrim) * 0.7)) 0%, transparent 32%, rgba(0,0,0,calc(var(--scrim) * 1.1)) 100%);
+    }
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .glow {
+      position: absolute; left: 50%; top: 58%;
+      width: 95vmin; height: 95vmin;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, color-mix(in srgb, var(--tb-accent) 30%, transparent) 0%, transparent 62%);
+      z-index: 1; pointer-events: none; opacity: 0;
+    }
+
+    /* Headline */
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .headline {
+      position: absolute; left: 0; right: 0; top: 9%;
+      z-index: 5; text-align: center;
+      font-size: clamp(34px, 8vmin, 96px);
+      font-weight: 900; letter-spacing: -0.02em; text-transform: uppercase;
+      color: var(--tb-text);
+      text-shadow: 0 0.4vmin 1.6vmin rgba(0,0,0,0.85), 0 0.15vmin 0.4vmin rgba(0,0,0,0.95);
+      padding: 0 8%;
+      opacity: 0;
+    }
+
+    /* Phone */
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .phone-anchor {
+      position: absolute; left: 50%; top: 58%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+    }
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .phone {
+      position: relative;
+      width: clamp(280px, 50vmin, 560px);
+      aspect-ratio: 1000 / 2050;
+      background: linear-gradient(150deg, #2a2c3a 0%, #0c0d14 55%);
+      border-radius: 9vmin;
+      padding: 1.3vmin;
+      box-shadow:
+        0 6vmin 12vmin rgba(0,0,0,0.55),
+        0 2vmin 4vmin rgba(0,0,0,0.6),
+        0 0 0 0.35vmin rgba(255,255,255,0.06) inset;
+      will-change: transform, opacity;
+    }
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .screen {
+      position: relative;
+      width: 100%; height: 100%;
+      border-radius: 7.6vmin;
+      overflow: hidden;
+      background: #000;
+    }
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .screen-media {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .screen-sheen {
+      position: absolute; inset: 0; pointer-events: none; z-index: 2;
+      background: linear-gradient(120deg, rgba(255,255,255,0.18) 0%, transparent 28%, transparent 75%, rgba(255,255,255,0.08) 100%);
+    }
+    [data-composition-id="layout-phone-showcase-18-tb-v"] .island {
+      position: absolute; top: 1.7vmin; left: 50%; transform: translateX(-50%);
+      width: 26%; height: 2.6vmin;
+      background: #000; border-radius: 3vmin; z-index: 3;
+    }
+</style>
+
+    <!--
+      AVATAR (presenter) — both a <video> and an <img> exist; the script shows whichever matches avatarSrc.
+      EDITABLE: set the avatarSrc variable (or edit --avatar-src). Accepts .mp4/.webm (video) or .jpg/.png/.webp (image).
+    -->
+    <video class="avatar" id="ps18v-avatar-vid"
+           src="https://videos.pexels.com/video-files/6535054/6535054-hd_1080_1920_24fps.mp4"
+           crossorigin="anonymous" data-tb-asset="background"
+           data-start="0" data-duration="5" data-track-index="0"
+           muted playsinline></video>
+    <img class="avatar" id="ps18v-avatar-img" alt="" crossorigin="anonymous"
+         data-tb-asset="background" data-start="0" data-duration="5" style="display:none" />
+
+    <div class="scrim"></div>
+    <div class="glow" id="ps18v-glow"></div>
+
+    <h1 class="headline" id="ps18v-headline"></h1>
+
+    <div class="phone-anchor">
+      <div class="phone" id="ps18v-phone">
+        <div class="screen">
+          <!--
+            PHONE SCREEN — both a <video> and an <img> exist; the script shows whichever matches screenSrc.
+            EDITABLE: set the screenSrc variable (or edit --screen-src). Accepts video OR image.
+          -->
+          <video class="screen-media" id="ps18v-screen-vid"
+                 src="https://videos.pexels.com/video-files/12871514/12871514-hd_1080_1920_30fps.mp4"
+                 crossorigin="anonymous" data-tb-asset="phone-screen"
+                 data-start="0" data-duration="5" data-track-index="10"
+                 muted playsinline loop></video>
+          <img class="screen-media" id="ps18v-screen-img" alt="" crossorigin="anonymous"
+               data-tb-asset="phone-screen" data-start="0" data-duration="5" style="display:none" />
+          <div class="island"></div>
+          <div class="screen-sheen"></div>
+        </div>
+      </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["layout-phone-showcase-18-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="layout-phone-showcase-18-tb-v"]');
+      const cs   = getComputedStyle(root);
+      const rd   = (v) => cs.getPropertyValue(v).trim().replace(/^["']|["']$/g, "");
+
+      // Merge declared variables (Studio / CLI overrides) over CSS-var defaults.
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const val = (key, cssName) => {
+        if (V[key] !== undefined && V[key] !== null && V[key] !== "") return V[key];
+        return rd(cssName);
+      };
+
+      const avatarSrc = val("avatarSrc", "--avatar-src");
+      const screenSrc = val("screenSrc", "--screen-src");
+      const headline  = val("headline",  "--headline");
+      const accent    = (V.accent !== undefined && V.accent !== "") ? V.accent : "";
+      const scrim     = (V.scrim  !== undefined && V.scrim  !== "") ? V.scrim  : "";
+      if (accent) root.style.setProperty("--tb-accent", accent);
+      if (scrim !== "") root.style.setProperty("--scrim", String(scrim));
+
+      // Image vs video: auto-detect by extension and place the matching element.
+      const isImg = (u) => /\.(jpe?g|png|webp|gif|avif)(\?|#|$)/i.test(String(u || ""));
+      const place = (vidEl, imgEl, src) => {
+        if (!src) return;
+        if (isImg(src)) {
+          imgEl.src = src; imgEl.style.display = "block"; vidEl.style.display = "none";
+        } else {
+          vidEl.src = src; vidEl.style.display = "block"; imgEl.style.display = "none";
+        }
+      };
+      place(root.querySelector("#ps18v-avatar-vid"), root.querySelector("#ps18v-avatar-img"), avatarSrc);
+      place(root.querySelector("#ps18v-screen-vid"), root.querySelector("#ps18v-screen-img"), screenSrc);
+
+      const phone  = root.querySelector("#ps18v-phone");
+      const glow   = root.querySelector("#ps18v-glow");
+      const headEl = root.querySelector("#ps18v-headline");
+      if (headline) { headEl.textContent = headline; } else { headEl.style.display = "none"; }
+
+      const TOTAL = 5;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(glow, { opacity: 0 }, { opacity: 1, duration: 0.7, ease: "power2.out" }, 0.15);
+      tl.fromTo(phone,
+        { yPercent: 80, opacity: 0, scale: 0.92, rotate: -2 },
+        { yPercent: 0, opacity: 1, scale: 1, rotate: 0, duration: 0.85, ease: "back.out(1.4)" }, 0.25);
+      if (headline) {
+        tl.fromTo(headEl, { opacity: 0, y: -24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.7);
+      }
+      tl.to(phone, { yPercent: -2.4, duration: 1.5, ease: "sine.inOut", yoyo: true, repeat: 2 }, 1.15);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

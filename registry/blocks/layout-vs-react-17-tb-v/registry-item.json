@@ -1,0 +1,37 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "layout-vs-react-17-tb-v",
+  "type": "hyperframes:block",
+  "title": "VS Compare + Reactor Cutout (Vertical)",
+  "description": "Efecto Tareabox: VS Compare with reacting cutout presenter",
+  "tags": [
+    "layout",
+    "comparison",
+    "vs",
+    "cutout",
+    "reactor",
+    "vertical",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "duration": 5.0,
+  "files": [
+    {
+      "path": "layout-vs-react-17-tb-v.html",
+      "target": "compositions/layout-vs-react-17-tb-v.html",
+      "type": "hyperframes:composition"
+    },
+    {
+      "path": "tb-media/cutout-demo.webm",
+      "target": "assets/tb-media/cutout-demo.webm",
+      "type": "hyperframes:asset"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-layout-vs-react-17-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-layout-vs-react-17-tb-v.png"
+  }
+}
