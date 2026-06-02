@@ -1,0 +1,150 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  conversationapp-scan-app-22-tb (horizontal 1920x1080)
+  Tareabox Hyperframes Effect
+  Description: A scan-to-identify app screen — a viewfinder scans a sample, a line sweeps, then a result panel reveals a top match and a confidence bar. Fully editable.
+  Category: conversationapp
+  Duration: 5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"appname","type":"string","label":"App name","default":"WhatTheStyle"},
+  {"id":"sample","type":"string","label":"Sample in viewfinder","default":"Aa"},
+  {"id":"match","type":"string","label":"Top match name","default":"Geist Black"},
+  {"id":"percent","type":"string","label":"Match %","default":"98"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#33EFE0"},
+  {"id":"bg","type":"color","label":"App background","default":"#0e1018"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="conversationapp-scan-app-22-tb" data-composition-id="conversationapp-scan-app-22-tb"
+       data-width="1920" data-height="1080"
+       data-start="0" data-duration="5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="conversationapp-scan-app-22-tb"] {
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --bg:              #0e1018;
+      --card:            #181b26;
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="conversationapp-scan-app-22-tb"] {
+      position: relative; width: 100%; height: 100%;
+      overflow: hidden; background: var(--bg);
+      font-family: var(--tb-font-display); color: #fff;
+    }
+    [data-composition-id="conversationapp-scan-app-22-tb"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="conversationapp-scan-app-22-tb"] .app { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; padding: 4.5% 6% 0; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4vmin; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .topbar .t { font-size: clamp(18px, 2.6vmin, 38px); font-weight: 800; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .topbar .t b { color: var(--tb-accent); }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .ico { width: 5vmin; height: 5vmin; border-radius: 50%; background: #232634; display: flex; align-items: center; justify-content: center; }
+
+    [data-composition-id="conversationapp-scan-app-22-tb"] .main { display: flex; gap: 5%; align-items: center; flex: 1; padding-bottom: 4%; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .viewfinder {
+      position: relative; height: 78%; aspect-ratio: 1 / 1; border-radius: 4vmin; overflow: hidden;
+      background: linear-gradient(135deg, #2a2f45, #14161f); display: flex; align-items: center; justify-content: center; flex: none;
+    }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .sample { font-size: 34vmin; font-weight: 900; color: #fff; line-height: 0.8; letter-spacing: -0.04em; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .corners i { position: absolute; width: 7vmin; height: 7vmin; border: 0.9vmin solid var(--tb-accent); }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .corners i:nth-child(1) { top: 3vmin; left: 3vmin; border-right: 0; border-bottom: 0; border-radius: 2vmin 0 0 0; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .corners i:nth-child(2) { top: 3vmin; right: 3vmin; border-left: 0; border-bottom: 0; border-radius: 0 2vmin 0 0; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .corners i:nth-child(3) { bottom: 3vmin; left: 3vmin; border-right: 0; border-top: 0; border-radius: 0 0 0 2vmin; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .corners i:nth-child(4) { bottom: 3vmin; right: 3vmin; border-left: 0; border-top: 0; border-radius: 0 0 2vmin 0; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .scanline { position: absolute; left: 0; right: 0; top: 0; height: 0.8vmin; background: linear-gradient(90deg, transparent, var(--tb-accent), transparent); box-shadow: 0 0 5vmin 1vmin color-mix(in srgb, var(--tb-accent) 45%, transparent); }
+
+    [data-composition-id="conversationapp-scan-app-22-tb"] .right { flex: 1; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .status { font-size: clamp(13px, 2vmin, 28px); font-weight: 700; color: #aeb3c2; margin-bottom: 3vmin; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .result { background: var(--card); border-radius: 3vmin; padding: 4vmin; border: 0.3vmin solid rgba(255,255,255,0.07); box-shadow: 0 2vmin 6vmin rgba(0,0,0,0.4); }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .result .lbl { font-size: clamp(11px, 1.5vmin, 22px); font-weight: 800; letter-spacing: 0.16em; color: var(--tb-accent); }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .result .row { display: flex; align-items: center; justify-content: space-between; margin: 1.6vmin 0 2vmin; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .result .name { font-size: clamp(22px, 3.8vmin, 56px); font-weight: 900; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .result .pct { font-size: clamp(18px, 3vmin, 44px); font-weight: 800; color: var(--tb-accent); }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .meter { height: 1.6vmin; border-radius: 2vmin; background: #2a2e3c; overflow: hidden; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .meter i { display: block; height: 100%; width: 0%; border-radius: 2vmin; background: linear-gradient(90deg, var(--tb-accent), color-mix(in srgb, var(--tb-accent) 50%, #fff)); }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .alts { display: flex; gap: 1.6vmin; margin-top: 2.6vmin; }
+    [data-composition-id="conversationapp-scan-app-22-tb"] .alt { flex: 1; background: #20232f; border-radius: 2vmin; padding: 2vmin; font-size: clamp(12px, 1.7vmin, 24px); font-weight: 600; color: #cfd3dc; text-align: center; }
+</style>
+
+    <div class="app">
+      <div class="topbar">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4"><path d="m15 18-6-6 6-6"/></svg></div>
+        <div class="t" id="sah-name">What<b>The</b>Style</div>
+        <div class="ico"><svg width="5" height="20" viewBox="0 0 6 24" fill="#fff"><circle cx="3" cy="4" r="2"/><circle cx="3" cy="12" r="2"/><circle cx="3" cy="20" r="2"/></svg></div>
+      </div>
+
+      <div class="main">
+        <div class="viewfinder" id="sah-vf">
+          <div class="sample" id="sah-sample">Aa</div>
+          <div class="corners"><i></i><i></i><i></i><i></i></div>
+          <div class="scanline" id="sah-line"></div>
+        </div>
+        <div class="right">
+          <div class="status" id="sah-status">Scanning…</div>
+          <div class="result" id="sah-result">
+            <div class="lbl">TOP MATCH</div>
+            <div class="row"><span class="name" id="sah-match">Geist Black</span><span class="pct" id="sah-pct">98%</span></div>
+            <div class="meter"><i id="sah-meter"></i></div>
+            <div class="alts"><div class="alt">Inter · 91%</div><div class="alt">Satoshi · 87%</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["conversationapp-scan-app-22-tb"] = (function () {
+      const root = document.querySelector('[data-composition-id="conversationapp-scan-app-22-tb"]');
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.bg)     root.style.setProperty("--bg", V.bg);
+      if (V.appname && V.appname !== "") root.querySelector("#sah-name").textContent = V.appname;
+      const setT = (id, v) => { if (v != null && v !== "") root.querySelector(id).textContent = v; };
+      setT("#sah-sample", V.sample); setT("#sah-match", V.match);
+
+      const pctNum = (V.percent && V.percent !== "") ? parseFloat(V.percent) : 98;
+      const pctEl = root.querySelector("#sah-pct"), meter = root.querySelector("#sah-meter");
+      const status = root.querySelector("#sah-status"), line = root.querySelector("#sah-line"), result = root.querySelector("#sah-result");
+
+      const TOTAL = 5;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from(".topbar", { y: -16, opacity: 0, duration: 0.45, ease: "power2.out" }, 0.1);
+      tl.from("#sah-vf", { scale: 0.92, opacity: 0, duration: 0.55, ease: "back.out(1.5)" }, 0.25);
+      tl.from(".sample", { scale: 1.2, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.4);
+
+      tl.fromTo(line, { top: "2%" }, { top: "96%", duration: 0.9, ease: "sine.inOut" }, 0.7);
+      tl.to(line, { top: "20%", duration: 0.7, ease: "sine.inOut" }, 1.6);
+      tl.to(line, { opacity: 0, duration: 0.3 }, 2.3);
+
+      result.style.visibility = "hidden";
+      tl.add(() => { status.textContent = "Match found"; status.style.color = getComputedStyle(root).getPropertyValue("--tb-accent"); }, 2.4);
+      tl.set(result, { visibility: "visible" }, 2.4);
+      tl.from(result, { y: 34, opacity: 0, duration: 0.55, ease: "power3.out" }, 2.45);
+      tl.fromTo(meter, { width: "0%" }, { width: pctNum + "%", duration: 0.9, ease: "power2.out" }, 2.6);
+      const c = { v: 0 };
+      pctEl.textContent = "0%";
+      tl.to(c, { v: pctNum, duration: 0.9, ease: "power2.out", onUpdate: () => { pctEl.textContent = Math.round(c.v) + "%"; } }, 2.6);
+      tl.from(".alt", { y: 14, opacity: 0, duration: 0.4, stagger: 0.1, ease: "power2.out" }, 2.9);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

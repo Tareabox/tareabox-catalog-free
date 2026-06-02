@@ -1,0 +1,227 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  conversationapp-reels-frame-20-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Frames any clip as a short-video Reel — top bar, right action rail (avatar, like that ticks up, comment, share), username + follow, caption and audio ticker. Demo over a Pexels clip; swap for your own.
+  Category: conversationapp
+  Duration: 5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"username","type":"string","label":"Username","default":"natalie.digital"},
+  {"id":"caption","type":"string","label":"Caption","default":"the only editor you actually need ✨"},
+  {"id":"likes","type":"string","label":"Likes (final, e.g. 24.6K)","default":"24.6K"},
+  {"id":"comments","type":"string","label":"Comments count","default":"312"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#FE83B9"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="conversationapp-reels-frame-20-tb-v" data-composition-id="conversationapp-reels-frame-20-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] {
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #FE83B9);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: #000; overflow: hidden;
+      font-family: var(--tb-font-display); color: #fff;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .bg-video {
+      position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .scrim {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0) 28%),
+                  linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0) 16%);
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .ui { position: absolute; inset: 0; z-index: 2; }
+
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .topbar {
+      position: absolute; top: 4.4%; left: 5%; right: 5%;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .topbar .reels {
+      font-size: clamp(20px, 3.4vmin, 46px); font-weight: 800; letter-spacing: -0.01em;
+      text-shadow: 0 0.3vmin 1vmin rgba(0,0,0,0.6);
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] svg { display: block; }
+
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .rail {
+      position: absolute; right: 4.5%; bottom: 17%;
+      display: flex; flex-direction: column; align-items: center; gap: 3.4vmin;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .rail .item {
+      display: flex; flex-direction: column; align-items: center; gap: 0.7vmin;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .rail .item .n {
+      font-size: clamp(12px, 1.9vmin, 26px); font-weight: 700;
+      text-shadow: 0 0.2vmin 0.8vmin rgba(0,0,0,0.7);
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .avatar {
+      width: 7vmin; height: 7vmin; border-radius: 50%;
+      background: conic-gradient(from 30deg, #FE83B9, #33EFE0, #FE83B9);
+      padding: 0.4vmin; position: relative; margin-bottom: 1.2vmin;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .avatar i {
+      display: block; width: 100%; height: 100%; border-radius: 50%;
+      background: linear-gradient(135deg, #444, #111); border: 0.3vmin solid #000;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .avatar .plus {
+      position: absolute; bottom: -0.8vmin; left: 50%; transform: translateX(-50%);
+      width: 2.6vmin; height: 2.6vmin; border-radius: 50%; background: var(--tb-accent);
+      color: #fff; font-weight: 800; font-size: 1.8vmin; display: flex; align-items: center; justify-content: center;
+      border: 0.3vmin solid #000;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .disc {
+      width: 7vmin; height: 7vmin; border-radius: 1.4vmin;
+      background: conic-gradient(#222,#555,#222,#555,#222); border: 0.4vmin solid #000;
+      box-shadow: 0 0.6vmin 1.4vmin rgba(0,0,0,0.5);
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .bottom {
+      position: absolute; left: 5%; bottom: 16%; width: 72%;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .userrow {
+      display: flex; align-items: center; gap: 2vmin; margin-bottom: 1.6vmin;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .userrow .u {
+      font-size: clamp(14px, 2.2vmin, 30px); font-weight: 700;
+      text-shadow: 0 0.2vmin 0.8vmin rgba(0,0,0,0.7);
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .follow {
+      font-size: clamp(11px, 1.7vmin, 22px); font-weight: 700; padding: 0.5vmin 2vmin;
+      border: 0.3vmin solid rgba(255,255,255,0.85); border-radius: 1vmin;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .caption {
+      font-size: clamp(13px, 2vmin, 28px); font-weight: 500; line-height: 1.3;
+      text-shadow: 0 0.2vmin 0.8vmin rgba(0,0,0,0.7); margin-bottom: 1.8vmin;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .audio {
+      display: flex; align-items: center; gap: 1.4vmin;
+      font-size: clamp(11px, 1.7vmin, 22px); font-weight: 600;
+      text-shadow: 0 0.2vmin 0.8vmin rgba(0,0,0,0.7);
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .progress {
+      position: absolute; left: 0; right: 0; bottom: 9%; height: 0.45vmin;
+      background: rgba(255,255,255,0.3); margin: 0 5%;
+    }
+    [data-composition-id="conversationapp-reels-frame-20-tb-v"] .progress i {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 30%; background: #fff; border-radius: 1vmin;
+    }
+</style>
+
+    <!-- ASSET (vertical) — demo from Pexels (free license). Replace src with your own clip,
+         or set Background to a color / "transparent" to use this purely as a UI overlay. -->
+    <video id="rf20v-vid" class="bg-video"
+           src="https://videos.pexels.com/video-files/8688204/8688204-hd_1080_1920_25fps.mp4"
+           crossorigin="anonymous" data-tb-asset="vertical"
+           data-start="0" data-duration="5" data-track-index="0" muted playsinline loop></video>
+    <div class="scrim"></div>
+    <div class="ui">
+      <div class="topbar">
+        <span class="reels">Reels</span>
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+
+      <div class="rail" id="rf20v-rail">
+        <div class="avatar"><i></i><span class="plus">+</span></div>
+        <div class="item" data-k="like">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="#fff"><path d="M12 21s-7.5-4.6-10-9.2C.3 8.3 2 5 5.2 5c2 0 3.3 1.1 4.3 2.5C10.5 6.1 11.8 5 13.8 5 17 5 18.7 8.3 17 11.8 14.5 16.4 12 21 12 21z"/></svg>
+          <span class="n" id="rf20v-likes">0</span>
+        </div>
+        <div class="item">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 21l2.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+          <span class="n" id="rf20v-comments">312</span>
+        </div>
+        <div class="item">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
+          <span class="n">Share</span>
+        </div>
+        <div class="item">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="#fff"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+        </div>
+        <div class="disc" id="rf20v-disc"></div>
+      </div>
+
+      <div class="bottom" id="rf20v-bottom">
+        <div class="userrow"><span class="u" id="rf20v-user">@natalie.digital</span><span class="follow">Follow</span></div>
+        <div class="caption" id="rf20v-caption">the only editor you actually need ✨</div>
+        <div class="audio">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+          <span id="rf20v-audio">Original audio · natalie.digital</span>
+        </div>
+      </div>
+      <div class="progress"><i></i></div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["conversationapp-reels-frame-20-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="conversationapp-reels-frame-20-tb-v"]');
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.bg && V.bg !== "transparent") { const vid = root.querySelector(".bg-video"); if (vid) { vid.style.display = "none"; } root.style.background = V.bg; }
+
+      const setT = (id, v, pre) => { if (v != null && v !== "") root.querySelector(id).textContent = (pre || "") + v; };
+      setT("#rf20v-user", V.username, "@");
+      setT("#rf20v-caption", V.caption);
+      setT("#rf20v-comments", V.comments);
+      if (V.username) root.querySelector("#rf20v-audio").textContent = "Original audio · " + V.username;
+
+      const likesEl = root.querySelector("#rf20v-likes");
+      const likesStr = (V.likes && V.likes !== "") ? String(V.likes) : "24.6K";
+      const m = likesStr.match(/^([\d.]+)\s*([KkMm]?)/);
+      const target = m ? parseFloat(m[1]) : 24.6;
+      const suffix = m ? m[2] : "";
+
+      const disc = root.querySelector("#rf20v-disc");
+      const rail = root.querySelectorAll("#rf20v-rail > *");
+      const TOTAL = 5;
+      const tl = gsap.timeline({ paused: true });
+
+      // UI slides in
+      tl.from(".topbar", { y: -24, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.15);
+      tl.from(rail, { x: 36, opacity: 0, duration: 0.5, stagger: 0.08, ease: "power3.out" }, 0.3);
+      tl.from("#rf20v-bottom > *", { y: 22, opacity: 0, duration: 0.5, stagger: 0.1, ease: "power3.out" }, 0.45);
+
+      // like pops + count ticks up
+      const heart = root.querySelector('[data-k="like"] svg');
+      tl.fromTo(heart, { scale: 1 }, { scale: 1.35, duration: 0.16, ease: "power2.out" }, 1.2);
+      tl.to(heart, { scale: 1, duration: 0.25, ease: "elastic.out(1,0.5)" }, 1.36);
+      const counter = { v: target * 0.82 };
+      tl.to(counter, {
+        v: target, duration: 1.1, ease: "power2.out",
+        onUpdate: () => { likesEl.textContent = (suffix ? counter.v.toFixed(1) : Math.round(counter.v).toString()) + suffix; }
+      }, 1.2);
+
+      // audio disc spins + progress bar fills
+      tl.to(disc, { rotation: 320, duration: TOTAL, ease: "none" }, 0);
+      tl.fromTo(".progress i", { width: "8%" }, { width: "62%", duration: TOTAL, ease: "none" }, 0);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

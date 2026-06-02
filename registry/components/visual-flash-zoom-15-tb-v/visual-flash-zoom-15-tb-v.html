@@ -1,0 +1,135 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-flash-zoom-15-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Snappy scene transition — scene A punches into a fast zoom, a white flash hits the cut, and scene B zooms back to reveal. Demo scenes are gradients with editable titles; swap each .scene background for your own clip.
+  Category: visual
+  Duration: 4 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"titleA","type":"string","label":"Scene A title","default":"Before"},
+  {"id":"titleB","type":"string","label":"Scene B title","default":"After"},
+  {"id":"accent","type":"color","label":"Accent / Scene B color","default":"#33EFE0"},
+  {"id":"bg","type":"color","label":"Scene A color","default":"#1D1F31"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="visual-flash-zoom-15-tb-v" data-composition-id="visual-flash-zoom-15-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="4">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-flash-zoom-15-tb-v"] {
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --tb-bg:           #1D1F31;
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-flash-zoom-15-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      overflow: hidden; background: #000;
+      font-family: var(--tb-font-display); color: #fff;
+    }
+    [data-composition-id="visual-flash-zoom-15-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="visual-flash-zoom-15-tb-v"] .scene {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      will-change: transform, opacity;
+    }
+    /* swap the .scene background for your own <video class="scene-vid"> if you like */
+    [data-composition-id="visual-flash-zoom-15-tb-v"] .sceneA {
+      z-index: 2;
+      background:
+        radial-gradient(80% 60% at 50% 38%, color-mix(in srgb, var(--tb-bg) 60%, #fff 8%), transparent 70%),
+        linear-gradient(150deg, color-mix(in srgb, var(--tb-bg) 84%, #000), color-mix(in srgb, var(--tb-bg) 60%, #000));
+    }
+    [data-composition-id="visual-flash-zoom-15-tb-v"] .sceneB {
+      z-index: 1;
+      background:
+        radial-gradient(80% 60% at 50% 40%, color-mix(in srgb, var(--tb-accent) 55%, #000), transparent 70%),
+        linear-gradient(150deg, color-mix(in srgb, var(--tb-accent) 70%, #000), color-mix(in srgb, var(--tb-accent) 32%, #000));
+    }
+    [data-composition-id="visual-flash-zoom-15-tb-v"] .label {
+      font-size: clamp(48px, 12vmin, 200px); font-weight: 900; letter-spacing: -0.03em;
+      text-transform: uppercase; text-align: center; line-height: 0.95;
+      text-shadow: 0 1vmin 5vmin rgba(0,0,0,0.4);
+    }
+    [data-composition-id="visual-flash-zoom-15-tb-v"] .sceneB .label { color: #06151a; }
+    [data-composition-id="visual-flash-zoom-15-tb-v"] .tag {
+      position: absolute; top: 6%; left: 6%;
+      font-size: clamp(12px, 2vmin, 28px); font-weight: 800; letter-spacing: 0.2em;
+      padding: 0.8vmin 2.2vmin; border-radius: 1vmin; background: rgba(0,0,0,0.35);
+      border: 0.3vmin solid rgba(255,255,255,0.4);
+    }
+    [data-composition-id="visual-flash-zoom-15-tb-v"] .flash {
+      position: absolute; inset: 0; z-index: 9; background: #fff; opacity: 0; pointer-events: none;
+    }
+    [data-composition-id="visual-flash-zoom-15-tb-v"] .vig {
+      position: absolute; inset: 0; z-index: 8; pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 58%, rgba(0,0,0,0.5) 100%);
+    }
+</style>
+
+    <div class="scene sceneB" id="fzv-b">
+      <div class="label" id="fzv-tb">After</div>
+      <div class="tag">02</div>
+    </div>
+    <div class="scene sceneA" id="fzv-a">
+      <div class="label" id="fzv-ta">Before</div>
+      <div class="tag">01</div>
+    </div>
+    <div class="vig"></div>
+    <div class="flash" id="fzv-flash"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["visual-flash-zoom-15-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="visual-flash-zoom-15-tb-v"]');
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.bg)     root.style.setProperty("--tb-bg", V.bg);
+      const setT = (id, v) => { if (v != null && v !== "") root.querySelector(id).textContent = v; };
+      setT("#fzv-ta", V.titleA);
+      setT("#fzv-tb", V.titleB);
+
+      const A = root.querySelector("#fzv-a"), B = root.querySelector("#fzv-b"), flash = root.querySelector("#fzv-flash");
+      const TOTAL = 4, MID = 2.0;
+      const tl = gsap.timeline({ paused: true });
+
+      // scene A: title pop + slow push
+      tl.from("#fzv-a .label", { scale: 0.8, opacity: 0, duration: 0.5, ease: "back.out(2)" }, 0.15);
+      tl.fromTo(A, { scale: 1 }, { scale: 1.08, duration: MID, ease: "none" }, 0);
+
+      // THE TRANSITION — fast zoom punch on A + white flash at the cut
+      tl.to(A, { scale: 1.9, duration: 0.24, ease: "power2.in" }, MID - 0.24);
+      tl.set(A, { opacity: 0 }, MID + 0.02);
+      tl.fromTo(flash, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: "power2.in" }, MID - 0.1);
+      tl.to(flash, { opacity: 0, duration: 0.28, ease: "power2.out" }, MID + 0.02);
+
+      // scene B zooms back to reveal + title pop
+      tl.fromTo(B, { scale: 1.35 }, { scale: 1, duration: 0.7, ease: "power3.out" }, MID);
+      tl.fromTo(B, { scale: 1 }, { scale: 1.06, duration: TOTAL - MID - 0.7, ease: "none" }, MID + 0.7);
+      tl.from("#fzv-b .label", { scale: 1.5, opacity: 0, duration: 0.4, ease: "back.out(2)" }, MID + 0.06);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

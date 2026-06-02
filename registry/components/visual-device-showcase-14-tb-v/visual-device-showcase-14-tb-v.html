@@ -1,0 +1,214 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-device-showcase-14-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: A phone tilts in 3D perspective showing an app catalog whose card grid scrolls — a product / app showcase. All UI is generated, fully editable.
+  Category: visual
+  Duration: 5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"appname","type":"string","label":"App title","default":"Trending Now"},
+  {"id":"subtitle","type":"string","label":"Sub heading","default":"24 Templates"},
+  {"id":"brand","type":"string","label":"Brand chip (small)","default":"STUDIO"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#33EFE0"},
+  {"id":"bg","type":"color","label":"Background base color","default":"#1D1F31"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="visual-device-showcase-14-tb-v" data-composition-id="visual-device-showcase-14-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-device-showcase-14-tb-v"] {
+      --tb-bg:           #1D1F31;
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+      --screen:          #0e1018;
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-device-showcase-14-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="visual-device-showcase-14-tb-v"] .bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(90% 60% at 50% 22%, color-mix(in srgb, var(--tb-accent) 20%, transparent) 0%, transparent 60%),
+        linear-gradient(180deg, color-mix(in srgb, var(--tb-bg) 78%, #000) 0%, var(--tb-bg) 50%, color-mix(in srgb, var(--tb-bg) 64%, #000) 100%);
+    }
+
+    [data-composition-id="visual-device-showcase-14-tb-v"] .stage {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+      perspective: 1700px;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .device {
+      position: relative;
+      width: 62%; aspect-ratio: 9 / 18.6;
+      border-radius: 8vmin;
+      background: #05070c;
+      padding: 1.1vmin;
+      box-shadow:
+        0 6vmin 12vmin rgba(0,0,0,0.6),
+        0 0 0 0.4vmin rgba(255,255,255,0.06) inset;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .screen {
+      position: relative; width: 100%; height: 100%;
+      border-radius: 6.6vmin; overflow: hidden;
+      background: var(--screen);
+      display: flex; flex-direction: column;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .notch {
+      position: absolute; top: 1.4vmin; left: 50%; transform: translateX(-50%);
+      width: 26%; height: 2.2vmin; background: #05070c; border-radius: 2vmin; z-index: 5;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .statusbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 2.4vmin 4vmin 0;
+      font-size: clamp(9px, 1.5vmin, 20px); font-weight: 600; color: #cfd3dc;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .hero {
+      padding: 2vmin 4vmin 1vmin;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .brand {
+      display: inline-block;
+      font-size: clamp(9px, 1.5vmin, 20px); font-weight: 800; letter-spacing: 0.22em;
+      color: #0a0c12; background: var(--tb-accent);
+      padding: 0.5vmin 1.4vmin; border-radius: 1vmin; margin-bottom: 1.6vmin;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .title {
+      font-size: clamp(20px, 4.6vmin, 62px); font-weight: 900; letter-spacing: -0.02em;
+      color: #fff; line-height: 1.0;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .sub {
+      font-size: clamp(11px, 1.9vmin, 26px); font-weight: 600; color: #8b90a0;
+      margin-top: 1vmin;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .chips {
+      display: flex; gap: 1.4vmin; padding: 1.6vmin 4vmin 0;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .chip {
+      font-size: clamp(9px, 1.5vmin, 20px); font-weight: 700; color: #aeb3c2;
+      background: #1a1d28; padding: 0.8vmin 2vmin; border-radius: 4vmin;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .chip.on { color: #0a0c12; background: #fff; }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .gridwrap {
+      flex: 1; overflow: hidden; padding: 2vmin 4vmin 0; position: relative;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6vmin;
+      will-change: transform;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .card {
+      aspect-ratio: 3 / 4; border-radius: 2vmin; position: relative; overflow: hidden;
+      box-shadow: 0 1vmin 2vmin rgba(0,0,0,0.35);
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .card .play {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .card .play::before {
+      content: ""; width: 0; height: 0;
+      border-left: 2.2vmin solid rgba(255,255,255,0.92);
+      border-top: 1.3vmin solid transparent; border-bottom: 1.3vmin solid transparent;
+      filter: drop-shadow(0 0.4vmin 0.6vmin rgba(0,0,0,0.5));
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .card .lbl {
+      position: absolute; left: 0.9vmin; bottom: 0.7vmin; right: 0.9vmin;
+      font-size: clamp(7px, 1.15vmin, 15px); font-weight: 700; color: #fff;
+      text-shadow: 0 0.2vmin 0.6vmin rgba(0,0,0,0.8); line-height: 1;
+    }
+    [data-composition-id="visual-device-showcase-14-tb-v"] .glow {
+      position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: radial-gradient(60% 40% at 50% 0%, color-mix(in srgb, var(--tb-accent) 16%, transparent), transparent 70%);
+    }
+</style>
+
+    <div class="bg"></div>
+    <div class="glow"></div>
+    <div class="stage">
+      <div class="device" id="dsv-device">
+        <div class="screen">
+          <div class="notch"></div>
+          <div class="statusbar"><span>9:41</span><span>● ▮▮▮</span></div>
+          <div class="hero">
+            <span class="brand" id="dsv-brand">STUDIO</span>
+            <div class="title" id="dsv-title">Trending Now</div>
+            <div class="sub" id="dsv-sub">24 Templates</div>
+          </div>
+          <div class="chips"><span class="chip on">Gallery</span><span class="chip">Saved</span><span class="chip">New</span></div>
+          <div class="gridwrap"><div class="grid" id="dsv-grid"></div></div>
+        </div>
+      </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["visual-device-showcase-14-tb-v"] = (function () {
+      const root  = document.querySelector('[data-composition-id="visual-device-showcase-14-tb-v"]');
+      const device = root.querySelector("#dsv-device");
+      const grid   = root.querySelector("#dsv-grid");
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.bg)     root.style.setProperty("--tb-bg", V.bg);
+      const setTxt = (id, v) => { if (v != null && v !== "") root.querySelector(id).textContent = v; };
+      setTxt("#dsv-title", V.appname);
+      setTxt("#dsv-sub", V.subtitle);
+      setTxt("#dsv-brand", V.brand);
+
+      // deterministic gradient cards (no external assets, no faces)
+      const labels = ["Bold","Retro","Neon","Clean","Pop","Wave","Mono","Glow","Drift","Bloom","Edge","Sharp","Flux","Pulse","Haze","Mint","Onyx","Sol","Verge","Halo","Rise","Crisp"];
+      const N = 21;
+      let html = "";
+      for (let i = 0; i < N; i++) {
+        const h1 = (i * 47) % 360, h2 = (h1 + 38) % 360;
+        const bg = "linear-gradient(135deg, hsl(" + h1 + ",62%,46%), hsl(" + h2 + ",58%,28%))";
+        html += '<div class="card" style="background:' + bg + '"><div class="play"></div><div class="lbl">' + labels[i % labels.length] + '</div></div>';
+      }
+      grid.innerHTML = html;
+
+      const TOTAL = 5;
+      const tl = gsap.timeline({ paused: true });
+
+      // device tilts into view, then slowly drifts
+      tl.fromTo(device,
+        { rotationY: -34, rotationX: 10, scale: 0.9, opacity: 0, transformPerspective: 1700 },
+        { rotationY: -15, rotationX: 6, scale: 1, opacity: 1, duration: 0.9, ease: "expo.out" }, 0.1);
+      tl.to(device, { rotationY: -10, rotationX: 4, duration: TOTAL - 1.0, ease: "sine.inOut" }, 1.0);
+
+      // header pieces pop in
+      tl.from(root.querySelector("#dsv-brand"), { y: 14, opacity: 0, duration: 0.4, ease: "power2.out" }, 0.55);
+      tl.from(root.querySelector("#dsv-title"), { y: 18, opacity: 0, duration: 0.45, ease: "power3.out" }, 0.65);
+      tl.from(root.querySelector("#dsv-sub"),   { y: 14, opacity: 0, duration: 0.4, ease: "power2.out" }, 0.75);
+
+      // the catalog grid scrolls up (browsing)
+      tl.fromTo(grid, { yPercent: 2 }, { yPercent: -34, duration: TOTAL - 0.6, ease: "none" }, 0.6);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

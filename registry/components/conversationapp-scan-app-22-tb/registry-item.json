@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "conversationapp-scan-app-22-tb",
+  "type": "hyperframes:component",
+  "title": "Conversationapp Scan App (Horizontal)",
+  "description": "Efecto Tareabox: Conversationapp Scan App",
+  "tags": [
+    "conversationapp",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "conversationapp-scan-app-22-tb.html",
+      "target": "compositions/components/conversationapp-scan-app-22-tb.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-conversationapp-scan-app-22-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-conversationapp-scan-app-22-tb.png"
+  }
+}

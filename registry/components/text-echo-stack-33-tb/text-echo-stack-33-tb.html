@@ -1,0 +1,123 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  text-echo-stack-33-tb (horizontal 1920x1080)
+  Tareabox Hyperframes Effect
+  Description: A word repeats in a tall stack and slides like a ticker, fading at the edges with one accent line riding through the centre — a kinetic echo motif. Works over a color or as a transparent overlay.
+  Category: text
+  Duration: 4 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"word","type":"string","label":"Word (repeats)","default":"Growth"},
+  {"id":"accent","type":"color","label":"Accent line color","default":"#33EFE0"},
+  {"id":"text","type":"color","label":"Text color","default":"#ffffff"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#1D1F31"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="text-echo-stack-33-tb" data-composition-id="text-echo-stack-33-tb"
+       data-width="1920" data-height="1080"
+       data-start="0" data-duration="4">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="text-echo-stack-33-tb"] {
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --tb-bg:           #1D1F31;
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="text-echo-stack-33-tb"] {
+      position: relative; width: 100%; height: 100%;
+      overflow: hidden; background: var(--tb-bg);
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="text-echo-stack-33-tb"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="text-echo-stack-33-tb"] .glow {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background: radial-gradient(50% 70% at 50% 50%, color-mix(in srgb, var(--tb-accent) 16%, transparent), transparent 70%);
+    }
+    [data-composition-id="text-echo-stack-33-tb"] .viewport {
+      position: absolute; inset: 0; z-index: 2; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+              mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 78%, transparent 100%);
+    }
+    [data-composition-id="text-echo-stack-33-tb"] .stack {
+      display: flex; flex-direction: column; align-items: center; will-change: transform;
+    }
+    [data-composition-id="text-echo-stack-33-tb"] .stack .w {
+      font-size: clamp(60px, 15vmin, 220px); font-weight: 900; letter-spacing: -0.04em;
+      line-height: 0.92; text-transform: uppercase; color: var(--tb-text);
+      opacity: 0.16; white-space: nowrap;
+    }
+    [data-composition-id="text-echo-stack-33-tb"] .stack .w.mid { opacity: 0.42; }
+    [data-composition-id="text-echo-stack-33-tb"] .stack .w.on {
+      opacity: 1; color: var(--tb-accent);
+      text-shadow: 0 0 6vmin color-mix(in srgb, var(--tb-accent) 55%, transparent);
+    }
+    [data-composition-id="text-echo-stack-33-tb"] .centerline {
+      position: absolute; z-index: 3; left: 24%; right: 24%; top: 50%; height: 0.4vmin;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--tb-accent) 70%, transparent), transparent);
+      opacity: 0;
+    }
+</style>
+
+    <div class="glow"></div>
+    <div class="viewport"><div class="stack" id="esh-stack"></div></div>
+    <div class="centerline" id="esh-line"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["text-echo-stack-33-tb"] = (function () {
+      const root = document.querySelector('[data-composition-id="text-echo-stack-33-tb"]');
+      const stack = root.querySelector("#esh-stack");
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+      if (V.text)   root.style.setProperty("--tb-text", V.text);
+      if (V.bg && V.bg !== "transparent") root.style.setProperty("--tb-bg", V.bg);
+      else if (V.bg === "transparent") root.style.background = "transparent";
+
+      const cs = getComputedStyle(root);
+      const word = String(V.word && V.word !== "" ? V.word
+        : (cs.getPropertyValue("--word") || "Growth")).replace(/^["']|["']$/g, "").trim().toUpperCase() || "GROWTH";
+
+      const escapeHTML = (s) => s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+      const N = 9, ON = 4;
+      let html = "";
+      for (let i = 0; i < N; i++) {
+        const cls = i === ON ? "w on" : (Math.abs(i - ON) === 1 ? "w mid" : "w");
+        html += '<div class="' + cls + '">' + escapeHTML(word) + '</div>';
+      }
+      stack.innerHTML = html;
+
+      const TOTAL = 4;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(stack, { yPercent: 6 }, { yPercent: -16, duration: TOTAL, ease: "none" }, 0);
+      tl.from(stack, { opacity: 0, duration: 0.5, ease: "power2.out" }, 0.05);
+      tl.from(".w.on", { scale: 0.9, duration: 0.6, ease: "back.out(2)", transformOrigin: "50% 50%" }, 0.2);
+      tl.fromTo("#esh-line", { opacity: 0, scaleX: 0.4 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: "power2.out", transformOrigin: "50% 50%" }, 0.35);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

@@ -68,6 +68,22 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "conversationapp-reels-frame-20-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "conversationapp-reels-frame-20-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "conversationapp-scan-app-22-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "conversationapp-scan-app-22-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "conversationapp-slack-14-tb",
       "type": "hyperframes:component"
     },
@@ -89,6 +105,14 @@
     },
     {
       "name": "conversationapp-tweet-quote-16-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "conversationapp-websearch-21-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "conversationapp-websearch-21-tb-v",
       "type": "hyperframes:component"
     },
     {
@@ -320,6 +344,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "text-echo-stack-33-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "text-echo-stack-33-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "text-elastic-11-tb",
       "type": "hyperframes:component"
     },
@@ -520,6 +552,22 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "visual-device-showcase-14-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-device-showcase-14-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-flash-zoom-15-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-flash-zoom-15-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "visual-gif-burst-10-tb",
       "type": "hyperframes:component"
     },
@@ -557,6 +605,14 @@
     },
     {
       "name": "visual-meme-cutin-09-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-pricing-card-16-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "visual-pricing-card-16-tb-v",
       "type": "hyperframes:component"
     },
     {

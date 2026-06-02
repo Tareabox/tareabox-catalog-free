@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-flash-zoom-15-tb-v",
+  "type": "hyperframes:component",
+  "title": "Visual Flash Zoom (Vertical)",
+  "description": "Efecto Tareabox: Visual Flash Zoom",
+  "tags": [
+    "visual",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "visual-flash-zoom-15-tb-v.html",
+      "target": "compositions/components/visual-flash-zoom-15-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-flash-zoom-15-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-flash-zoom-15-tb-v.png"
+  }
+}

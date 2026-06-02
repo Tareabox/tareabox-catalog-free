@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-device-showcase-14-tb",
+  "type": "hyperframes:component",
+  "title": "Visual Device Showcase (Horizontal)",
+  "description": "Efecto Tareabox: Visual Device Showcase",
+  "tags": [
+    "visual",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "visual-device-showcase-14-tb.html",
+      "target": "compositions/components/visual-device-showcase-14-tb.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-device-showcase-14-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-device-showcase-14-tb.png"
+  }
+}

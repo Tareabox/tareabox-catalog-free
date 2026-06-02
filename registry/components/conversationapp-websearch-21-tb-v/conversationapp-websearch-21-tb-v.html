@@ -1,0 +1,164 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  conversationapp-websearch-21-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: A clean search-engine page — a query types itself into the bar with a blinking cursor, then an autocomplete dropdown drops in. Generic brand, fully editable.
+  Category: conversationapp
+  Duration: 5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"query","type":"string","label":"Typed query","default":"best video editor for reels"},
+  {"id":"brand","type":"string","label":"Search brand","default":"searchly"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#33EFE0"},
+  {"id":"page","type":"color","label":"Page color","default":"#ffffff"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="conversationapp-websearch-21-tb-v" data-composition-id="conversationapp-websearch-21-tb-v"
+       data-width="1080" data-height="1920"
+       data-start="0" data-duration="5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="conversationapp-websearch-21-tb-v"] {
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --page:            #ffffff;
+      --ink:             #1f2330;
+      --muted:           #70757a;
+      --line:            #e6e8eb;
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="conversationapp-websearch-21-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      overflow: hidden; background: var(--page);
+      font-family: var(--tb-font-display); color: var(--ink);
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .wrap {
+      position: absolute; inset: 0; z-index: 2;
+      display: flex; flex-direction: column; align-items: center;
+      padding: 22% 8% 0;
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .logo {
+      display: flex; align-items: center; gap: 1.6vmin; margin-bottom: 6vmin;
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .lens {
+      width: 8vmin; height: 8vmin; border-radius: 50%;
+      border: 1.4vmin solid var(--tb-accent); position: relative;
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .lens::after {
+      content: ""; position: absolute; right: -2.4vmin; bottom: -1vmin;
+      width: 3.6vmin; height: 1.4vmin; background: var(--tb-accent); border-radius: 1vmin; transform: rotate(45deg);
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .brand {
+      font-size: clamp(28px, 6vmin, 86px); font-weight: 800; letter-spacing: -0.03em; color: var(--ink);
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .bar {
+      width: 100%; display: flex; align-items: center; gap: 2.4vmin;
+      background: #fff; border: 0.3vmin solid var(--line);
+      border-radius: 6vmin; padding: 3vmin 4vmin;
+      box-shadow: 0 1.4vmin 4vmin rgba(0,0,0,0.08);
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .bar svg { flex: none; }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .qtext {
+      flex: 1; font-size: clamp(16px, 2.8vmin, 40px); font-weight: 500; color: var(--ink); white-space: nowrap; overflow: hidden;
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .cursor {
+      display: inline-block; width: 0.28vmin; height: 1em; background: var(--tb-accent);
+      vertical-align: -0.12em; margin-left: 0.1em;
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .suggest {
+      width: 100%; background: #fff; border: 0.3vmin solid var(--line);
+      border-radius: 4vmin; margin-top: 2.4vmin; overflow: hidden;
+      box-shadow: 0 2vmin 5vmin rgba(0,0,0,0.08);
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .sg {
+      display: flex; align-items: center; gap: 2.6vmin; padding: 2.6vmin 4vmin;
+      font-size: clamp(14px, 2.4vmin, 34px); font-weight: 500; color: var(--ink);
+      border-bottom: 0.3vmin solid var(--line);
+    }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .sg:last-child { border-bottom: none; }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .sg.on { background: color-mix(in srgb, var(--tb-accent) 12%, #fff); }
+    [data-composition-id="conversationapp-websearch-21-tb-v"] .sg .b { font-weight: 700; }
+</style>
+
+    <div class="wrap">
+      <div class="logo">
+        <div class="lens"></div>
+        <div class="brand" id="wsv-brand">searchly</div>
+      </div>
+      <div class="bar">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#70757a" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <div class="qtext"><span id="wsv-q"></span><span class="cursor" id="wsv-cur"></span></div>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#33EFE0" stroke-width="2.4" id="wsv-mic"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+      </div>
+      <div class="suggest" id="wsv-suggest"></div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["conversationapp-websearch-21-tb-v"] = (function () {
+      const root = document.querySelector('[data-composition-id="conversationapp-websearch-21-tb-v"]');
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) { root.style.setProperty("--tb-accent", V.accent); const mic = root.querySelector("#wsv-mic"); if (mic) mic.setAttribute("stroke", V.accent); }
+      if (V.page)  root.style.setProperty("--page", V.page);
+      if (V.brand && V.brand !== "") root.querySelector("#wsv-brand").textContent = V.brand;
+
+      const cs = getComputedStyle(root);
+      const query = String(V.query && V.query !== "" ? V.query : "best video editor for reels");
+      const qEl = root.querySelector("#wsv-q");
+      const cur = root.querySelector("#wsv-cur");
+
+      // build suggestions from the query
+      const tails = [" 2026", " free", " no watermark", " app"];
+      const sug = root.querySelector("#wsv-suggest");
+      sug.innerHTML = [query].concat(tails.map(t => query + t)).slice(0, 4).map((s, i) =>
+        '<div class="sg' + (i === 0 ? ' on' : '') + '">' +
+          '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#70757a" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>' +
+          '<span>' + s.replace(/</g,"&lt;") + '</span></div>'
+      ).join("");
+      const sgs = sug.querySelectorAll(".sg");
+
+      const TOTAL = 5, TYPE_D = 1.7;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from(".logo", { y: -20, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.1);
+      tl.from(".bar", { y: 22, opacity: 0, duration: 0.5, ease: "power3.out" }, 0.3);
+
+      // typewriter
+      qEl.textContent = "";
+      const counter = { v: 0 };
+      tl.to(counter, {
+        v: query.length, duration: TYPE_D, ease: "none", snap: { v: 1 },
+        onUpdate: () => { qEl.textContent = query.slice(0, Math.floor(counter.v)); }
+      }, 0.55);
+
+      // cursor blink (seekable)
+      const BSTART = 0.55, BHALF = 0.32;
+      for (let bt = BSTART, off = true; bt < TOTAL; bt += BHALF, off = !off) tl.set(cur, { opacity: off ? 1 : 0 }, bt);
+
+      // suggestions drop in after typing
+      tl.set(sug, { visibility: "visible" }, 0);
+      tl.from(sgs, { y: 16, opacity: 0, duration: 0.4, stagger: 0.09, ease: "power2.out" }, 0.55 + TYPE_D + 0.1);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

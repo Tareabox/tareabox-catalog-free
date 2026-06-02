@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "conversationapp-websearch-21-tb-v",
+  "type": "hyperframes:component",
+  "title": "Conversationapp Web Search (Vertical)",
+  "description": "Efecto Tareabox: Conversationapp Web Search",
+  "tags": [
+    "conversationapp",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "conversationapp-websearch-21-tb-v.html",
+      "target": "compositions/components/conversationapp-websearch-21-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-conversationapp-websearch-21-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-conversationapp-websearch-21-tb-v.png"
+  }
+}

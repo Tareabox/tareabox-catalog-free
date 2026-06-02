@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "text-echo-stack-33-tb-v",
+  "type": "hyperframes:component",
+  "title": "Text Echo Stack (Vertical)",
+  "description": "Efecto Tareabox: Text Echo Stack",
+  "tags": [
+    "text",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "text-echo-stack-33-tb-v.html",
+      "target": "compositions/components/text-echo-stack-33-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-echo-stack-33-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-echo-stack-33-tb-v.png"
+  }
+}

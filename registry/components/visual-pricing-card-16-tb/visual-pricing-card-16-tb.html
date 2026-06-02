@@ -1,0 +1,144 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-pricing-card-16-tb (horizontal 1920x1080)
+  Tareabox Hyperframes Effect
+  Description: A premium pricing card pops in — eyebrow chip, plan name, a price that counts up, feature checks and a CTA button that pulses. Fully editable.
+  Category: visual
+  Duration: 4.5 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"plan","type":"string","label":"Plan name","default":"Creator Pack"},
+  {"id":"eyebrow","type":"string","label":"Eyebrow chip","default":"BEST VALUE"},
+  {"id":"price","type":"string","label":"Price (e.g. $25)","default":"$25"},
+  {"id":"period","type":"string","label":"Period","default":"one-time"},
+  {"id":"cta","type":"string","label":"Button text","default":"Get it now"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#33EFE0"},
+  {"id":"bg","type":"color","label":"Background base color","default":"#1D1F31"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="visual-pricing-card-16-tb" data-composition-id="visual-pricing-card-16-tb"
+       data-width="1920" data-height="1080"
+       data-start="0" data-duration="4.5">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-pricing-card-16-tb"] {
+      --tb-text:         #ffffff;
+      --tb-accent:       var(--tb-brand-accent, #33EFE0);
+      --tb-bg:           #1D1F31;
+      --card:            #14161f;
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="visual-pricing-card-16-tb"] {
+      position: relative; width: 100%; height: 100%;
+      overflow: hidden; background: var(--tb-bg);
+      font-family: var(--tb-font-display); color: #fff;
+    }
+    [data-composition-id="visual-pricing-card-16-tb"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="visual-pricing-card-16-tb"] .bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(50% 70% at 50% 50%, color-mix(in srgb, var(--tb-accent) 24%, transparent), transparent 70%),
+        linear-gradient(180deg, color-mix(in srgb, var(--tb-bg) 82%, #000), color-mix(in srgb, var(--tb-bg) 58%, #000));
+    }
+    [data-composition-id="visual-pricing-card-16-tb"] .stage { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; }
+    [data-composition-id="visual-pricing-card-16-tb"] .card {
+      width: 42%; border-radius: 4vmin; padding: 5vmin 4.5vmin;
+      background: linear-gradient(180deg, color-mix(in srgb, var(--card) 92%, #fff 4%), var(--card));
+      border: 0.3vmin solid rgba(255,255,255,0.08);
+      box-shadow: 0 5vmin 12vmin rgba(0,0,0,0.55), 0 0 12vmin color-mix(in srgb, var(--tb-accent) 18%, transparent);
+      position: relative; will-change: transform;
+    }
+    [data-composition-id="visual-pricing-card-16-tb"] .eyebrow {
+      display: inline-block; font-size: clamp(11px, 1.5vmin, 22px); font-weight: 800; letter-spacing: 0.16em;
+      color: #06151a; background: var(--tb-accent); padding: 0.7vmin 2vmin; border-radius: 1vmin; margin-bottom: 2.4vmin;
+    }
+    [data-composition-id="visual-pricing-card-16-tb"] .plan { font-size: clamp(20px, 3.4vmin, 50px); font-weight: 800; color: #cfd3dc; }
+    [data-composition-id="visual-pricing-card-16-tb"] .pricerow { display: flex; align-items: baseline; gap: 1.2vmin; margin: 0.8vmin 0; }
+    [data-composition-id="visual-pricing-card-16-tb"] .price { font-size: clamp(48px, 10vmin, 150px); font-weight: 900; letter-spacing: -0.03em; line-height: 1; }
+    [data-composition-id="visual-pricing-card-16-tb"] .period { font-size: clamp(14px, 2vmin, 28px); font-weight: 600; color: #8b90a0; }
+    [data-composition-id="visual-pricing-card-16-tb"] .feat { display: flex; flex-direction: column; gap: 1.6vmin; margin: 3vmin 0; }
+    [data-composition-id="visual-pricing-card-16-tb"] .feat .f { display: flex; align-items: center; gap: 1.6vmin; font-size: clamp(13px, 1.9vmin, 26px); font-weight: 500; color: #d6d9e0; }
+    [data-composition-id="visual-pricing-card-16-tb"] .check { width: 2.8vmin; height: 2.8vmin; border-radius: 50%; flex: none; background: color-mix(in srgb, var(--tb-accent) 22%, transparent); display: flex; align-items: center; justify-content: center; }
+    [data-composition-id="visual-pricing-card-16-tb"] .check svg { width: 60%; height: 60%; }
+    [data-composition-id="visual-pricing-card-16-tb"] .cta {
+      margin-top: 0.5vmin; width: 100%; text-align: center;
+      font-size: clamp(16px, 2.4vmin, 34px); font-weight: 800;
+      color: #06151a; background: var(--tb-accent); padding: 2.4vmin; border-radius: 2vmin;
+      box-shadow: 0 1.6vmin 4vmin color-mix(in srgb, var(--tb-accent) 35%, transparent);
+    }
+</style>
+
+    <div class="bg"></div>
+    <div class="stage">
+      <div class="card" id="pch-card">
+        <span class="eyebrow" id="pch-eyebrow">BEST VALUE</span>
+        <div class="plan" id="pch-plan">Creator Pack</div>
+        <div class="pricerow"><span class="price" id="pch-price">$25</span><span class="period" id="pch-period">one-time</span></div>
+        <div class="feat" id="pch-feat">
+          <div class="f"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#33EFE0" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>All effects included</div>
+          <div class="f"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#33EFE0" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Commercial license</div>
+          <div class="f"><span class="check"><svg viewBox="0 0 24 24" fill="none" stroke="#33EFE0" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg></span>Lifetime updates</div>
+        </div>
+        <div class="cta" id="pch-cta">Get it now</div>
+      </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["visual-pricing-card-16-tb"] = (function () {
+      const root = document.querySelector('[data-composition-id="visual-pricing-card-16-tb"]');
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      if (V.accent) { root.style.setProperty("--tb-accent", V.accent); root.querySelectorAll(".check svg").forEach(s => s.setAttribute("stroke", V.accent)); }
+      if (V.bg)     root.style.setProperty("--tb-bg", V.bg);
+      const setT = (id, v) => { if (v != null && v !== "") root.querySelector(id).textContent = v; };
+      setT("#pch-plan", V.plan); setT("#pch-eyebrow", V.eyebrow); setT("#pch-period", V.period); setT("#pch-cta", V.cta);
+
+      const priceEl = root.querySelector("#pch-price");
+      const priceStr = (V.price && V.price !== "") ? String(V.price) : "$25";
+      const pm = priceStr.match(/^(\D*)([\d.,]+)(.*)$/);
+      const pre = pm ? pm[1] : "$", num = pm ? parseFloat(pm[2].replace(/,/g, "")) : 25, post = pm ? pm[3] : "";
+      const isInt = Number.isInteger(num);
+
+      const card = root.querySelector("#pch-card");
+      const TOTAL = 4.5;
+      const tl = gsap.timeline({ paused: true });
+
+      tl.from(card, { yPercent: 8, scale: 0.84, opacity: 0, duration: 0.6, ease: "back.out(1.7)" }, 0.1);
+      tl.from("#pch-eyebrow", { y: -10, opacity: 0, duration: 0.4, ease: "power2.out" }, 0.45);
+      tl.from("#pch-plan", { x: -14, opacity: 0, duration: 0.4, ease: "power2.out" }, 0.55);
+
+      priceEl.textContent = pre + (isInt ? "0" : "0.00") + post;
+      const counter = { v: 0 };
+      tl.to(counter, {
+        v: num, duration: 0.9, ease: "power2.out",
+        onUpdate: () => { priceEl.textContent = pre + (isInt ? Math.round(counter.v) : counter.v.toFixed(2)) + post; }
+      }, 0.6);
+
+      tl.from("#pch-feat .f", { x: 18, opacity: 0, duration: 0.4, stagger: 0.12, ease: "power2.out" }, 0.85);
+      tl.from("#pch-cta", { y: 16, opacity: 0, duration: 0.45, ease: "back.out(2)" }, 1.4);
+      tl.fromTo("#pch-cta", { scale: 1 }, { scale: 1.04, duration: 0.5, ease: "sine.inOut" }, 1.9);
+      tl.to("#pch-cta", { scale: 1, duration: 0.5, ease: "sine.inOut" }, 2.4);
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>

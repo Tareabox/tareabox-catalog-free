@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-pricing-card-16-tb-v",
+  "type": "hyperframes:component",
+  "title": "Visual Pricing Card (Vertical)",
+  "description": "Efecto Tareabox: Visual Pricing Card",
+  "tags": [
+    "visual",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "visual-pricing-card-16-tb-v.html",
+      "target": "compositions/components/visual-pricing-card-16-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-pricing-card-16-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-pricing-card-16-tb-v.png"
+  }
+}

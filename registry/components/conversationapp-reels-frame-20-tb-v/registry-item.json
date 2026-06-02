@@ -1,0 +1,22 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "conversationapp-reels-frame-20-tb-v",
+  "type": "hyperframes:component",
+  "title": "Conversationapp Reels Frame (Vertical)",
+  "description": "Efecto Tareabox: Conversationapp Reels Frame",
+  "tags": [
+    "conversationapp",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "conversationapp-reels-frame-20-tb-v.html",
+      "target": "compositions/components/conversationapp-reels-frame-20-tb-v.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-conversationapp-reels-frame-20-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-conversationapp-reels-frame-20-tb-v.png"
+  }
+}
