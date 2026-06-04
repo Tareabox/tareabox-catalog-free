@@ -1,0 +1,315 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  layout-swipe-carousel-19-tb (horizontal 1920x1080)
+  Description: Transparent swipe carousel overlay — auto-advances through 5 images with
+               focused center card, side-card peeks, kicker+title caption and progress dots.
+               Adapts to its container (full / centered / left / right) so it can sit beside a PiP.
+  Category: layout
+  Type: component (transparent overlay)
+  REQUIRES: gsap (CDN)
+  ASSETS: demo images referenced by URL (Pixabay, no faces) — swap via variables.
+-->
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"placement","type":"enum","label":"Placement","default":"full","options":[
+      {"value":"full","label":"Full frame"},
+      {"value":"center","label":"Center (half)"},
+      {"value":"left","label":"Left"},
+      {"value":"right","label":"Right"}
+    ]},
+    {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"transparent"},
+    {"id":"accent","type":"color","label":"Accent (kicker)","default":"#ffd8a8"},
+    {"id":"img1","type":"string","label":"Image 1 URL","default":"https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_640.jpg"},
+    {"id":"img2","type":"string","label":"Image 2 URL","default":"https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832_640.jpg"},
+    {"id":"img3","type":"string","label":"Image 3 URL","default":"https://cdn.pixabay.com/photo/2017/02/01/22/02/mountain-landscape-2031539_640.jpg"},
+    {"id":"img4","type":"string","label":"Image 4 URL","default":"https://cdn.pixabay.com/photo/2016/11/14/04/45/elephant-1822636_640.jpg"},
+    {"id":"img5","type":"string","label":"Image 5 URL","default":"https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_640.jpg"},
+    {"id":"k1","type":"string","label":"Kicker 1","default":"Explore"},
+    {"id":"t1","type":"string","label":"Title 1","default":"Milky Way"},
+    {"id":"k2","type":"string","label":"Kicker 2","default":"Nature"},
+    {"id":"t2","type":"string","label":"Title 2","default":"Quiet Lake"},
+    {"id":"k3","type":"string","label":"Kicker 3","default":"Dawn"},
+    {"id":"t3","type":"string","label":"Title 3","default":"First Light"},
+    {"id":"k4","type":"string","label":"Kicker 4","default":"Wildlife"},
+    {"id":"t4","type":"string","label":"Title 4","default":"The Giant"},
+    {"id":"k5","type":"string","label":"Kicker 5","default":"Color"},
+    {"id":"t5","type":"string","label":"Title 5","default":"In Bloom"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body {
+        background: transparent;
+        overflow: hidden;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        overflow: hidden;
+        font-family: var(--tb-brand-font-display, "Geist", "Helvetica Neue", Arial, sans-serif);
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-host {
+        position: absolute;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-wrap {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        background: transparent;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-frame {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-stage {
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        overflow: visible;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-track {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        will-change: transform;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-card {
+        flex: 0 0 auto;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 3vmin 6vmin rgba(0, 0, 0, 0.45);
+        opacity: 0.5;
+        will-change: transform, opacity;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-captions {
+        position: relative;
+        width: 100%;
+        text-align: center;
+      }
+      /* soft scrim so the caption stays legible over ANY background (light, dark, busy) */
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-capscrim {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 116%;
+        height: 240%;
+        background: radial-gradient(
+          ellipse at center,
+          rgba(0, 0, 0, 0.5) 0%,
+          rgba(0, 0, 0, 0.32) 42%,
+          rgba(0, 0, 0, 0) 72%
+        );
+        pointer-events: none;
+        z-index: 0;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-caption {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        z-index: 1;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-kicker {
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        color: var(--sch-accent, #ffd8a8);
+        text-transform: uppercase;
+        text-shadow:
+          0 0.4vmin 1.6vmin rgba(0, 0, 0, 0.85),
+          0 0.15vmin 0.4vmin rgba(0, 0, 0, 0.95);
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-title {
+        font-weight: 800;
+        letter-spacing: -0.01em;
+        color: #ffffff;
+        line-height: 1.05;
+        text-shadow:
+          0 0.4vmin 1.6vmin rgba(0, 0, 0, 0.85),
+          0 0.15vmin 0.4vmin rgba(0, 0, 0, 0.95);
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-dots {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      [data-composition-id="layout-swipe-carousel-19-tb"] .sch-dot {
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.45);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="sch-root"
+      data-composition-id="layout-swipe-carousel-19-tb"
+      data-width="1920"
+      data-height="1080"
+      data-start="0"
+      data-duration="10"
+    >
+      <div class="sch-host" id="sch-host">
+        <div class="sch-wrap" id="sch-wrap">
+          <div class="sch-frame" id="sch-frame">
+            <div class="sch-stage" id="sch-stage">
+              <div class="sch-track" id="sch-track">
+                <div class="sch-card" id="sch-card-0"><img id="sch-img-0" src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_640.jpg" alt="" /></div>
+                <div class="sch-card" id="sch-card-1"><img id="sch-img-1" src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832_640.jpg" alt="" /></div>
+                <div class="sch-card" id="sch-card-2"><img id="sch-img-2" src="https://cdn.pixabay.com/photo/2017/02/01/22/02/mountain-landscape-2031539_640.jpg" alt="" /></div>
+                <div class="sch-card" id="sch-card-3"><img id="sch-img-3" src="https://cdn.pixabay.com/photo/2016/11/14/04/45/elephant-1822636_640.jpg" alt="" /></div>
+                <div class="sch-card" id="sch-card-4"><img id="sch-img-4" src="https://cdn.pixabay.com/photo/2014/02/27/16/10/flowers-276014_640.jpg" alt="" /></div>
+              </div>
+            </div>
+            <div class="sch-captions" id="sch-captions">
+              <div class="sch-caption" id="sch-caption-0"><span class="sch-kicker" id="sch-k-0"></span><span class="sch-title" id="sch-t-0"></span></div>
+              <div class="sch-caption" id="sch-caption-1"><span class="sch-kicker" id="sch-k-1"></span><span class="sch-title" id="sch-t-1"></span></div>
+              <div class="sch-caption" id="sch-caption-2"><span class="sch-kicker" id="sch-k-2"></span><span class="sch-title" id="sch-t-2"></span></div>
+              <div class="sch-caption" id="sch-caption-3"><span class="sch-kicker" id="sch-k-3"></span><span class="sch-title" id="sch-t-3"></span></div>
+              <div class="sch-caption" id="sch-caption-4"><span class="sch-kicker" id="sch-k-4"></span><span class="sch-title" id="sch-t-4"></span></div>
+            </div>
+            <div class="sch-dots" id="sch-dots">
+              <div class="sch-dot" id="sch-dot-0"></div>
+              <div class="sch-dot" id="sch-dot-1"></div>
+              <div class="sch-dot" id="sch-dot-2"></div>
+              <div class="sch-dot" id="sch-dot-3"></div>
+              <div class="sch-dot" id="sch-dot-4"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      window.__timelines["layout-swipe-carousel-19-tb"] = (function () {
+        const NAME = "layout-swipe-carousel-19-tb";
+        const root = document.querySelector('[data-composition-id="' + NAME + '"]');
+        const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+        const N = 5;
+
+        // content from variables
+        const imgs = [V.img1, V.img2, V.img3, V.img4, V.img5];
+        const kick = [V.k1, V.k2, V.k3, V.k4, V.k5];
+        const titl = [V.t1, V.t2, V.t3, V.t4, V.t5];
+        for (let i = 0; i < N; i++) {
+          const im = document.getElementById("sch-img-" + i);
+          if (imgs[i] && im.getAttribute("src") !== imgs[i]) im.src = imgs[i];
+          document.getElementById("sch-k-" + i).textContent = kick[i] || "";
+          document.getElementById("sch-t-" + i).textContent = titl[i] || "";
+        }
+        root.style.setProperty("--sch-accent", V.accent || "#ffd8a8");
+        root.style.background = (!V.bg || V.bg === "transparent") ? "transparent" : V.bg;
+
+        // === placement: position the host inside the frame ===
+        const FW = root.clientWidth || +root.dataset.width;
+        const FH = root.clientHeight || +root.dataset.height;
+        const M = Math.min(FW, FH) * 0.05;
+        const host = document.getElementById("sch-host");
+        const place = V.placement || "full";
+        function box(top, left, w, h) {
+          host.style.top = top + "px";
+          host.style.left = left + "px";
+          host.style.width = w + "px";
+          host.style.height = h + "px";
+        }
+        if (place === "full") {
+          box(0, 0, FW, FH);
+        } else if (place === "center") {
+          const s = Math.min(FW, FH) * 0.82;
+          box((FH - s) / 2, (FW - s) / 2, s, s);
+        } else if (place === "left") {
+          const w = FW * 0.5 - M * 1.5, h = FH * 0.86;
+          box((FH - h) / 2, M, w, h);
+        } else {
+          const w = FW * 0.5 - M * 1.5, h = FH * 0.86;
+          box((FH - h) / 2, FW - w - M, w, h);
+        }
+
+        // === adapt sizes to the host box ===
+        const wrap = document.getElementById("sch-wrap");
+        const W = wrap.clientWidth;
+        const H = wrap.clientHeight;
+        const card = Math.min(H * 0.6, W * 0.62);
+        const gap = card * 0.06;
+        const STEP = card + gap;
+        const X0 = W / 2 - card / 2;
+
+        document.getElementById("sch-stage").style.height = card + "px";
+        document.getElementById("sch-track").style.gap = gap + "px";
+        document.querySelectorAll('[data-composition-id="' + NAME + '"] .sch-card').forEach((c) => {
+          c.style.width = card + "px";
+          c.style.height = card + "px";
+          c.style.borderRadius = card * 0.06 + "px";
+        });
+        document.getElementById("sch-frame").style.gap = card * 0.07 + "px";
+        document.getElementById("sch-captions").style.height = card * 0.22 + "px";
+        document.querySelectorAll('[data-composition-id="' + NAME + '"] .sch-caption').forEach((c) => (c.style.gap = card * 0.02 + "px"));
+        document.querySelectorAll('[data-composition-id="' + NAME + '"] .sch-title').forEach((e) => (e.style.fontSize = card * 0.1 + "px"));
+        document.querySelectorAll('[data-composition-id="' + NAME + '"] .sch-kicker').forEach((e) => (e.style.fontSize = card * 0.04 + "px"));
+        const dotPx = card * 0.022, dotActive = card * 0.07;
+        document.getElementById("sch-dots").style.gap = dotPx * 1.1 + "px";
+        document.querySelectorAll('[data-composition-id="' + NAME + '"] .sch-dot').forEach((d) => {
+          d.style.width = dotPx + "px";
+          d.style.height = dotPx + "px";
+        });
+        document.getElementById("sch-dot-0").style.width = dotActive + "px";
+
+        const xFor = (i) => X0 - i * STEP;
+        gsap.set("#sch-track", { x: xFor(0) });
+        gsap.set('[data-composition-id="' + NAME + '"] .sch-card', { scale: 0.84 });
+        gsap.set("#sch-card-0", { scale: 1 });
+        gsap.set("#sch-caption-0", { opacity: 1 });
+
+        const tl = gsap.timeline({ paused: true });
+        tl.from("#sch-frame", { opacity: 0, duration: 0.5, ease: "power2.out" }, 0);
+        tl.from("#sch-card-0", { scale: 0.7, duration: 0.7, ease: "back.out(1.5)" }, 0.1);
+        tl.from("#sch-caption-0", { y: card * 0.04, opacity: 0, duration: 0.55, ease: "power2.out" }, 0.3);
+        tl.from("#sch-dots", { y: card * 0.04, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.25);
+
+        const HOLD = 1.4, SLIDE = 0.6;
+        let t = 1.6;
+        for (let i = 0; i < N - 1; i++) {
+          tl.to("#sch-track", { x: xFor(i + 1), duration: SLIDE, ease: "power2.inOut" }, t);
+          tl.to("#sch-card-" + i, { scale: 0.84, opacity: 0.5, duration: SLIDE, ease: "power2.inOut" }, t);
+          tl.to("#sch-card-" + (i + 1), { scale: 1, opacity: 1, duration: SLIDE, ease: "power2.inOut" }, t);
+          tl.to("#sch-dot-" + i, { width: dotPx, backgroundColor: "rgba(255,255,255,0.45)", duration: SLIDE, ease: "power2.inOut" }, t);
+          tl.to("#sch-dot-" + (i + 1), { width: dotActive, backgroundColor: "#ffffff", duration: SLIDE, ease: "power2.inOut" }, t);
+          tl.to("#sch-caption-" + i, { y: -card * 0.03, opacity: 0, duration: SLIDE * 0.5, ease: "power2.in" }, t);
+          tl.fromTo("#sch-caption-" + (i + 1), { y: card * 0.04, opacity: 0 }, { y: 0, opacity: 1, duration: SLIDE * 0.6, ease: "power2.out" }, t + SLIDE * 0.45);
+          t += SLIDE + HOLD;
+        }
+        return tl;
+      })();
+    </script>
+  </body>
+</html>

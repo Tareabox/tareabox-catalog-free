@@ -184,6 +184,14 @@
       "type": "hyperframes:block"
     },
     {
+      "name": "layout-swipe-carousel-19-tb",
+      "type": "hyperframes:component"
+    },
+    {
+      "name": "layout-swipe-carousel-19-tb-v",
+      "type": "hyperframes:component"
+    },
+    {
       "name": "layout-tutorial-step-01-tb",
       "type": "hyperframes:block"
     },
