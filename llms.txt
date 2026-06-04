@@ -17,7 +17,7 @@ Both come in vertical (1080×1920 for Reels/TikTok/Shorts) and horizontal (1920�
 **Blocks** (full scenes):
 - **layout** — YouTube setups (PIP, watchlater, split-screen, tier-list), tutorials, recap, hooks
 - **conversationapp** — iMessage, WhatsApp, Discord, gif-chat, android/imessage-pure notifs (full-screen scenes)
-- **visual** — effects with integral video (meme-cutin, gif-burst, gif-stickers, gif-crumple, zoom-indicator)
+- **visual** — effects with integral video (meme-cutin, gif-burst, gif-stickers, gif-crumple, zoom-indicator, pov-meme)
 - **text** — neon-flashing, neon-glow, chapter-reveal (full-screen typography scenes)
 
 **Components** (transparent overlays):
