@@ -1,31 +1,31 @@
 # Tareabox HyperFrames Catalog
 
-> 133 video composition items for HyperFrames (HTML-based video framework):
-> 55 blocks + 78 components. By Natalie Digital (Natalie Abadie). See LICENSE.
+> 100+ video composition items for HyperFrames (HTML-based video framework):
+> Blocks + components, each in vertical (9:16) + horizontal (16:9). By Natalie Digital (Natalie Abadie). See LICENSE.
 
 ## What this repo provides
 
 Two types of items, both self-contained HTML files with embedded CSS, GSAP animations, and timeline data:
 
-- **Blocks** (55) — full-screen scenes with their own background. Use as standalone composition (mount via `data-composition-src`).
-- **Components** (78) — transparent overlays. Layer on top of any block, video, or composition (paste-inline per official `hyperframes-registry` skill).
+- **Blocks** — full-screen scenes with their own background. Use as standalone composition (mount via `data-composition-src`).
+- **Components** — transparent overlays. Layer on top of any block, video, or composition (paste-inline per official `hyperframes-registry` skill).
 
 Both come in vertical (1080×1920 for Reels/TikTok/Shorts) and horizontal (1920×1080 for YouTube) variants.
 
 ## Categories
 
-**Blocks** (55, full scenes):
-- **layout** (27) — YouTube setups (PIP, watchlater, split-screen, tier-list), tutorials, recap, hooks
-- **conversationapp** (12) — iMessage, WhatsApp, Discord, gif-chat, android/imessage-pure notifs (full-screen scenes)
-- **visual** (10) — effects with integral video (meme-cutin, gif-burst, gif-stickers, gif-crumple, zoom-indicator)
-- **text** (6) — neon-flashing, neon-glow, chapter-reveal (full-screen typography scenes)
+**Blocks** (full scenes):
+- **layout** — YouTube setups (PIP, watchlater, split-screen, tier-list), tutorials, recap, hooks
+- **conversationapp** — iMessage, WhatsApp, Discord, gif-chat, android/imessage-pure notifs (full-screen scenes)
+- **visual** — effects with integral video (meme-cutin, gif-burst, gif-stickers, gif-crumple, zoom-indicator)
+- **text** — neon-flashing, neon-glow, chapter-reveal (full-screen typography scenes)
 
-**Components** (78, transparent overlays):
-- **text** (40) — typewriter, warp, kinetic, glitch, headline-highlight, fullscreen-statement, etc.
-- **conversationapp** (12) — instagram-dm, ios-notif, instagram-comment, slack, tweet, tweet-quote (cards)
-- **visual** (12) — callouts (tip/note/warning), keyboard-shortcut, progress-bar, timestamp-cue
-- **layout** (10) — recap-card, lower-third, video-caption, video-hero, video-hook (overlay treatments)
-- **data** (4) — checklist, metric-flip
+**Components** (transparent overlays):
+- **text** — typewriter, warp, kinetic, glitch, headline-highlight, fullscreen-statement, etc.
+- **conversationapp** — instagram-dm, ios-notif, instagram-comment, slack, tweet, tweet-quote (cards)
+- **visual** — callouts (tip/note/warning), keyboard-shortcut, progress-bar, timestamp-cue
+- **layout** — recap-card, lower-third, video-caption, video-hero, video-hook (overlay treatments)
+- **data** — checklist, metric-flip
 
 ## Install
 
@@ -44,7 +44,7 @@ Or `git clone` and copy items manually from `registry/blocks/{name}/` (blocks) o
 
 ## Live preview
 
-All 133 items rendered: https://tareabox.com/hf-catalog-free/
+All items rendered: https://tareabox.com/hf-catalog-free/
 
 ## Brand
 
