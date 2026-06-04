@@ -656,6 +656,18 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "visual-pov-bold-20-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "visual-pov-marker-19-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "visual-pov-minimal-21-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "visual-pricing-card-16-tb",
       "type": "hyperframes:component"
     },

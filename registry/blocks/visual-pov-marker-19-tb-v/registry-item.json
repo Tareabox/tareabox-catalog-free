@@ -1,0 +1,31 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-pov-marker-19-tb-v",
+  "type": "hyperframes:block",
+  "title": "POV Meme — Marker Highlight (Vertical)",
+  "description": "Meme POV relatable: clip de reacción en tarjeta, titular bold (Anton) y un marcador hecho a mano que subraya el remate mientras las palabras se prenden (karaoke). Texto, clip, colores y handle editables por variables.",
+  "tags": [
+    "visual",
+    "meme",
+    "pov",
+    "marker",
+    "vertical",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "duration": 5.0,
+  "files": [
+    {
+      "path": "visual-pov-marker-19-tb-v.html",
+      "target": "compositions/visual-pov-marker-19-tb-v.html",
+      "type": "hyperframes:composition"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-pov-marker-19-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-pov-marker-19-tb-v.png"
+  }
+}

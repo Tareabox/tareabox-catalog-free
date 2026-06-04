@@ -1,0 +1,129 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-pov-minimal-21-tb-v (vertical 1080x1920)
+  Description: POV relatable meme — minimal editorial layout, centered, with a refined caption whose
+               punchline gets a thin hand-drawn underline that draws itself in, over a framed reaction clip.
+  Category: visual
+  Type: block (full-screen scene with its own background)
+  REQUIRES: gsap (CDN). Font "Montserrat" is auto-embedded by the HyperFrames compiler (no <link>).
+  DEMO CLIP: Mixkit free-license stock video (commercial use, no attribution). Swap via the "clip" variable.
+-->
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"label","type":"string","label":"Eyebrow label","default":"creator diaries"},
+    {"id":"setup","type":"string","label":"Setup text","default":"me when the noise gets loud and I just"},
+    {"id":"punch","type":"string","label":"Punchline (underlined)","default":"tune everyone out"},
+    {"id":"clip","type":"string","label":"Reaction clip URL","default":"https://assets.mixkit.co/videos/51118/51118-720.mp4"},
+    {"id":"handle","type":"string","label":"Handle","default":"@nataliedigital"},
+    {"id":"bg","type":"color","label":"Background","default":"#f4efe9"},
+    {"id":"ink","type":"color","label":"Text color","default":"#2a2722"},
+    {"id":"accent","type":"color","label":"Underline color","default":"#c9a24a"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body { background: transparent; overflow: hidden; }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] {
+        position: relative; width: 100%; height: 100%;
+        background: #f4efe9; overflow: hidden;
+        font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-wrap {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: center;
+        gap: 7vmin; padding: 11vmin 10vmin;
+      }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-label {
+        font-size: clamp(18px, 2.4vmin, 30px); font-weight: 600; letter-spacing: 0.42em;
+        text-transform: uppercase; color: #b0a89c;
+      }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-cap {
+        font-size: clamp(34px, 5.1vmin, 64px); font-weight: 500; line-height: 1.36;
+        letter-spacing: -0.005em; color: #2a2722; text-align: center; max-width: 100%;
+      }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-em {
+        --uw: 0%; font-weight: 700;
+        background-image: linear-gradient(#c9a24a, #c9a24a);
+        background-repeat: no-repeat; background-position: 0 100%; background-size: var(--uw) 3px;
+        -webkit-box-decoration-break: clone; box-decoration-break: clone;
+        padding-bottom: 0.7vmin;
+      }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-frame {
+        width: 66%; aspect-ratio: 1 / 1; border-radius: 1.7vmin; overflow: hidden;
+        background: #2a2722; box-shadow: 0 2.6vmin 6vmin rgba(42, 39, 34, 0.22);
+      }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-frame video {
+        width: 100%; height: 100%; object-fit: cover; display: block;
+      }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-footer {
+        display: flex; flex-direction: column; align-items: center; gap: 2.2vmin;
+      }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-rule { width: 6vmin; height: 2px; background: #cfc6ba; }
+      [data-composition-id="visual-pov-minimal-21-tb-v"] .pn-handle {
+        font-size: clamp(18px, 3vmin, 32px); font-weight: 600; letter-spacing: 0.04em; color: #8a8275;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="pn-root"
+      data-composition-id="visual-pov-minimal-21-tb-v"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="5"
+    >
+      <div class="pn-wrap">
+        <div class="pn-label" id="pn-label">creator diaries</div>
+        <div class="pn-cap" id="pn-cap"><span id="pn-setup"></span> <span class="pn-em" id="pn-em"></span></div>
+        <div class="pn-frame" id="pn-frame">
+          <video
+            id="pn-vid"
+            src="https://assets.mixkit.co/videos/51118/51118-720.mp4"
+            data-start="0" data-duration="5" data-track-index="0"
+            muted playsinline loop
+          ></video>
+        </div>
+        <div class="pn-footer">
+          <div class="pn-rule"></div>
+          <div class="pn-handle" id="pn-handle">@nataliedigital</div>
+        </div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        window.__timelines["visual-pov-minimal-21-tb-v"] = (function () {
+          const NAME = "visual-pov-minimal-21-tb-v";
+          const root = document.querySelector('[data-composition-id="' + NAME + '"]');
+          const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+
+          if (V.bg) root.style.background = V.bg;
+          if (V.label !== undefined) document.getElementById("pn-label").textContent = V.label;
+          if (V.handle !== undefined) document.getElementById("pn-handle").textContent = V.handle;
+          document.getElementById("pn-setup").textContent = V.setup != null ? V.setup : "";
+          const em = document.getElementById("pn-em");
+          em.textContent = V.punch != null ? V.punch : "";
+          if (V.ink) { document.getElementById("pn-setup").style.color = V.ink; em.style.color = V.ink; }
+          if (V.accent) em.style.backgroundImage = "linear-gradient(" + V.accent + "," + V.accent + ")";
+          const vid = document.getElementById("pn-vid");
+          if (V.clip && vid.getAttribute("src") !== V.clip) vid.src = V.clip;
+
+          const tl = gsap.timeline({ paused: true });
+          tl.from("#pn-label", { y: -18, opacity: 0, duration: 0.6, ease: "power2.out" }, 0.1);
+          tl.from("#pn-cap", { y: 18, opacity: 0, duration: 0.7, ease: "power2.out" }, 0.3);
+          tl.to("#pn-em", { "--uw": "100%", duration: 0.55, ease: "power2.out" }, 1.0);
+          tl.from("#pn-frame", { scale: 0.9, opacity: 0, duration: 0.7, ease: "power3.out" }, 0.5);
+          tl.from(".pn-footer", { y: 16, opacity: 0, duration: 0.5, ease: "power2.out" }, 0.7);
+          tl.to({}, { duration: 5 }, 0);
+          return tl;
+        })();
+      </script>
+    </div>
+  </body>
+</html>

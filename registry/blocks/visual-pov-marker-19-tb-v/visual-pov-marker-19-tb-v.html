@@ -1,0 +1,145 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-pov-marker-19-tb-v (vertical 1080x1920)
+  Description: POV relatable meme — reaction clip in a card, bold Anton headline, and a
+               hand-drawn marker that underlines the punchline while the words light up (karaoke).
+  Category: visual
+  Type: block (full-screen scene with its own background)
+  REQUIRES: gsap (CDN). Font "Anton" is auto-embedded by the HyperFrames compiler (no <link>).
+  DEMO CLIP: Mixkit free-license stock video (commercial use, no attribution). Swap via the "clip" variable.
+-->
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"setup","type":"string","label":"Setup text","default":"POV: a video you almost deleted just"},
+    {"id":"punch","type":"string","label":"Punchline (marker)","default":"hit a million views"},
+    {"id":"clip","type":"string","label":"Reaction clip URL","default":"https://assets.mixkit.co/videos/4606/4606-720.mp4"},
+    {"id":"pill","type":"string","label":"Pill label","default":"POV CREATOR"},
+    {"id":"handle","type":"string","label":"Handle","default":"@nataliedigital"},
+    {"id":"bg","type":"color","label":"Background","default":"#0f0f12"},
+    {"id":"accent","type":"color","label":"Marker color","default":"#e0608a"},
+    {"id":"hlText","type":"color","label":"Lit-up word color","default":"#ff9ec9"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body { background: transparent; overflow: hidden; }
+      [data-composition-id="visual-pov-marker-19-tb-v"] {
+        position: relative; width: 100%; height: 100%;
+        background: #0f0f12; overflow: hidden;
+        font-family: "Anton", "Helvetica Neue", Arial, sans-serif;
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-wrap {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+        gap: 4.8vmin; padding: 11vmin 8.9vmin;
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-head {
+        display: flex; flex-direction: column; align-items: flex-start; gap: 3.1vmin;
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-pill {
+        display: inline-flex; align-items: center; gap: 1.3vmin;
+        padding: 1.4vmin 2.8vmin; border-radius: 999px;
+        background: #1c1c22; color: #f5f5f7; border: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-size: clamp(20px, 2.5vmin, 34px); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-dot {
+        width: 1.4vmin; height: 1.4vmin; border-radius: 50%; background: #e0608a;
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-cap {
+        font-size: clamp(40px, 5.9vmin, 78px); line-height: 1.2;
+        letter-spacing: -0.01em; color: #f5f5f7; text-align: left; max-width: 100%;
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-em {
+        --uw: 0%;
+        background-repeat: no-repeat; background-position: 0 100%; background-size: var(--uw) 20px;
+        -webkit-box-decoration-break: clone; box-decoration-break: clone;
+        padding: 0 0.6vmin 2vmin;
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-media {
+        width: 100%; aspect-ratio: 1 / 1; border-radius: 3vmin; overflow: hidden;
+        background: #0a0a0c; border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4.5vmin 9vmin rgba(224, 96, 138, 0.14), 0 2.6vmin 5.5vmin rgba(0, 0, 0, 0.55);
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-media video {
+        width: 100%; height: 100%; object-fit: cover; display: block;
+      }
+      [data-composition-id="visual-pov-marker-19-tb-v"] .pm-handle {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-size: clamp(20px, 3.1vmin, 38px); font-weight: 600; letter-spacing: 0.02em; color: #6e6e77;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="pm-root"
+      data-composition-id="visual-pov-marker-19-tb-v"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="5"
+    >
+      <div class="pm-wrap">
+        <div class="pm-head">
+          <div class="pm-pill" id="pm-pill"><span class="pm-dot"></span><span id="pm-pill-txt">POV CREATOR</span></div>
+          <div class="pm-cap" id="pm-cap"><span id="pm-setup"></span> <span class="pm-em" id="pm-em"></span></div>
+        </div>
+        <div class="pm-media" id="pm-media">
+          <video
+            id="pm-vid"
+            src="https://assets.mixkit.co/videos/4606/4606-720.mp4"
+            data-start="0" data-duration="5" data-track-index="0"
+            muted playsinline loop
+          ></video>
+        </div>
+        <div class="pm-handle" id="pm-handle">@nataliedigital</div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        window.__timelines["visual-pov-marker-19-tb-v"] = (function () {
+          const NAME = "visual-pov-marker-19-tb-v";
+          const root = document.querySelector('[data-composition-id="' + NAME + '"]');
+          const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+
+          const accent = V.accent || "#e0608a";
+          const hlText = V.hlText || "#ff9ec9";
+          if (V.bg) root.style.background = V.bg;
+          if (V.pill !== undefined) document.getElementById("pm-pill-txt").textContent = V.pill;
+          if (V.handle !== undefined) document.getElementById("pm-handle").textContent = V.handle;
+          document.getElementById("pm-setup").textContent = V.setup != null ? V.setup : "";
+          const vid = document.getElementById("pm-vid");
+          if (V.clip && vid.getAttribute("src") !== V.clip) vid.src = V.clip;
+
+          // marker color (brush SVG) built with the accent
+          const svg = "%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='28'%20viewBox='0%200%20240%2028'%20preserveAspectRatio='none'%3E%3Cpath%20d='M5%2014%20C50%208%20110%2010%20150%2012%20C190%2014%20222%2011%20236%2013%20C240%2017%20238%2021%20232%2022%20C175%2025%20100%2023%2055%2022%20C28%2021.5%2010%2022%205%2014%20Z'%20fill='" + encodeURIComponent(accent) + "'%20fill-opacity='0.92'/%3E%3C/svg%3E";
+          const em = document.getElementById("pm-em");
+          em.style.backgroundImage = 'url("data:image/svg+xml,' + svg + '")';
+
+          // build punchline words for the karaoke light-up
+          const words = String(V.punch != null ? V.punch : "").split(/\s+/).filter(Boolean);
+          em.innerHTML = words.map((w) => '<span class="pm-w">' + w + "</span>").join(" ");
+          const wEls = em.querySelectorAll(".pm-w");
+
+          const tl = gsap.timeline({ paused: true });
+          tl.from("#pm-pill", { y: -18, opacity: 0, duration: 0.5, ease: "back.out(1.6)" }, 0.1);
+          tl.from("#pm-cap", { y: 22, opacity: 0, duration: 0.65, ease: "power3.out" }, 0.25);
+          tl.to("#pm-em", { "--uw": "100%", duration: 0.7, ease: "power1.inOut" }, 0.7);
+          if (wEls.length) {
+            tl.to(wEls, { color: hlText, duration: 0.2, ease: "none", stagger: 0.7 / wEls.length }, 0.72);
+          }
+          tl.from("#pm-media", { y: 40, opacity: 0, duration: 0.75, ease: "power3.out" }, 0.45);
+          tl.from("#pm-handle", { opacity: 0, duration: 0.5, ease: "power2.out" }, 0.7);
+          tl.to({}, { duration: 5 }, 0);
+          return tl;
+        })();
+      </script>
+    </div>
+  </body>
+</html>

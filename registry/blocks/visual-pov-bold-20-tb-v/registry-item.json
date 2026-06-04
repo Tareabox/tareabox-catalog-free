@@ -1,0 +1,31 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-pov-bold-20-tb-v",
+  "type": "hyperframes:block",
+  "title": "POV Meme — Bold (Vertical)",
+  "description": "Meme POV relatable: layout claro y limpio, titular bold alineado a la izquierda con un remate en color de acento, sobre un clip de reacción en tarjeta con sombra suave. Texto, clip, colores y handle editables por variables.",
+  "tags": [
+    "visual",
+    "meme",
+    "pov",
+    "bold",
+    "vertical",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "duration": 5.0,
+  "files": [
+    {
+      "path": "visual-pov-bold-20-tb-v.html",
+      "target": "compositions/visual-pov-bold-20-tb-v.html",
+      "type": "hyperframes:composition"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-pov-bold-20-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-pov-bold-20-tb-v.png"
+  }
+}
