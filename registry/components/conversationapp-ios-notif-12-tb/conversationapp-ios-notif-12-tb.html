@@ -9,7 +9,8 @@
   {"id":"noTitle","type":"string","label":"Title","default":"New pack ready to render"},
   {"id":"noBody","type":"string","label":"Body","default":"tareabox-pack-natalie · 52 layouts staged for export"},
   {"id":"accent","type":"color","label":"Accent color","default":"#007AFF"},
-  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0c"}
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0c"},
+  {"id":"bgPhoto","type":"string","label":"Background photo URL","default":"https://images.pexels.com/photos/27940302/pexels-photo-27940302.jpeg?auto=compress&cs=tinysrgb&w=1920"}
 ]'>
 <head>
   <meta charset="UTF-8" />
@@ -106,7 +107,7 @@
     }
 </style>
 
-    <img class="bg-photo" src="https://images.pexels.com/photos/27940302/pexels-photo-27940302.jpeg?auto=compress&cs=tinysrgb&w=1920" crossorigin="anonymous" alt="" />
+    <img class="bg-photo" src="https://images.pexels.com/photos/27940302/pexels-photo-27940302.jpeg?auto=compress&cs=tinysrgb&w=1920" crossorigin="anonymous" data-tb-asset="background" alt="" />
     <div class="notif" id="no12-notif">
       <div class="icon"></div>
       <div class="body">
@@ -136,6 +137,7 @@
       setStr("--no-body",  V.noBody);
       setRaw("--tb-accent", V.accent);
       setRaw("--tb-bg",     V.bg);
+      if (V.bgPhoto) { const _img = root.querySelector(".bg-photo"); if (_img) _img.src = V.bgPhoto; }
       $("#no12-app").textContent   = G("--no-app");
       $("#no12-time").textContent  = G("--no-time");
       $("#no12-title").textContent = G("--no-title");
