@@ -73,7 +73,7 @@ registry/
 **Blocks** — escenas completas con bg propio:
 - **layout** — YouTube setups (PIP, watchlater, split-screen, tier-list...), tutorials, recap, hooks
 - **conversationapp** — iMessage, WhatsApp, Discord, android-notif, imessage-pure, gif-chat (scenes completas)
-- **visual** — efectos con video integral (meme-cutin, gif-burst, gif-stickers, gif-crumple, zoom-indicator)
+- **visual** — efectos con video integral (meme-cutin, gif-burst, gif-stickers, gif-crumple, zoom-indicator, pov-meme)
 - **text** — neon-flashing, neon-glow, chapter-reveal (full-screen typography scenes)
 
 **Components** — overlays transparentes para layerear sobre cualquier video/block:

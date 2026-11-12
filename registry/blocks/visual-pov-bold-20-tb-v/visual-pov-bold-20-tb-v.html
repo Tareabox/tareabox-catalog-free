@@ -1,0 +1,127 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-pov-bold-20-tb-v (vertical 1080x1920)
+  Description: POV relatable meme — clean light layout, bold left-aligned headline with a single
+               accent-colored punchline, and a reaction clip in a soft-shadow card.
+  Category: visual
+  Type: block (full-screen scene with its own background)
+  REQUIRES: gsap (CDN). Font "Montserrat" is auto-embedded by the HyperFrames compiler (no <link>).
+  DEMO CLIP: Mixkit free-license stock video (commercial use, no attribution). Swap via the "clip" variable.
+-->
+<html
+  lang="en"
+  data-composition-variables='[
+    {"id":"setup","type":"string","label":"Setup text","default":"POV: nobody is home and you are"},
+    {"id":"punch","type":"string","label":"Punchline (accent)","default":"the main character"},
+    {"id":"clip","type":"string","label":"Reaction clip URL","default":"https://assets.mixkit.co/dnci616j6m58wnclcn8r3qvooeww"},
+    {"id":"pill","type":"string","label":"Pill label","default":"POV CREATOR"},
+    {"id":"handle","type":"string","label":"Handle","default":"@nataliedigital"},
+    {"id":"bg","type":"color","label":"Background","default":"#efe9e1"},
+    {"id":"ink","type":"color","label":"Text color","default":"#211d18"},
+    {"id":"accent","type":"color","label":"Accent (punchline)","default":"#cf5a7f"}
+  ]'
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      body { background: transparent; overflow: hidden; }
+      [data-composition-id="visual-pov-bold-20-tb-v"] {
+        position: relative; width: 100%; height: 100%;
+        background: #efe9e1; overflow: hidden;
+        font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+      }
+      [data-composition-id="visual-pov-bold-20-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-wrap {
+        position: absolute; inset: 0;
+        display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+        gap: 5vmin; padding: 11vmin 8.9vmin;
+      }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-head {
+        display: flex; flex-direction: column; align-items: flex-start; gap: 3.3vmin;
+      }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-pill {
+        display: inline-flex; align-items: center; gap: 1.3vmin;
+        padding: 1.5vmin 3vmin; border-radius: 999px;
+        background: #211d18; color: #efe9e1;
+        font-size: clamp(20px, 2.6vmin, 34px); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+      }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-dot {
+        width: 1.4vmin; height: 1.4vmin; border-radius: 50%; background: #cf5a7f;
+      }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-cap {
+        font-size: clamp(40px, 5.7vmin, 76px); font-weight: 800; line-height: 1.18;
+        letter-spacing: -0.02em; color: #211d18; text-align: left; max-width: 100%;
+      }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-em { color: #cf5a7f; }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-media {
+        width: 100%; aspect-ratio: 1 / 1; border-radius: 3vmin; overflow: hidden;
+        background: #211d18;
+        box-shadow: 0 4.5vmin 9vmin rgba(207, 90, 127, 0.18), 0 2.6vmin 5.5vmin rgba(33, 29, 24, 0.22);
+      }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-media video {
+        width: 100%; height: 100%; object-fit: cover; display: block;
+      }
+      [data-composition-id="visual-pov-bold-20-tb-v"] .pb-handle {
+        font-size: clamp(20px, 3.1vmin, 38px); font-weight: 600; letter-spacing: 0.02em; color: #a39a8d;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="pb-root"
+      data-composition-id="visual-pov-bold-20-tb-v"
+      data-width="1080"
+      data-height="1920"
+      data-start="0"
+      data-duration="5"
+    >
+      <div class="pb-wrap">
+        <div class="pb-head">
+          <div class="pb-pill" id="pb-pill"><span class="pb-dot"></span><span id="pb-pill-txt">POV CREATOR</span></div>
+          <div class="pb-cap" id="pb-cap"><span id="pb-setup"></span> <span class="pb-em" id="pb-em"></span></div>
+        </div>
+        <div class="pb-media" id="pb-media">
+          <video
+            id="pb-vid"
+            src="https://assets.mixkit.co/dnci616j6m58wnclcn8r3qvooeww"
+            data-start="0" data-duration="5" data-track-index="0"
+            muted playsinline loop
+          ></video>
+        </div>
+        <div class="pb-handle" id="pb-handle">@nataliedigital</div>
+      </div>
+
+      <script>
+        window.__timelines = window.__timelines || {};
+        window.__timelines["visual-pov-bold-20-tb-v"] = (function () {
+          const NAME = "visual-pov-bold-20-tb-v";
+          const root = document.querySelector('[data-composition-id="' + NAME + '"]');
+          const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+
+          if (V.bg) root.style.background = V.bg;
+          if (V.ink) root.style.setProperty("color", V.ink);
+          if (V.pill !== undefined) document.getElementById("pb-pill-txt").textContent = V.pill;
+          if (V.handle !== undefined) document.getElementById("pb-handle").textContent = V.handle;
+          document.getElementById("pb-setup").textContent = V.setup != null ? V.setup : "";
+          const em = document.getElementById("pb-em");
+          em.textContent = V.punch != null ? V.punch : "";
+          if (V.accent) em.style.color = V.accent;
+          const vid = document.getElementById("pb-vid");
+          if (V.clip && vid.getAttribute("src") !== V.clip) vid.src = V.clip;
+
+          const tl = gsap.timeline({ paused: true });
+          tl.from("#pb-pill", { y: -18, opacity: 0, duration: 0.5, ease: "back.out(1.6)" }, 0.1);
+          tl.from("#pb-cap", { y: 22, opacity: 0, duration: 0.65, ease: "power3.out" }, 0.25);
+          tl.from("#pb-em", { opacity: 0, duration: 0.3, ease: "power2.out" }, 0.7);
+          tl.from("#pb-media", { y: 40, opacity: 0, duration: 0.75, ease: "power3.out" }, 0.45);
+          tl.from("#pb-handle", { opacity: 0, duration: 0.5, ease: "power2.out" }, 0.7);
+          tl.to({}, { duration: 5 }, 0);
+          return tl;
+        })();
+      </script>
+    </div>
+  </body>
+</html>

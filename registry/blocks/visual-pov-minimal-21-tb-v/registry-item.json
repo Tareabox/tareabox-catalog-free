@@ -1,0 +1,31 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-pov-minimal-21-tb-v",
+  "type": "hyperframes:block",
+  "title": "POV Meme — Minimal (Vertical)",
+  "description": "Meme POV relatable: layout editorial minimal, centrado, con un caption refinado cuyo remate recibe un subrayado fino hecho a mano que se dibuja solo, sobre un clip de reacción enmarcado. Texto, clip, colores y handle editables por variables.",
+  "tags": [
+    "visual",
+    "meme",
+    "pov",
+    "minimal",
+    "vertical",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "duration": 5.0,
+  "files": [
+    {
+      "path": "visual-pov-minimal-21-tb-v.html",
+      "target": "compositions/visual-pov-minimal-21-tb-v.html",
+      "type": "hyperframes:composition"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-pov-minimal-21-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-pov-minimal-21-tb-v.png"
+  }
+}

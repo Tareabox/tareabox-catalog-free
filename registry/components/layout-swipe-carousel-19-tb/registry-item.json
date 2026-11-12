@@ -1,0 +1,26 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "layout-swipe-carousel-19-tb",
+  "type": "hyperframes:component",
+  "title": "Layout Swipe Carousel (Horizontal)",
+  "description": "Carrusel swipe transparente que auto-avanza por 5 imagenes con tarjeta central enfocada, peeks laterales, caption (kicker + titulo) y dots de progreso. Overlay adaptable: se ubica en completa / centro / izquierda / derecha para convivir con un PiP u otro objeto.",
+  "tags": [
+    "layout",
+    "carousel",
+    "swipe",
+    "overlay",
+    "horizontal",
+    "tareabox"
+  ],
+  "files": [
+    {
+      "path": "layout-swipe-carousel-19-tb.html",
+      "target": "compositions/components/layout-swipe-carousel-19-tb.html",
+      "type": "hyperframes:snippet"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-layout-swipe-carousel-19-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-layout-swipe-carousel-19-tb.png"
+  }
+}
