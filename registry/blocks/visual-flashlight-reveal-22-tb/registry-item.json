@@ -1,0 +1,40 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-flashlight-reveal-22-tb",
+  "type": "hyperframes:block",
+  "title": "Visual Flashlight Reveal (Horizontal)",
+  "description": "Una linterna se enciende en la oscuridad y salta por la pantalla; cada haz de luz revela un servicio (palabra gruesa + palabra manuscrita + íconos) y cierra con el logo a plena luz, en formato horizontal 16:9",
+  "tags": [
+    "visual",
+    "flashlight",
+    "reveal",
+    "horizontal",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "duration": 9,
+  "files": [
+    {
+      "path": "visual-flashlight-reveal-22-tb.html",
+      "target": "compositions/visual-flashlight-reveal-22-tb.html",
+      "type": "hyperframes:composition"
+    },
+    {
+      "path": "tb-media/tb-font-geist.woff2",
+      "target": "assets/tb-media/tb-font-geist.woff2",
+      "type": "hyperframes:asset"
+    },
+    {
+      "path": "tb-media/tb-font-caveat.woff2",
+      "target": "assets/tb-media/tb-font-caveat.woff2",
+      "type": "hyperframes:asset"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-flashlight-reveal-22-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-flashlight-reveal-22-tb.png"
+  }
+}

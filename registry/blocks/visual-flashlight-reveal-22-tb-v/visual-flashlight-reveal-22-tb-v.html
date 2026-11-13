@@ -1,0 +1,220 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  visual-flashlight-reveal-22-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Vertical 9:16 — A flashlight in the dark switches on and jumps around the frame; each beam reveals one service (bold word + handwritten word + icons). Ends on a full-light logo card.
+  Category: visual
+  Duration: 9 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"top1","type":"string","label":"Word 1 (bold)","default":"Short"},
+  {"id":"bot1","type":"string","label":"Word 1 (script)","default":"videos"},
+  {"id":"top2","type":"string","label":"Word 2 (bold)","default":"Video"},
+  {"id":"bot2","type":"string","label":"Word 2 (script)","default":"templates"},
+  {"id":"top3","type":"string","label":"Word 3 (bold)","default":"Social"},
+  {"id":"bot3","type":"string","label":"Word 3 (script)","default":"content"},
+  {"id":"top4","type":"string","label":"Word 4 (bold)","default":"AI"},
+  {"id":"bot4","type":"string","label":"Word 4 (script)","default":"tools"},
+  {"id":"logo","type":"string","label":"Logo text","default":"TareaBox"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#FE83B9"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+</head>
+<body>
+<div id="visual-flashlight-reveal-22-tb-v" data-composition-id="visual-flashlight-reveal-22-tb-v"
+     data-width="1080" data-height="1920" data-start="0" data-duration="9">
+<style>
+  /* Fonts bundled in tb-media so the render never depends on the network. */
+  @font-face { font-family: "TB Geist"; src: url("../assets/tb-media/tb-font-geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+  @font-face { font-family: "TB Caveat"; src: url("../assets/tb-media/tb-font-caveat.woff2") format("woff2"); font-weight: 400 700; font-display: block; }
+  /* ═══════════════════════════════════════════════════════ */
+  /* 🎨 CUSTOMIZE HERE                                    */
+  /* ═══════════════════════════════════════════════════════ */
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] {
+    --tb-dark:         #09090b;
+    --tb-light:        #F6F0ED;
+    --tb-text:         #1D1F31;
+    --tb-accent:       var(--tb-brand-accent, #FE83B9);
+    --tb-font-display: var(--tb-brand-font-display, "TB Geist", "Geist", sans-serif);
+    --tb-font-script:  var(--tb-brand-font-script, "TB Caveat", "Caveat", cursive);
+  }
+  /* ═══════════════════════════════════════════════════════ */
+  /* ⛔ EFFECT CODE                                          */
+  /* ═══════════════════════════════════════════════════════ */
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] {
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+    background: var(--tb-dark); font-family: var(--tb-font-display);
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .lit,
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .end {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(110% 60% at 100% 0%, color-mix(in srgb, var(--tb-accent) 13%, transparent), transparent 75%),
+      radial-gradient(110% 60% at 0% 100%, color-mix(in srgb, var(--tb-accent) 11%, transparent), transparent 75%),
+      var(--tb-light);
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .lit { clip-path: polygon(540px 960px, 540px 960px, 540px 960px); }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .end { opacity: 0; display: flex; align-items: center; justify-content: center; }
+
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .grp {
+    position: absolute; width: 0; height: 0; opacity: 0;
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .word {
+    position: absolute; left: 0; top: 0; transform: translate(-50%, -50%);
+    display: flex; flex-direction: column; align-items: flex-start; white-space: nowrap;
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .top {
+    color: var(--tb-text); font-weight: 900; letter-spacing: -0.04em; line-height: 0.85;
+    font-size: clamp(90px, 15vmin, 200px);
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .bot {
+    color: var(--tb-accent); font-family: var(--tb-font-script); font-weight: 700; line-height: 0.7;
+    font-size: clamp(100px, 17vmin, 220px); margin: -0.18em 0 0 0.35em; transform: rotate(-5deg);
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .ico {
+    position: absolute; width: 74px; height: 74px; border-radius: 20px;
+    border: 5px solid #c9c2bf; transform: translate(-50%, -50%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .ico::after {
+    content: ""; width: 22px; height: 22px; border-radius: 6px; border: 5px solid #b8b1ae;
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .ico.fill { background: var(--tb-accent); border-color: var(--tb-accent); }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .ico.fill::after { border-color: #fff; }
+
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .torch {
+    position: absolute; left: 0; top: 0; width: 46px; height: 76px; margin: -38px 0 0 -23px;
+    transform-origin: 50% 50%;
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .torch .body {
+    position: absolute; inset: 14px 4px 0 4px; background: #f4f4f5; border-radius: 10px;
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .torch .head {
+    position: absolute; left: 0; right: 0; top: 0; height: 20px; background: #ffffff; border-radius: 6px 6px 3px 3px;
+    box-shadow: 0 -6px 26px 6px rgba(255,255,255,0.75);
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .logo {
+    display: flex; flex-direction: column; align-items: center; gap: 36px; opacity: 0;
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .mark {
+    width: 230px; height: 230px; border-radius: 50%; border: 22px solid var(--tb-accent);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--tb-accent); font-weight: 900; font-size: clamp(60px, 9vmin, 120px); letter-spacing: -0.06em;
+  }
+  [data-composition-id="visual-flashlight-reveal-22-tb-v"] .logo-text {
+    color: var(--tb-text); font-weight: 800; font-size: clamp(56px, 7vmin, 90px); letter-spacing: -0.03em;
+  }
+</style>
+
+<div class="lit">
+  <div class="grp g1" style="left:690px; top:930px">
+    <div class="word"><span class="top" data-k="top1">Short</span><span class="bot" data-k="bot1">videos</span></div>
+    <span class="ico" style="left:-250px; top:-250px"></span>
+    <span class="ico" style="left:330px; top:-280px"></span>
+    <span class="ico fill" style="left:40px; top:300px"></span>
+  </div>
+  <div class="grp g2" style="left:400px; top:1080px">
+    <div class="word"><span class="top" data-k="top2">Video</span><span class="bot" data-k="bot2">templates</span></div>
+    <span class="ico" style="left:-300px; top:-200px"></span>
+    <span class="ico fill" style="left:290px; top:-240px"></span>
+    <span class="ico" style="left:-10px; top:330px"></span>
+  </div>
+  <div class="grp g3" style="left:640px; top:1000px">
+    <div class="word"><span class="top" data-k="top3">Social</span><span class="bot" data-k="bot3">content</span></div>
+    <span class="ico" style="left:-250px; top:-270px"></span>
+    <span class="ico" style="left:-180px; top:300px"></span>
+    <span class="ico fill" style="left:330px; top:330px"></span>
+  </div>
+  <div class="grp g4" style="left:520px; top:880px">
+    <div class="word"><span class="top" data-k="top4">AI</span><span class="bot" data-k="bot4">tools</span></div>
+    <span class="ico" style="left:-280px; top:-200px"></span>
+    <span class="ico" style="left:290px; top:-330px"></span>
+    <span class="ico fill" style="left:270px; top:280px"></span>
+  </div>
+</div>
+
+<div class="torch"><div class="body"></div><div class="head"></div></div>
+
+<div class="end">
+  <div class="logo">
+    <div class="mark">TB</div>
+    <div class="logo-text" data-k="logo">TareaBox</div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+  window.__timelines = window.__timelines || {};
+  window.__timelines["visual-flashlight-reveal-22-tb-v"] = (function () {
+    const root = document.querySelector('[data-composition-id="visual-flashlight-reveal-22-tb-v"]');
+    const $ = (s) => root.querySelector(s);
+    const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+    root.querySelectorAll("[data-k]").forEach((el) => {
+      const v = V[el.dataset.k];
+      if (v !== undefined && v !== null && v !== "") el.textContent = String(v);
+    });
+    if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+
+    // Beam pose → clip-path polygon. angle: degrees clockwise from "up".
+    const L = 4200;
+    const poly = (x, y, a, s) => {
+      const p = (deg) => {
+        const r = deg * Math.PI / 180;
+        return (x + Math.sin(r) * L).toFixed(1) + "px " + (y - Math.cos(r) * L).toFixed(1) + "px";
+      };
+      return "polygon(" + x + "px " + y + "px, " + p(a - s) + ", " + p(a + s) + ")";
+    };
+    const lit = $(".lit"), torch = $(".torch");
+    const pose = (t, x, y, a, s, dur, ease) => {
+      tl.to(lit, { clipPath: poly(x, y, a, s), duration: dur, ease: ease || "power3.inOut" }, t);
+      tl.to(torch, { x: x, y: y, rotation: a, duration: dur, ease: ease || "power3.inOut" }, t);
+    };
+    const show = (sel, t, out) => {
+      tl.fromTo(sel, { opacity: 0, scale: 0.94 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, t);
+      tl.to(sel, { opacity: 0, duration: 0.15, ease: "power1.in" }, out);
+    };
+
+    const tl = gsap.timeline({ paused: true });
+
+    // Intro: torch alone in the dark, spinning, beam off.
+    tl.set(torch, { x: 540, y: 980, rotation: -120, scale: 0.8 }, 0);
+    tl.set(lit, { clipPath: poly(540, 980, 0, 0), opacity: 0 }, 0);
+    tl.to(torch, { rotation: 0, scale: 1, duration: 0.85, ease: "power2.inOut" }, 0);
+    // Switch on: dim flicker, then full beam straight up.
+    tl.to(lit, { clipPath: poly(540, 980, 0, 6), opacity: 0.3, duration: 0.12, ease: "none" }, 0.9);
+    tl.to(lit, { opacity: 0.05, duration: 0.06, ease: "none" }, 1.04);
+    tl.to(lit, { opacity: 1, duration: 0.08, ease: "none" }, 1.12);
+
+    // Scene 1 — torch bottom-left, beam up-right.
+    pose(1.35, 240, 1700, 40, 32, 0.45);
+    show(".g1", 1.6, 2.55);
+    // Scene 2 — torch top-right, beam down-left.
+    pose(2.55, 985, 360, 222, 28, 0.45);
+    show(".g2", 2.85, 3.85);
+    // Scene 3 — torch top-left, beam down-right.
+    pose(3.85, 120, 290, 148, 27, 0.45);
+    show(".g3", 4.15, 5.05);
+    // Scene 4 — torch bottom-right, beam up-left.
+    pose(5.05, 930, 1720, -30, 27, 0.45);
+    show(".g4", 5.35, 6.05);
+    // Exit — swing to the right edge, narrow, then off.
+    pose(6.05, 1000, 960, -90, 12, 0.35);
+    tl.to(lit, { clipPath: poly(1000, 960, -90, 0), duration: 0.25, ease: "power2.in" }, 6.45);
+    tl.to(torch, { x: 1160, duration: 0.35, ease: "power2.in" }, 6.55);
+
+    // End card: full light + logo.
+    tl.to(".end", { opacity: 1, duration: 0.35, ease: "power2.out" }, 6.9);
+    tl.fromTo(".logo", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)" }, 7.05);
+
+    tl.to({}, { duration: 9 }, 0);
+    return tl;
+  })();
+</script>
+</div>
+</body>
+</html>

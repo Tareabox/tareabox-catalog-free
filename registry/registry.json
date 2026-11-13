@@ -600,6 +600,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "visual-flashlight-reveal-22-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "visual-flashlight-reveal-22-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "visual-freeze-peel-17-tb",
       "type": "hyperframes:component"
     },
