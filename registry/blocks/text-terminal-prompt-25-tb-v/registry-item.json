@@ -1,0 +1,41 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "text-terminal-prompt-25-tb-v",
+  "type": "hyperframes:block",
+  "title": "Text Terminal Prompt (Vertical)",
+  "description": "Una caja de permiso de terminal pregunta tres veces; el cursor elige Sí, Sí y baja hasta No, pero cae un sello gigante TOO LATE! con sacudida y un medidor se dispara, en formato vertical 9:16",
+  "tags": [
+    "text",
+    "terminal",
+    "prompt",
+    "stamp",
+    "vertical",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "duration": 9,
+  "files": [
+    {
+      "path": "text-terminal-prompt-25-tb-v.html",
+      "target": "compositions/text-terminal-prompt-25-tb-v.html",
+      "type": "hyperframes:composition"
+    },
+    {
+      "path": "tb-media/tb-font-anton.woff2",
+      "target": "assets/tb-media/tb-font-anton.woff2",
+      "type": "hyperframes:asset"
+    },
+    {
+      "path": "tb-media/tb-font-geist-mono.woff2",
+      "target": "assets/tb-media/tb-font-geist-mono.woff2",
+      "type": "hyperframes:asset"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-terminal-prompt-25-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-terminal-prompt-25-tb-v.png"
+  }
+}

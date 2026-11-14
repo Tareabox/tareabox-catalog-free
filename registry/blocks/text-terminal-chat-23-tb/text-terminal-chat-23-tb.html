@@ -1,0 +1,185 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  text-terminal-chat-23-tb (horizontal 1920x1080)
+  Tareabox Hyperframes Effect
+  Description: A terminal chat that types itself: the user's questions appear letter by letter with a blinking cursor, the AI answers stream in an accent color, older lines dim and scroll up.
+  Category: text
+  Duration: 14 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"header","type":"string","label":"Header (left)","default":"you@studio ~/tareabox"},
+  {"id":"tag","type":"string","label":"Header (right)","default":"tareabox · chat"},
+  {"id":"q1","type":"string","label":"Question 1","default":"Hey TareaBox?"},
+  {"id":"a1","type":"string","label":"Answer 1","default":"Yes?"},
+  {"id":"q2","type":"string","label":"Question 2","default":"Can you help me plan my posts?"},
+  {"id":"a2","type":"string","label":"Answer 2","default":"Of course."},
+  {"id":"q3","type":"string","label":"Question 3","default":"Can you make them on brand?"},
+  {"id":"a3","type":"string","label":"Answer 3","default":"Absolutely."},
+  {"id":"q4","type":"string","label":"Question 4","default":"Can you make me go viral?"},
+  {"id":"a4","type":"string","label":"Answer 4","default":"I can help you with a strategy."},
+  {"id":"li1","type":"string","label":"List item 1","default":"post consistently"},
+  {"id":"li2","type":"string","label":"List item 2","default":"find your niche"},
+  {"id":"li3","type":"string","label":"List item 3","default":"be patient"},
+  {"id":"q5","type":"string","label":"Last line","default":"Close enough."},
+  {"id":"accent","type":"color","label":"Answer color","default":"#FE83B9"},
+  {"id":"prompt","type":"color","label":"Prompt + cursor color","default":"#4ADE80"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+</head>
+<body>
+<div id="text-terminal-chat-23-tb" data-composition-id="text-terminal-chat-23-tb"
+     data-width="1920" data-height="1080" data-start="0" data-duration="14">
+<style>
+  /* Font bundled in tb-media so the render never depends on the network. */
+  @font-face { font-family: "TB Geist Mono"; src: url("../assets/tb-media/tb-font-geist-mono.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+  /* ═══════════════════════════════════════════════════════ */
+  /* 🎨 CUSTOMIZE HERE                                    */
+  /* ═══════════════════════════════════════════════════════ */
+  [data-composition-id="text-terminal-chat-23-tb"] {
+    --tb-dark:      #09090b;
+    --tb-user:      #E7E5E4;
+    --tb-muted:     #8a8580;
+    --tb-accent:    var(--tb-brand-accent, #FE83B9);
+    --tb-prompt:    #4ADE80;
+    --tb-font-mono: var(--tb-brand-font-mono, "TB Geist Mono", "Geist Mono", ui-monospace, monospace);
+  }
+  /* ═══════════════════════════════════════════════════════ */
+  /* ⛔ EFFECT CODE                                          */
+  /* ═══════════════════════════════════════════════════════ */
+  [data-composition-id="text-terminal-chat-23-tb"] {
+    position: relative; width: 100%; height: 100%; overflow: hidden;
+    background: radial-gradient(90% 70% at 50% 55%, #141317, var(--tb-dark) 75%);
+    font-family: var(--tb-font-mono); color: var(--tb-user);
+  }
+  [data-composition-id="text-terminal-chat-23-tb"] * { margin: 0; padding: 0; box-sizing: border-box; }
+  [data-composition-id="text-terminal-chat-23-tb"] .bar {
+    position: absolute; left: 230px; right: 230px; top: 48px;
+    display: flex; justify-content: space-between; gap: 24px;
+    font-size: clamp(20px, 2.6vmin, 32px); color: #6b6661; white-space: nowrap;
+  }
+  [data-composition-id="text-terminal-chat-23-tb"] .bar b { color: #a8a29e; font-weight: 600; }
+  [data-composition-id="text-terminal-chat-23-tb"] .view {
+    position: absolute; left: 230px; right: 230px; top: 0; bottom: 0;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 18%, #000 58%);
+            mask-image: linear-gradient(to bottom, transparent 18%, #000 58%);
+  }
+  [data-composition-id="text-terminal-chat-23-tb"] .stack { position: absolute; left: 0; right: 0; top: 0; }
+  [data-composition-id="text-terminal-chat-23-tb"] .ln {
+    position: relative; padding-left: 1.6em; white-space: pre-wrap; word-break: normal;
+    font-size: clamp(40px, 6.2vmin, 96px); line-height: 1.32; font-weight: 600; letter-spacing: 0.02em;
+    opacity: 0;
+  }
+  [data-composition-id="text-terminal-chat-23-tb"] .ln .pre { position: absolute; left: 0; top: 0; }
+  [data-composition-id="text-terminal-chat-23-tb"] .ln.q .pre { color: var(--tb-prompt); }
+  [data-composition-id="text-terminal-chat-23-tb"] .ln.a { color: var(--tb-accent); }
+  [data-composition-id="text-terminal-chat-23-tb"] .ln.li { color: var(--tb-muted); font-weight: 500; padding-left: 3.4em; }
+  [data-composition-id="text-terminal-chat-23-tb"] .ln.li .pre { left: 1.6em; }
+  [data-composition-id="text-terminal-chat-23-tb"] .ch { display: none; }
+  [data-composition-id="text-terminal-chat-23-tb"] .cur {
+    display: inline-block; width: 0.62em; height: 1.08em; vertical-align: -0.2em; margin-left: 0.08em;
+    background: var(--tb-prompt); opacity: 0;
+  }
+</style>
+
+<div class="bar"><span><b data-k="header">you@studio ~/tareabox</b></span><span data-k="tag">tareabox · chat</span></div>
+<div class="view"><div class="stack"></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+  window.__timelines = window.__timelines || {};
+  window.__timelines["text-terminal-chat-23-tb"] = (function () {
+    const ID = "text-terminal-chat-23-tb", DUR = 14, H = 1080, ANCHOR = 860;
+    const root = document.querySelector('[data-composition-id="' + ID + '"]');
+    const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+    const val = (k, d) => (V[k] !== undefined && V[k] !== null && V[k] !== "") ? String(V[k]) : d;
+    root.querySelectorAll("[data-k]").forEach((el) => { el.textContent = val(el.dataset.k, el.textContent); });
+    if (V.accent) root.style.setProperty("--tb-accent", V.accent);
+    if (V.prompt) root.style.setProperty("--tb-prompt", V.prompt);
+
+    // Script of the conversation. kind: q = user types, a = reply streams, li = list item.
+    const SCRIPT = [
+      ["q", val("q1", "Hey TareaBox?")], ["a", val("a1", "Yes?")],
+      ["q", val("q2", "Can you help me plan my posts?")], ["a", val("a2", "Of course.")],
+      ["q", val("q3", "Can you make them on brand?")], ["a", val("a3", "Absolutely.")],
+      ["q", val("q4", "Can you make me go viral?")], ["a", val("a4", "I can help you with a strategy.")],
+      ["li", val("li1", "post consistently")], ["li", val("li2", "find your niche")], ["li", val("li3", "be patient")],
+      ["q", val("q5", "Close enough.")]
+    ];
+
+    const stack = root.querySelector(".stack");
+    let liN = 0;
+    const lines = SCRIPT.map(([kind, text]) => {
+      const ln = document.createElement("div");
+      ln.className = "ln " + kind;
+      const pre = document.createElement("span");
+      pre.className = "pre";
+      pre.textContent = kind === "q" ? "❯" : kind === "a" ? "•" : (++liN) + ".";
+      ln.appendChild(pre);
+      const chars = [];
+      for (const c of text) {
+        const s = document.createElement("span");
+        s.className = "ch"; s.textContent = c;
+        ln.appendChild(s); chars.push(s);
+      }
+      const cur = document.createElement("span");
+      cur.className = "cur";
+      ln.appendChild(cur);
+      stack.appendChild(ln);
+      return { kind, ln, chars, cur };
+    });
+
+    // Measure the final layout once (all chars visible), then hide again. Deterministic.
+    lines.forEach((l) => l.chars.forEach((c) => (c.style.display = "inline")));
+    lines.forEach((l) => { l.bottom = l.ln.offsetTop + l.ln.offsetHeight; });
+    lines.forEach((l) => l.chars.forEach((c) => (c.style.display = "")));
+
+    // Timing budget: typing speeds are scaled so the whole script fits DUR.
+    const START = 0.5, HOLD = 1.4;
+    const cost = (l) => l.kind === "q" ? l.chars.length / 17 + 0.45 : l.kind === "a" ? 0.3 + l.chars.length / 45 + 0.35 : 0.35;
+    const need = lines.reduce((s, l) => s + cost(l), 0);
+    const k = Math.min(1.25, (DUR - START - HOLD) / need);
+
+    const tl = gsap.timeline({ paused: true });
+    const blink = (cur, from, to) => {
+      let on = true;
+      for (let t = from; t < to - 0.01; t += 0.42) { tl.set(cur, { opacity: on ? 1 : 0 }, t); on = !on; }
+      tl.set(cur, { opacity: 0 }, to);
+    };
+
+    tl.set(stack, { y: ANCHOR - lines[0].bottom }, 0);
+    let t = START;
+    lines.forEach((l, i) => {
+      // Scroll so this line's bottom sits on the anchor; older lines dim.
+      tl.to(stack, { y: ANCHOR - l.bottom, duration: 0.28 * k, ease: "power2.out" }, t);
+      tl.set(l.ln, { opacity: 1 }, t);
+      if (i > 0) tl.to(lines[i - 1].ln, { opacity: lines[i - 1].kind === "li" ? 0.6 : 0.5, duration: 0.25 }, t);
+      if (l.kind === "q") {
+        const per = 1 / 17 * k;
+        tl.set(l.cur, { opacity: 1 }, t);
+        l.chars.forEach((c, j) => tl.set(c, { display: "inline" }, t + 0.12 + j * per));
+        const end = t + 0.12 + l.chars.length * per;
+        const isLast = i === lines.length - 1;
+        if (isLast) blink(l.cur, end, DUR - 0.02);
+        else blink(l.cur, end, end + 0.33 * k);
+        t = end + 0.33 * k;
+      } else if (l.kind === "a") {
+        const s0 = t + 0.3 * k, per = 1 / 45 * k;
+        l.chars.forEach((c, j) => tl.set(c, { display: "inline" }, s0 + j * per));
+        t = s0 + l.chars.length * per + 0.35 * k;
+      } else {
+        l.chars.forEach((c) => tl.set(c, { display: "inline" }, t));
+        tl.fromTo(l.ln, { x: -18 }, { x: 0, duration: 0.25, ease: "power2.out" }, t);
+        t += 0.35 * k;
+      }
+    });
+
+    tl.to({}, { duration: DUR }, 0);
+    return tl;
+  })();
+</script>
+</div>
+</body>
+</html>

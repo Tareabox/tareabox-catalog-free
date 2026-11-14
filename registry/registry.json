@@ -140,6 +140,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "data-folder-counter-24-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "data-folder-counter-24-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "data-metric-flip-03-tb",
       "type": "hyperframes:component"
     },
@@ -494,6 +502,22 @@
     {
       "name": "text-split-apart-14-tb-v",
       "type": "hyperframes:component"
+    },
+    {
+      "name": "text-terminal-chat-23-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "text-terminal-chat-23-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "text-terminal-prompt-25-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "text-terminal-prompt-25-tb-v",
+      "type": "hyperframes:block"
     },
     {
       "name": "text-typewriter-dark-01-tb",
