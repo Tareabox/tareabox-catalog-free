@@ -62,15 +62,15 @@
   }
   [data-composition-id="text-terminal-chat-23-tb"] .bar b { color: #a8a29e; font-weight: 600; }
   [data-composition-id="text-terminal-chat-23-tb"] .view {
-    position: absolute; left: 230px; right: 230px; top: 0; bottom: 0;
+    position: absolute; left: 230px; right: 230px; top: 0; bottom: 0; overflow: hidden;
     -webkit-mask-image: linear-gradient(to bottom, transparent 18%, #000 58%);
             mask-image: linear-gradient(to bottom, transparent 18%, #000 58%);
   }
-  [data-composition-id="text-terminal-chat-23-tb"] .stack { position: absolute; left: 0; right: 0; top: 0; }
+  [data-composition-id="text-terminal-chat-23-tb"] .stack { position: absolute; left: 0; right: 0; bottom: calc(1080px - 860px); }
   [data-composition-id="text-terminal-chat-23-tb"] .ln {
     position: relative; padding-left: 1.6em; white-space: pre-wrap; word-break: normal;
     font-size: clamp(40px, 6.2vmin, 96px); line-height: 1.32; font-weight: 600; letter-spacing: 0.02em;
-    opacity: 0;
+    display: none;
   }
   [data-composition-id="text-terminal-chat-23-tb"] .ln .pre { position: absolute; left: 0; top: 0; }
   [data-composition-id="text-terminal-chat-23-tb"] .ln.q .pre { color: var(--tb-prompt); }
@@ -85,7 +85,7 @@
 </style>
 
 <div class="bar"><span><b data-k="header">you@studio ~/tareabox</b></span><span data-k="tag">tareabox · chat</span></div>
-<div class="view"><div class="stack"></div></div>
+<div class="view"><div class="stack" data-layout-allow-overflow></div></div>
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
 <script>
@@ -132,9 +132,11 @@
     });
 
     // Measure the final layout once (all chars visible), then hide again. Deterministic.
-    lines.forEach((l) => l.chars.forEach((c) => (c.style.display = "inline")));
-    lines.forEach((l) => { l.bottom = l.ln.offsetTop + l.ln.offsetHeight; });
-    lines.forEach((l) => l.chars.forEach((c) => (c.style.display = "")));
+    lines.forEach((l) => { l.ln.style.display = "block"; l.chars.forEach((c) => (c.style.display = "inline")); });
+    lines.forEach((l) => { l.h = l.ln.offsetHeight; });
+    lines.forEach((l) => { l.ln.style.display = ""; l.chars.forEach((c) => (c.style.display = "")); });
+    // Lines whose bottom is inside the fully transparent top band are removed (invisible anyway).
+    const TOPCUT = H * 18 / 100;
 
     // Timing budget: typing speeds are scaled so the whole script fits DUR.
     const START = 0.5, HOLD = 1.4;
@@ -149,12 +151,20 @@
       tl.set(cur, { opacity: 0 }, to);
     };
 
-    tl.set(stack, { y: ANCHOR - lines[0].bottom }, 0);
     let t = START;
     lines.forEach((l, i) => {
-      // Scroll so this line's bottom sits on the anchor; older lines dim.
-      tl.to(stack, { y: ANCHOR - l.bottom, duration: 0.28 * k, ease: "power2.out" }, t);
-      tl.set(l.ln, { opacity: 1 }, t);
+      // New line appears at the anchor; the stack slides up by its height; older lines dim.
+      tl.set(l.ln, { display: "block" }, t);
+      if (i > 0) tl.fromTo(stack, { y: l.h }, { y: 0, duration: 0.28 * k, ease: "power2.out", immediateRender: false }, t);
+      let acc = 0;
+      for (let j = i - 1; j >= 0 && !lines[j].gone; j--) {
+        acc += lines[j + 1].h;
+        const finalBottom = ANCHOR - acc;
+        if (finalBottom <= TOPCUT) {
+          tl.set(lines[j].ln, { display: "none" }, finalBottom + l.h <= TOPCUT ? t : t + 0.3 * k);
+          lines[j].gone = true;
+        }
+      }
       if (i > 0) tl.to(lines[i - 1].ln, { opacity: lines[i - 1].kind === "li" ? 0.6 : 0.5, duration: 0.25 }, t);
       if (l.kind === "q") {
         const per = 1 / 17 * k;

@@ -79,11 +79,11 @@
   [data-composition-id="text-terminal-prompt-25-tb-v"] .opt .hl.n { background: color-mix(in srgb, var(--tb-accent) 20%, transparent); }
   [data-composition-id="text-terminal-prompt-25-tb-v"] .opt .txt, [data-composition-id="text-terminal-prompt-25-tb-v"] .opt .n { position: relative; }
   [data-composition-id="text-terminal-prompt-25-tb-v"] .stampw {
-    position: absolute; left: 560px; top: 1260px; transform: translate(-50%, -50%) rotate(-6deg);
+    position: absolute; left: 540px; top: 1260px; transform: translate(-50%, -50%) rotate(-6deg);
   }
   [data-composition-id="text-terminal-prompt-25-tb-v"] .shk { display: flex; flex-direction: column; align-items: center; gap: 0.15em; }
   [data-composition-id="text-terminal-prompt-25-tb-v"] .stamp {
-    font-family: var(--tb-font-stamp); color: var(--tb-stamp); font-size: clamp(120px, 23.15vmin, 250px); line-height: 0.95;
+    font-family: var(--tb-font-stamp); color: var(--tb-stamp); font-size: clamp(120px, 20.37vmin, 220px); line-height: 0.95;
     white-space: nowrap; letter-spacing: 0.01em; opacity: 0;
     text-shadow: 0 0.04em 0 rgba(0,0,0,0.35), 0 0 0.25em color-mix(in srgb, var(--tb-stamp) 40%, transparent);
   }
@@ -113,7 +113,7 @@
   </div>
 </div>
 <div class="cmd"></div>
-<div class="stampw"><div class="shk">
+<div class="stampw"><div class="shk" data-layout-allow-overflow>
   <div class="stamp" data-k="stamp">TOO LATE!</div>
   <div class="meter"><span data-k="meter">creativity</span><span class="vals"><span class="v1">0.2</span><span class="v2">1.8</span></span><span class="track"><span class="fill" style="display:block"></span></span></div>
 </div></div>
@@ -167,7 +167,7 @@
     // TOO LATE slam + shake; scene dims.
     const SLAM = 5.75;
     tl.to(".scene", { opacity: 0.35, duration: 0.25 }, SLAM);
-    tl.fromTo(".stamp", { opacity: 0, scale: 2.8 }, { opacity: 1, scale: 1, duration: 0.22, ease: "power4.in" }, SLAM);
+    tl.fromTo(".stamp", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.22, ease: "power4.in", immediateRender: false }, SLAM);
     const shake = [[-22, 10], [18, -12], [-14, 8], [10, -6], [-6, 4], [3, -2], [0, 0]];
     shake.forEach(([x, y], i) => tl.to(".shk", { x: x, y: y, duration: 0.045, ease: "none" }, SLAM + 0.22 + i * 0.045));
     // Meter jumps from low to high.

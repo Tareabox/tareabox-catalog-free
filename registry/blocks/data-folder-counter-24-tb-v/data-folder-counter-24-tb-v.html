@@ -67,7 +67,7 @@
   [data-composition-id="data-folder-counter-24-tb-v"] .stack { position: absolute; left: 0; right: 0; top: 0; }
   [data-composition-id="data-folder-counter-24-tb-v"] .it {
     display: flex; gap: 0.7em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    font-size: clamp(26px, 4.0vmin, 54px); line-height: 1.42; opacity: 0;
+    font-size: clamp(26px, 4.0vmin, 54px); line-height: 1.42; display: none;
   }
   [data-composition-id="data-folder-counter-24-tb-v"] .it .ck { color: var(--tb-check); }
   [data-composition-id="data-folder-counter-24-tb-v"] .count {
@@ -92,7 +92,7 @@
 
 <div class="bar"><span><b data-k="header">you@studio ~/tareabox</b></span><span data-k="tag">tareabox · archive</span></div>
 <div class="cmd"><span class="pr">&#x276F;</span><span class="cmdt"></span></div>
-<div class="view"><div class="stack"></div></div>
+<div class="view"><div class="stack" data-layout-allow-overflow></div></div>
 <div class="count"><div class="count-in">
   <div class="num"></div>
   <div class="lbl"><span class="l1" data-k="label">posts</span><span class="l2" data-k="final">posts · 0 all-nighters</span></div>
@@ -129,7 +129,9 @@
     const numBox = root.querySelector(".num");
     const nums = [];
     for (let i = 0; i <= items.length; i++) { const s = document.createElement("span"); s.textContent = String(i); numBox.appendChild(s); nums.push(s); }
-    const bottoms = rows.map((r) => r.offsetTop + r.offsetHeight);
+    rows.forEach((r) => (r.style.display = "flex"));
+    const hs = rows.map((r) => r.offsetHeight);
+    rows.forEach((r) => (r.style.display = ""));
 
     const tl = gsap.timeline({ paused: true });
     // 1) type the command
@@ -140,12 +142,21 @@
     // 2) rows land one by one, accelerating; the counter follows each row.
     const LIST_END = DUR - 2.0;
     const n = rows.length;
-    let prev = 0;
+    let prev = 0, first = 0, curY = 0, contentH = 0;
     rows.forEach((r, i) => {
       const p = (i + 1) / n;
       const t = t0 + 0.3 + (LIST_END - t0 - 0.3) * (1 - Math.pow(1 - p, 1.6));
-      tl.set(r, { opacity: 1 }, t);
-      tl.to(stack, { y: Math.min(0, ANCHOR - bottoms[i]), duration: 0.12, ease: "power1.out" }, t);
+      tl.set(r, { display: "flex" }, t);
+      contentH += hs[i];
+      const target = Math.min(0, ANCHOR - contentH);
+      if (target !== curY) tl.set(stack, { y: target }, t);
+      curY = target;
+      // Rows that scrolled fully above the window are removed; the stack is compensated so nothing moves.
+      while (first < i && curY + hs[first] <= 0) {
+        tl.set(rows[first], { display: "none" }, t);
+        contentH -= hs[first]; curY += hs[first]; first++;
+        tl.set(stack, { y: curY }, t);
+      }
       tl.set(nums[prev], { opacity: 0 }, t);
       tl.set(nums[i + 1], { opacity: 1 }, t);
       prev = i + 1;
