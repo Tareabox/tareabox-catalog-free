@@ -192,6 +192,14 @@
       "type": "hyperframes:block"
     },
     {
+      "name": "layout-step-timeline-20-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "layout-step-timeline-20-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "layout-swipe-carousel-19-tb",
       "type": "hyperframes:component"
     },

@@ -1,0 +1,308 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  layout-step-timeline-20-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: Vertical 9:16 — 3-step timeline. A glowing ball drops onto a vertical line and travels node to node;
+               each step reveals a label, a bold + handwritten-accent title and a live action (terminal chip typing, prompt box typing,
+               render progress bar 0→100%). Finished steps fade back, the line fills with the accent color.
+  Category: layout
+  Duration: 8 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"titleMain","type":"string","label":"Title (bold part)","default":"VIDEO DAY"},
+  {"id":"titleAccent","type":"string","label":"Title (script accent)","default":"the short version"},
+  {"id":"step1Title","type":"string","label":"Step 1 title (bold)","default":"Pick"},
+  {"id":"step1Accent","type":"string","label":"Step 1 title (script)","default":"a block"},
+  {"id":"step1Action","type":"string","label":"Step 1 terminal command","default":"npx hyperframes add neon-glow"},
+  {"id":"step2Title","type":"string","label":"Step 2 title (bold)","default":"Tell"},
+  {"id":"step2Accent","type":"string","label":"Step 2 title (script)","default":"the AI"},
+  {"id":"step2Action","type":"string","label":"Step 2 prompt text","default":"“Make the title pop. Not 2009 WordArt pop.”"},
+  {"id":"step3Title","type":"string","label":"Step 3 title (bold)","default":"Render"},
+  {"id":"step3Accent","type":"string","label":"Step 3 title (script)","default":"and breathe"},
+  {"id":"step3Action","type":"string","label":"Step 3 file name","default":"final_FINAL_v7.mp4"},
+  {"id":"accent","type":"color","label":"Accent color (ball, line, script words)","default":"#C8F04A"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#15131C"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+</head>
+<body>
+<div id="layout-step-timeline-20-tb-v" data-composition-id="layout-step-timeline-20-tb-v"
+     data-width="1080" data-height="1920"
+     data-start="0" data-duration="8">
+<style>
+  @font-face { font-family: "TB Geist"; src: url("../assets/tb-media/tb-font-geist.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+  @font-face { font-family: "TB Geist Mono"; src: url("../assets/tb-media/tb-font-geist-mono.woff2") format("woff2"); font-weight: 100 900; font-display: block; }
+  @font-face { font-family: "TB Anton"; src: url("../assets/tb-media/tb-font-anton.woff2") format("woff2"); font-weight: 400; font-display: block; }
+  @font-face { font-family: "TB Caveat"; src: url("../assets/tb-media/tb-font-caveat.woff2") format("woff2"); font-weight: 400 700; font-display: block; }
+  /* ═══════════════════════════════════════════════════════ */
+  /* 🎨 CUSTOMIZE HERE                                       */
+  /* ═══════════════════════════════════════════════════════ */
+  [data-composition-id="layout-step-timeline-20-tb-v"] {
+    --tb-bg:           #15131C;
+    --tb-text:         #F3F0FA;
+    --tb-muted:        #4A4658;
+    --tb-dim:          #8C879A;
+    --tb-card:         #24212E;
+    --tb-accent:       var(--tb-brand-accent, #C8F04A);
+    --tb-font-display: var(--tb-brand-font-display, "TB Geist", "Geist", sans-serif);
+    --tb-font-impact:  var(--tb-brand-font-impact, "TB Anton", "Anton", sans-serif);
+    --tb-font-script:  var(--tb-brand-font-script, "TB Caveat", "Caveat", cursive);
+    --tb-font-mono:    var(--tb-brand-font-mono, "TB Geist Mono", "Geist Mono", ui-monospace, monospace);
+
+    /* layout: node positions (% of height) + line x (% of width) */
+    --n1: 35; --n2: 55; --n3: 75;
+    --line-x: 11%;
+  }
+  /* ═══════════════════════════════════════════════════════ */
+  /* ⛔ EFFECT CODE                                          */
+  /* ═══════════════════════════════════════════════════════ */
+  [data-composition-id="layout-step-timeline-20-tb-v"] {
+    position: relative; width: 100%; height: 100%;
+    background: var(--tb-bg);
+    overflow: hidden;
+    font-family: var(--tb-font-display);
+    color: var(--tb-text);
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* soft paper vignette */
+  [data-composition-id="layout-step-timeline-20-tb-v"] .vig {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 55% at 30% 40%, color-mix(in srgb, var(--tb-accent) 9%, transparent) 0%, transparent 70%),
+      radial-gradient(ellipse 95% 80% at 50% 50%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.45) 100%);
+  }
+
+  [data-composition-id="layout-step-timeline-20-tb-v"] .title {
+    position: absolute; left: 9%; right: 7%; top: 10%;
+    font-size: clamp(110px, 15vmin, 200px);
+    line-height: 0.95; white-space: nowrap;
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .title .tm { display: block; font-family: var(--tb-font-impact); font-weight: 400; text-transform: uppercase; letter-spacing: 0.005em; }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .title .ta {
+    display: block; font-family: var(--tb-font-script); font-weight: 700;
+    color: var(--tb-accent); font-size: 0.62em; margin-top: 0.06em; transform: rotate(-3deg); transform-origin: 0% 50%;
+  }
+
+  /* line + nodes */
+  [data-composition-id="layout-step-timeline-20-tb-v"] .track,
+  [data-composition-id="layout-step-timeline-20-tb-v"] .fill {
+    position: absolute; left: var(--line-x); width: 4px; margin-left: -2px;
+    transform-origin: 50% 0%;
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .track { background: var(--tb-muted); }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .fill  { background: var(--tb-accent); transform: scaleY(0); }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .node {
+    position: absolute; left: var(--line-x); width: 26px; height: 26px; border-radius: 50%;
+    margin: -13px 0 0 -13px; border: 4px solid var(--tb-muted); background: var(--tb-bg);
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .ball {
+    position: absolute; left: var(--line-x); width: 54px; height: 54px; border-radius: 50%;
+    margin: -27px 0 0 -27px; top: -6%;
+    background: radial-gradient(circle at 34% 30%, #F2FFC4 0%, var(--tb-accent) 45%, color-mix(in srgb, var(--tb-accent) 70%, #000) 100%);
+    box-shadow: 0 0 40px 10px color-mix(in srgb, var(--tb-accent) 40%, transparent), 0 10px 18px rgba(0,0,0,0.4);
+  }
+
+  /* steps */
+  [data-composition-id="layout-step-timeline-20-tb-v"] .step {
+    position: absolute; left: 19%; right: 6%;
+    transform: translateY(calc(-1 * clamp(34px, 3.4vmin, 46px) - 0.5 * clamp(50px, 6.6vmin, 90px)));
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .lbl {
+    font-family: var(--tb-font-mono); font-weight: 600; color: var(--tb-accent);
+    font-size: clamp(22px, 2.5vmin, 32px); letter-spacing: 0.14em; height: clamp(34px, 3.4vmin, 46px);
+    opacity: 0;
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .stitle {
+    font-size: clamp(50px, 6.6vmin, 90px); line-height: 1; letter-spacing: -0.035em; white-space: nowrap;
+    opacity: 0;
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .stitle b { font-weight: 800; }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .stitle i {
+    font-family: var(--tb-font-script); font-style: normal; font-weight: 700; letter-spacing: 0; margin-left: 0.2em;
+    color: var(--tb-accent); font-size: 1.12em;
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .act { margin-top: clamp(18px, 2.2vmin, 30px); opacity: 0; transform-origin: 0% 50%; }
+
+  [data-composition-id="layout-step-timeline-20-tb-v"] .chip {
+    display: inline-flex; align-items: center; gap: 0.6em;
+    background: var(--tb-card); color: var(--tb-text); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
+    padding: 0.5em 0.9em; font-family: var(--tb-font-mono); font-size: clamp(24px, 2.9vmin, 38px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .chip .ok,
+  [data-composition-id="layout-step-timeline-20-tb-v"] .bar .ok { color: var(--tb-accent); opacity: 0; font-weight: 700; }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .chip .pr { color: var(--tb-dim); }
+
+  [data-composition-id="layout-step-timeline-20-tb-v"] .box {
+    background: var(--tb-text); border-radius: 16px; padding: 0.75em 0.95em;
+    font-size: clamp(26px, 3.1vmin, 40px); line-height: 1.3; font-weight: 500; color: var(--tb-bg);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35); max-width: 100%;
+  }
+
+  [data-composition-id="layout-step-timeline-20-tb-v"] .bar {
+    background: var(--tb-card); color: var(--tb-text); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 0.7em 0.9em 0.8em;
+    font-family: var(--tb-font-mono); font-size: clamp(24px, 2.8vmin, 36px); max-width: 92%;
+    box-shadow: 0 14px 30px rgba(0,0,0,0.35);
+  }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .bar .row { display: flex; justify-content: space-between; align-items: center; }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .bar .pct { position: relative; min-width: 5.5em; height: 1.2em; text-align: right; }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .bar .pct span { position: absolute; right: 0; top: 0; opacity: 0; }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .bar .rail { margin-top: 0.55em; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.14); overflow: hidden; }
+  [data-composition-id="layout-step-timeline-20-tb-v"] .bar .prog { height: 100%; background: var(--tb-accent); transform: scaleX(0); transform-origin: 0% 50%; }
+
+  [data-composition-id="layout-step-timeline-20-tb-v"] .tc { opacity: 0; }
+</style>
+
+  <div class="vig"></div>
+
+  <h1 class="title"><span class="tm" data-k="titleMain">VIDEO DAY</span><span class="ta" data-k="titleAccent">the short version</span></h1>
+
+  <div class="track"></div>
+  <div class="fill"></div>
+  <div class="node n1"></div><div class="node n2"></div><div class="node n3"></div>
+
+  <div class="step s1">
+    <div class="lbl">STEP 01</div>
+    <div class="stitle"><b data-k="step1Title">Pick</b><i data-k="step1Accent">a block</i></div>
+    <div class="act"><div class="chip"><span class="pr">$</span><span class="typed" data-k="step1Action">npx hyperframes add neon-glow</span><span class="ok">✓</span></div></div>
+  </div>
+  <div class="step s2">
+    <div class="lbl">STEP 02</div>
+    <div class="stitle"><b data-k="step2Title">Tell</b><i data-k="step2Accent">the AI</i></div>
+    <div class="act"><div class="box"><span class="typed" data-k="step2Action">“Make the title pop. Not 2009 WordArt pop.”</span></div></div>
+  </div>
+  <div class="step s3">
+    <div class="lbl">STEP 03</div>
+    <div class="stitle"><b data-k="step3Title">Render</b><i data-k="step3Accent">and breathe</i></div>
+    <div class="act"><div class="bar">
+      <div class="row"><span data-k="step3Action">final_FINAL_v7.mp4</span><span class="pct"></span></div>
+      <div class="rail"><div class="prog"></div></div>
+    </div></div>
+  </div>
+
+  <div class="ball"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+  window.__timelines = window.__timelines || {};
+  window.__timelines["layout-step-timeline-20-tb-v"] = (function () {
+    const root = document.querySelector('[data-composition-id="layout-step-timeline-20-tb-v"]');
+    const q  = (s) => root.querySelector(s);
+    const qa = (s) => root.querySelectorAll(s);
+
+    const V = (window.__hyperframes && window.__hyperframes.getVariables)
+      ? window.__hyperframes.getVariables() : {};
+    const setRaw = (cssVar, val) => {
+      if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val));
+    };
+    setRaw("--tb-accent", V.accent);
+    setRaw("--tb-bg", V.bg);
+    qa("[data-k]").forEach((el) => {
+      const v = V[el.dataset.k];
+      if (v !== undefined && v !== null && v !== "") el.textContent = String(v);
+    });
+
+    // positions from CSS vars
+    const cs = getComputedStyle(root);
+    const N = [1, 2, 3].map((i) => parseFloat(cs.getPropertyValue("--n" + i)) || (34 + (i - 1) * 19));
+    qa(".node").forEach((el, i) => { el.style.top = N[i] + "%"; });
+    qa(".step").forEach((el, i) => { el.style.top = N[i] + "%"; });
+    q(".track").style.top = N[0] + "%"; q(".track").style.height = (N[2] - N[0]) + "%";
+    q(".fill").style.top  = N[0] + "%"; q(".fill").style.height  = (N[2] - N[0]) + "%";
+
+    // split typed text into per-char spans (seekable typing)
+    const split = (el) => {
+      const txt = el.textContent; el.textContent = "";
+      return [...txt].map((c) => { const s = document.createElement("span"); s.className = "tc"; s.textContent = c; el.appendChild(s); return s; });
+    };
+    const type1 = split(q(".s1 .typed"));
+    const type2 = split(q(".s2 .typed"));
+
+    // percent counter as stacked spans
+    const PCTS = [0, 3, 8, 14, 22, 31, 41, 52, 63, 74, 84, 92, 97, 100];
+    const pctBox = q(".s3 .pct");
+    const pcts = PCTS.map((p) => { const s = document.createElement("span"); s.textContent = p + "%"; pctBox.appendChild(s); return s; });
+    const done = document.createElement("span"); done.className = "ok"; done.textContent = "✓ done"; pctBox.appendChild(done);
+
+    const TOTAL = 8;
+    const tl = gsap.timeline({ paused: true });
+    const sel = gsap.utils.selector(root);
+    const R = (s) => (typeof s === "string" ? sel(s) : s);
+    const T = {
+      to:     (s, ...a) => tl.to(R(s), ...a),
+      fromTo: (s, ...a) => tl.fromTo(R(s), ...a),
+      set:    (s, ...a) => tl.set(R(s), ...a),
+    };
+
+    // title
+    T.fromTo(".title .tm", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.1);
+    T.fromTo(".title .ta", { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 0.28);
+
+    // track + nodes
+    T.fromTo(".track", { scaleY: 0 }, { scaleY: 1, duration: 0.7, ease: "power2.inOut" }, 0.4);
+    T.fromTo(".node", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)", stagger: 0.18 }, 0.5);
+
+    // ball drop onto node 1
+    T.fromTo(".ball", { top: "-6%" }, { top: N[0] + "%", duration: 0.55, ease: "power2.in" }, 0.65);
+    T.to(".ball", { scaleX: 1.25, scaleY: 0.78, duration: 0.07, ease: "power1.out" }, 1.2);
+    T.to(".ball", { scaleX: 1, scaleY: 1, duration: 0.35, ease: "elastic.out(1.1,0.45)" }, 1.27);
+
+    const reveal = (s, t) => {
+      T.fromTo(s + " .lbl",    { opacity: 0, x: -16 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, t);
+      T.fromTo(s + " .stitle", { opacity: 0, y: 26 },  { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, t + 0.06);
+      T.fromTo(s + " .act",    { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)" }, t + 0.3);
+    };
+    const nodeOn = (i, t) => T.to(".n" + i, { borderColor: "var(--tb-accent)", duration: 0.2 }, t);
+    const dim = (s, t) => T.to(s + " .lbl, " + s + " .stitle, " + s + " .act", { opacity: 0.5, duration: 0.4, ease: "power1.out" }, t);
+    const move = (to, fillTo, t) => {
+      T.to(".ball", { top: N[to] + "%", duration: 0.5, ease: "power2.inOut" }, t);
+      T.to(".fill", { scaleY: fillTo, duration: 0.5, ease: "power2.inOut" }, t);
+    };
+
+    // STEP 1 — terminal chip typing
+    nodeOn(1, 1.2);
+    reveal(".s1", 1.25);
+    type1.forEach((c, j) => T.set(c, { opacity: 1 }, 1.7 + j * 0.03));
+    const t1end = 1.7 + type1.length * 0.03;
+    T.fromTo(".s1 .chip .ok", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(3)" }, t1end + 0.1);
+
+    // → STEP 2
+    const t2 = Math.max(2.9, t1end + 0.55);
+    dim(".s1", t2);
+    move(1, 0.5, t2);
+    nodeOn(2, t2 + 0.5);
+    reveal(".s2", t2 + 0.5);
+    const tt2 = t2 + 0.85;
+    const per2 = Math.min(0.03, 1.25 / Math.max(1, type2.length));
+    type2.forEach((c, j) => T.set(c, { opacity: 1 }, tt2 + j * per2));
+    const t2end = tt2 + type2.length * per2;
+
+    // → STEP 3
+    const t3 = Math.max(5.15, t2end + 0.3);
+    dim(".s2", t3);
+    move(2, 1, t3);
+    nodeOn(3, t3 + 0.5);
+    reveal(".s3", t3 + 0.5);
+    const pStart = t3 + 0.85, pDur = 1.0;
+    T.set(pcts[0], { opacity: 1 }, t3 + 0.5);
+    T.to(".s3 .prog", { scaleX: 1, duration: pDur, ease: "power1.inOut" }, pStart);
+    for (let i = 1; i < pcts.length; i++) {
+      const t = pStart + (i / (pcts.length - 1)) * pDur;
+      T.set(pcts[i - 1], { opacity: 0 }, t);
+      T.set(pcts[i], { opacity: 1 }, t);
+    }
+    T.set(pcts[pcts.length - 1], { opacity: 0 }, pStart + pDur + 0.15);
+    T.fromTo(done, { opacity: 0, x: 10 }, { opacity: 1, x: 0, duration: 0.25, ease: "power2.out" }, pStart + pDur + 0.15);
+    T.to(".ball", { scale: 1.18, duration: 0.18, yoyo: true, repeat: 1, ease: "power1.inOut" }, pStart + pDur + 0.15);
+
+    T.to({}, { duration: TOTAL }, 0);
+    return tl;
+  })();
+</script>
+</div>
+</body>
+</html>
