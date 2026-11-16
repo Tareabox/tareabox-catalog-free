@@ -156,6 +156,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "data-step-tracker-01-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "data-step-tracker-01-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "layout-perspective-scroll-14-tb",
       "type": "hyperframes:block"
     },

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "data-step-tracker-01-tb",
+  "type": "hyperframes:block",
+  "title": "Step Tracker",
+  "description": "\"Step X of N\" tracker with a big step number, the step title and animated progress dots.",
+  "tags": [
+    "data",
+    "steps",
+    "progress",
+    "tutorial",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "duration": 3,
+  "files": [
+    {
+      "path": "data-step-tracker-01-tb.html",
+      "target": "compositions/data-step-tracker-01-tb.html",
+      "type": "hyperframes:composition"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-data-step-tracker-01-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-data-step-tracker-01-tb.png"
+  }
+}

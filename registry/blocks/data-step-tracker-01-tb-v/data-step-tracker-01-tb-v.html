@@ -1,0 +1,189 @@
+<!doctype html>
+<!--
+  © 2026 Natalie Digital · tareabox.com · Tareabox Hyperframes Pack
+  data-step-tracker-01-tb-v (vertical 1080x1920)
+  Tareabox Hyperframes Effect
+  Description: "Step X of N" tracker with a big step number, the step title and animated progress dots.
+  Category: data
+  Duration: 3 seconds
+  REQUIRES: gsap (CDN)
+-->
+<html lang="en" data-composition-variables='[
+  {"id":"current","type":"number","label":"Current step","default":3},
+  {"id":"total","type":"number","label":"Total steps","default":5},
+  {"id":"label","type":"string","label":"Small label","default":"Current Step"},
+  {"id":"title","type":"string","label":"Step title","default":"Configure environment variables"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#3b82f6"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=block" rel="stylesheet" />
+</head>
+<body>
+<div id="data-step-tracker-01-tb-v" data-composition-id="data-step-tracker-01-tb-v"
+     data-width="1080" data-height="1920"
+     data-start="0" data-duration="3">
+<style>
+    /* ═══════════════════════════════════════════════════════ */
+    /* 🎨 CUSTOMIZE HERE                                       */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="data-step-tracker-01-tb-v"] {
+      --tb-bg:           #09090b;
+      --tb-text:         #fafafa;
+      --tb-text-dim:     #c4c4cc;
+      --tb-text-label:   #a1a1aa;
+      --tb-accent:       var(--tb-brand-accent, #3b82f6);
+      --tb-font-display: var(--tb-brand-font-display, "Geist", sans-serif);
+
+      --step-current: 3;
+      --step-total:   5;
+      --step-label:   "Current Step";
+      --step-title:   "Configure environment variables";
+    }
+    /* ═══════════════════════════════════════════════════════ */
+    /* ⛔ EFFECT CODE                                          */
+    /* ═══════════════════════════════════════════════════════ */
+    [data-composition-id="data-step-tracker-01-tb-v"] {
+      position: relative; width: 100%; height: 100%;
+      background: var(--tb-bg);
+      overflow: hidden;
+      font-family: var(--tb-font-display);
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    [data-composition-id="data-step-tracker-01-tb-v"] .stage {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 5vmin;
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .step-header {
+      display: flex; flex-direction: column; align-items: center; gap: 1.6vmin;
+      opacity: 0;
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .step-label {
+      font-size: clamp(20px, 2.6vmin, 30px);
+      font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--tb-text-label);
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .step-count {
+      display: flex; align-items: baseline; gap: 1.6vmin;
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .step-num {
+      font-size: clamp(160px, 24vmin, 300px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--tb-text);
+      line-height: 1;
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .step-of {
+      font-size: clamp(40px, 6vmin, 72px);
+      font-weight: 500;
+      color: var(--tb-text-dim);
+      padding-bottom: 1vmin;
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .step-title {
+      font-size: clamp(36px, 5.2vmin, 64px);
+      font-weight: 600;
+      color: var(--tb-text-dim);
+      letter-spacing: -0.01em;
+      text-align: center;
+      max-width: 86%;
+      line-height: 1.25;
+      opacity: 0;
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .dots-row {
+      display: flex; align-items: center; gap: 2.6vmin;
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .dot { border-radius: 999px; }
+    [data-composition-id="data-step-tracker-01-tb-v"] .dot.done {
+      width: 2.8vmin; height: 2.8vmin;
+      background: var(--tb-accent);
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .dot.active {
+      width: calc(2.8vmin * 3); height: 2.8vmin;
+      background: var(--tb-accent);
+      box-shadow: 0 0 2vmin color-mix(in srgb, var(--tb-accent) 60%, transparent);
+    }
+    [data-composition-id="data-step-tracker-01-tb-v"] .dot.pending {
+      width: 2.8vmin; height: 2.8vmin;
+      background: rgba(255,255,255,0.22);
+    }
+</style>
+    <div class="stage">
+      <div class="step-header" id="st01v-header">
+        <span class="step-label" id="st01v-label"></span>
+        <div class="step-count">
+          <span class="step-num" id="st01v-num"></span>
+          <span class="step-of" id="st01v-of"></span>
+        </div>
+      </div>
+      <div class="step-title" id="st01v-title"></div>
+      <div class="dots-row"   id="st01v-dots"></div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<script>
+    window.__timelines = window.__timelines || {};
+    window.__timelines["data-step-tracker-01-tb-v"] = (function () {
+      const root   = document.querySelector('[data-composition-id="data-step-tracker-01-tb-v"]');
+      const header = root.querySelector("#st01v-header");
+      const title  = root.querySelector("#st01v-title");
+      const dots   = root.querySelector("#st01v-dots");
+
+      /* Native HyperFrames variables → override CSS custom properties */
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setRaw("--step-current", V.current);
+      setRaw("--step-total",   V.total);
+      setStr("--step-label",   V.label);
+      setStr("--step-title",   V.title);
+      setRaw("--tb-accent",    V.accent);
+      setRaw("--tb-bg",        V.bg);
+
+      const cs      = getComputedStyle(root);
+      const unq     = (k) => cs.getPropertyValue(k).trim().replace(/^["']|["']$/g, "");
+      const total   = Math.max(1, parseInt(unq("--step-total")) || 5);
+      const current = Math.min(total, Math.max(1, parseInt(unq("--step-current")) || 3));
+      root.querySelector("#st01v-label").textContent = unq("--step-label");
+      root.querySelector("#st01v-num").textContent   = current;
+      root.querySelector("#st01v-of").textContent    = "/ " + total;
+      title.textContent = unq("--step-title");
+
+      const dotEls = [];
+      for (let i = 1; i <= total; i++) {
+        const d = document.createElement("div");
+        d.className = "dot " + (i < current ? "done" : i === current ? "active" : "pending");
+        dots.appendChild(d);
+        dotEls.push(d);
+      }
+
+      const TOTAL = 3;
+      const tl = gsap.timeline({ paused: true });
+      gsap.set(dotEls, { opacity: 0, scale: 0.5 });
+      gsap.set(header, { y: 24 });
+      gsap.set(title,  { y: 12 });
+
+      tl.to(header, { opacity: 1, y: 0, duration: 0.5, ease: "expo.out" }, 0.1);
+      tl.to(title,  { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.45);
+      dotEls.forEach((el, i) => {
+        tl.to(el, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 0.55 + i * 0.08);
+      });
+
+      tl.to({}, { duration: TOTAL }, 0);
+      return tl;
+    })();
+  </script>
+</div>
+</body>
+</html>
