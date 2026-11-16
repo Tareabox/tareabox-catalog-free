@@ -1,0 +1,32 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "visual-icon-float-23-tb-v",
+  "type": "hyperframes:block",
+  "title": "Icon Float (Vertical)",
+  "description": "Any image (social icon, logo or photo, set by URL) floats in a soft figure-eight with a breathing glow, vertical 9:16 format. Seamless loop.",
+  "tags": [
+    "visual",
+    "icon",
+    "float",
+    "loop",
+    "glow",
+    "vertical",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1080,
+    "height": 1920
+  },
+  "duration": 4,
+  "files": [
+    {
+      "path": "visual-icon-float-23-tb-v.html",
+      "target": "compositions/visual-icon-float-23-tb-v.html",
+      "type": "hyperframes:composition"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-icon-float-23-tb-v.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-visual-icon-float-23-tb-v.png"
+  }
+}

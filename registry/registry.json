@@ -672,6 +672,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "visual-icon-float-23-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "visual-icon-float-23-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "visual-icon-wheel-18-tb",
       "type": "hyperframes:component"
     },
