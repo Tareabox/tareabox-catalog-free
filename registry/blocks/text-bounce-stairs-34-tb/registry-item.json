@@ -1,0 +1,30 @@
+{
+  "$schema": "https://hyperframes.heygen.com/schema/registry-item.json",
+  "name": "text-bounce-stairs-34-tb",
+  "type": "hyperframes:block",
+  "title": "Bounce Stairs",
+  "description": "A glowing ball bounces from line to line; each landing squashes it, kicks up dust and reveals the next line in a staircase. The last line lands in italic.",
+  "tags": [
+    "text",
+    "bounce",
+    "staircase",
+    "kinetic-type",
+    "tareabox"
+  ],
+  "dimensions": {
+    "width": 1920,
+    "height": 1080
+  },
+  "duration": 5,
+  "files": [
+    {
+      "path": "text-bounce-stairs-34-tb.html",
+      "target": "compositions/text-bounce-stairs-34-tb.html",
+      "type": "hyperframes:composition"
+    }
+  ],
+  "preview": {
+    "video": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-bounce-stairs-34-tb.mp4",
+    "poster": "https://tareabox.com/hyperframes-catalog-free/previews/hf-cat-free-text-bounce-stairs-34-tb.png"
+  }
+}

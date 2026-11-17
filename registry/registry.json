@@ -368,6 +368,14 @@
       "type": "hyperframes:component"
     },
     {
+      "name": "text-bounce-stairs-34-tb",
+      "type": "hyperframes:block"
+    },
+    {
+      "name": "text-bounce-stairs-34-tb-v",
+      "type": "hyperframes:block"
+    },
+    {
       "name": "text-caption-box-29-tb",
       "type": "hyperframes:component"
     },
