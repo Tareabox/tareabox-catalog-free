@@ -8,7 +8,13 @@
   Duration: 5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"splitName","type":"string","label":"Name","default":"Natalie Digital"},
+  {"id":"splitRole","type":"string","label":"Role","default":"Founder, Tareabox"},
+  {"id":"splitChapter","type":"string","label":"Chapter badge","default":"Chapter 01 — Opening"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#10b981"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -198,6 +204,15 @@
     window.__timelines["layout-yt-split-screen-02-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="layout-yt-split-screen-02-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--split-name",    V.splitName);
+      setStr("--split-role",    V.splitRole);
+      setStr("--split-chapter", V.splitChapter);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const div  = root.querySelector("#ys02-div");
       const lt   = root.querySelector("#ys02-lt");
       const ch   = root.querySelector("#ys02-chapter");

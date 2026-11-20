@@ -8,7 +8,14 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"stepCurrent","type":"string","label":"Current step","default":"03"},
+  {"id":"stepTotal","type":"string","label":"Total steps","default":"5"},
+  {"id":"stepTitle","type":"string","label":"Step title","default":"Setting Up Your Environment"},
+  {"id":"stepSub","type":"string","label":"Step subtitle","default":"Install dependencies and configure your project"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#2563eb"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#080c14"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -134,6 +141,23 @@
     window.__timelines["layout-tutorial-step-01-tb"] = (function () {
       const root   = document.querySelector('[data-composition-id="layout-tutorial-step-01-tb"]');
       const cs     = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--step-current", V.stepCurrent);
+      setStr("--step-total",   V.stepTotal);
+      setStr("--step-title",   V.stepTitle);
+      setStr("--step-sub",     V.stepSub);
+      setRaw("--tb-accent",    V.accent);
+      setRaw("--tb-bg",        V.bg);
       const label  = root.querySelector("#ts01-label");
       const numEl  = root.querySelector("#ts01-num");
       const totEl  = root.querySelector("#ts01-total");

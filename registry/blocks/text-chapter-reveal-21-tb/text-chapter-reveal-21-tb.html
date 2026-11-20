@@ -8,7 +8,14 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"chapterNum","type":"string","label":"Chapter number","default":"03"},
+  {"id":"chapterEyebrow","type":"string","label":"Eyebrow","default":"Chapter"},
+  {"id":"chapterTitle","type":"string","label":"Title","default":"State Management"},
+  {"id":"chapterSubtitle","type":"string","label":"Subtitle","default":"Handling complex UI state without losing your mind"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#2563eb"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -132,6 +139,23 @@
     window.__timelines["text-chapter-reveal-21-tb"] = (function () {
       const root  = document.querySelector('[data-composition-id="text-chapter-reveal-21-tb"]');
       const cs    = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--chapter-num",      V.chapterNum);
+      setStr("--chapter-eyebrow",  V.chapterEyebrow);
+      setStr("--chapter-title",    V.chapterTitle);
+      setStr("--chapter-subtitle", V.chapterSubtitle);
+      setRaw("--tb-accent",        V.accent);
+      setRaw("--tb-bg",            V.bg);
 
       const num = cs.getPropertyValue("--chapter-num").trim().replace(/^["']|["']$/g,"");
       root.querySelector("#cr21-ew").textContent    = cs.getPropertyValue("--chapter-eyebrow").trim().replace(/^["']|["']$/g,"");

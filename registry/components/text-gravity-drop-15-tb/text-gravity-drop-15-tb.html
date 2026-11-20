@@ -8,7 +8,13 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"line1","type":"string","label":"Line 1","default":"GRAVITY"},
+  {"id":"line2","type":"string","label":"Line 2 (accent)","default":"PULLS"},
+  {"id":"line3","type":"string","label":"Line 3","default":"EVERYTHING"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#2563eb"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#080c14"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -84,6 +90,22 @@
     window.__timelines["text-gravity-drop-15-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="text-gravity-drop-15-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--line1",     V.line1);
+      setStr("--line2",     V.line2);
+      setStr("--line3",     V.line3);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const w1   = root.querySelector("#gd15-w1");
       const w2   = root.querySelector("#gd15-w2");
       const w3   = root.querySelector("#gd15-w3");

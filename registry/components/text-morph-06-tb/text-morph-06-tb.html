@@ -8,7 +8,12 @@
   Duration: 3.5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"wordFrom","type":"string","label":"Word From","default":"PROBLEM"},
+  {"id":"wordTo","type":"string","label":"Word To","default":"SOLUTION"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#10b981"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#040a08"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -84,6 +89,21 @@
     window.__timelines["text-morph-06-tb"] = (function () {
       const root   = document.querySelector('[data-composition-id="text-morph-06-tb"]');
       const cs     = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--word-from", V.wordFrom);
+      setStr("--word-to",   V.wordTo);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const fromEl = root.querySelector("#m06-from");
       const toEl   = root.querySelector("#m06-to");
       const lineEl = root.querySelector("#m06-line");

@@ -8,7 +8,14 @@
   Duration: 5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"rtEyebrow","type":"string","label":"Eyebrow","default":"Why I built this"},
+  {"id":"rtTitle","type":"string","label":"Title","default":"Tutorial layouts that don&#39;t suck"},
+  {"id":"rtBody","type":"string","label":"Body","default":"After 200+ videos, I packaged what worked."},
+  {"id":"rtRating","type":"string","label":"Rating value","default":"v1.0"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#ec4899"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -215,6 +222,16 @@
     window.__timelines["layout-yt-reaction-title-06-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="layout-yt-reaction-title-06-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--rt-eyebrow", V.rtEyebrow);
+      setStr("--rt-title",   V.rtTitle);
+      setStr("--rt-body",    V.rtBody);
+      setStr("--rt-rating",  V.rtRating);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const card = root.querySelector("#yr06-card");
 
       root.querySelector("#yr06-eyebrow").textContent = cs.getPropertyValue("--rt-eyebrow").trim().replace(/^["']|["']$/g,"");

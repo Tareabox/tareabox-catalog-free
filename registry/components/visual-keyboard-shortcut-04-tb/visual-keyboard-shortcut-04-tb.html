@@ -8,7 +8,15 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"key1","type":"string","label":"Key 1","default":"Cmd"},
+  {"id":"key2","type":"string","label":"Key 2","default":"K"},
+  {"id":"key3","type":"string","label":"Key 3 (optional)","default":""},
+  {"id":"key4","type":"string","label":"Key 4 (optional)","default":""},
+  {"id":"label","type":"string","label":"Label","default":"Open command palette"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#2563eb"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -128,6 +136,17 @@
     window.__timelines["visual-keyboard-shortcut-04-tb"] = (function () {
       const root  = document.querySelector('[data-composition-id="visual-keyboard-shortcut-04-tb"]');
       const cs    = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--key1",  V.key1);
+      setStr("--key2",  V.key2);
+      setStr("--key3",  V.key3);
+      setStr("--key4",  V.key4);
+      setStr("--label", V.label);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const row   = root.querySelector("#ks04-row");
       const label = root.querySelector("#ks04-label");
       const glow  = root.querySelector("#ks04-glow");

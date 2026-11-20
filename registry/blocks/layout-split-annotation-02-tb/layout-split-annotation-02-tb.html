@@ -8,7 +8,13 @@
   Duration: 3.5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"noteTag","type":"string","label":"Note tag","default":"NOTE"},
+  {"id":"noteTitle","type":"string","label":"Note title","default":"This is the key part"},
+  {"id":"noteBody","type":"string","label":"Note body","default":"Pay attention to how the state updates before the render cycle completes."},
+  {"id":"accent","type":"color","label":"Accent color","default":"#10b981"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -176,6 +182,22 @@
     window.__timelines["layout-split-annotation-02-tb"] = (function () {
       const root    = document.querySelector('[data-composition-id="layout-split-annotation-02-tb"]');
       const cs      = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--note-tag",   V.noteTag);
+      setStr("--note-title", V.noteTitle);
+      setStr("--note-body",  V.noteBody);
+      setRaw("--tb-accent",  V.accent);
+      setRaw("--tb-bg",      V.bg);
       const screen  = root.querySelector("#sa02-screen");
       const note    = root.querySelector("#sa02-note");
       const bar     = root.querySelector("#sa02-bar");

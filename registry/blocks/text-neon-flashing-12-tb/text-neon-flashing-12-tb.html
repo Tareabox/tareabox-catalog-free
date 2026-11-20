@@ -8,7 +8,12 @@
   Duration: 3.5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"headline","type":"string","label":"Headline","default":"OPEN 24H"},
+  {"id":"label","type":"string","label":"Label","default":"NEON SIGN"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#ec4899"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#06060e"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -85,6 +90,21 @@
     window.__timelines["text-neon-flashing-12-tb"] = (function () {
       const root    = document.querySelector('[data-composition-id="text-neon-flashing-12-tb"]');
       const cs      = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--headline",  V.headline);
+      setStr("--label",     V.label);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const headEl  = root.querySelector("#nf12-head");
       const labelEl = root.querySelector("#nf12-label");
       const glowEl  = root.querySelector("#nf12-glow");

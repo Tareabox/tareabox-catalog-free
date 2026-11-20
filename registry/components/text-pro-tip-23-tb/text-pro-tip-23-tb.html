@@ -8,7 +8,13 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"tipBadge","type":"string","label":"Badge","default":"Pro Tip"},
+  {"id":"tipHeading","type":"string","label":"Heading","default":"Use keyboard shortcuts to speed up your workflow"},
+  {"id":"tipBody","type":"string","label":"Body","default":"Press Cmd+K to open the command palette. From there you can navigate to any file, run any action, and trigger most features without ever touching the mouse."},
+  {"id":"accent","type":"color","label":"Accent color","default":"#facc15"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -140,6 +146,22 @@
     window.__timelines["text-pro-tip-23-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="text-pro-tip-23-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--tip-badge",   V.tipBadge);
+      setStr("--tip-heading", V.tipHeading);
+      setStr("--tip-body",    V.tipBody);
+      setRaw("--tb-accent",   V.accent);
+      setRaw("--tb-bg",       V.bg);
 
       root.querySelector("#pt23-badge-text").textContent = cs.getPropertyValue("--tip-badge").trim().replace(/^["']|["']$/g,"");
       root.querySelector("#pt23-heading").textContent    = cs.getPropertyValue("--tip-heading").trim().replace(/^["']|["']$/g,"");

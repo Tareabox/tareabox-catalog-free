@@ -8,7 +8,12 @@
   Duration: 3.5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"headline","type":"string","label":"Headline","default":"REWIND"},
+  {"id":"label","type":"string","label":"Label","default":"PLAY ▶ VHS"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#4ade80"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#020a04"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -134,6 +139,21 @@
     window.__timelines["text-vhs-16-tb"] = (function () {
       const root    = document.querySelector('[data-composition-id="text-vhs-16-tb"]');
       const cs      = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--headline",  V.headline);
+      setStr("--label",     V.label);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const headEl  = root.querySelector("#vhs16-head");
       const labelEl = root.querySelector("#vhs16-label");
       const barEl   = root.querySelector("#vhs16-bar");

@@ -8,7 +8,13 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"eyebrow","type":"string","label":"Eyebrow","default":"Definition"},
+  {"id":"term","type":"string","label":"Term","default":"Idempotency"},
+  {"id":"body","type":"string","label":"Body","default":"An operation is idempotent if performing it multiple times produces the same result as performing it once. Critical for safe retries in distributed systems."},
+  {"id":"accent","type":"color","label":"Accent color","default":"#06b6d4"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -122,6 +128,22 @@
     window.__timelines["text-definition-22-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="text-definition-22-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--def-eyebrow", V.eyebrow);
+      setStr("--def-term",    V.term);
+      setStr("--def-body",    V.body);
+      setRaw("--tb-accent",   V.accent);
+      setRaw("--tb-bg",       V.bg);
 
       root.querySelector("#df22-ew").textContent   = cs.getPropertyValue("--def-eyebrow").trim().replace(/^["']|["']$/g,"");
       root.querySelector("#df22-term").textContent = cs.getPropertyValue("--def-term").trim().replace(/^["']|["']$/g,"");

@@ -8,7 +8,16 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"metricLabel","type":"string","label":"Metric label","default":"Build time"},
+  {"id":"beforeValue","type":"string","label":"Before value","default":"4m 12s"},
+  {"id":"afterValue","type":"string","label":"After value","default":"38s"},
+  {"id":"beforeLabel","type":"string","label":"Before tag","default":"Before"},
+  {"id":"afterLabel","type":"string","label":"After tag","default":"After"},
+  {"id":"deltaLabel","type":"string","label":"Delta label","default":"6.6× faster"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#10b981"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -139,6 +148,26 @@
     window.__timelines["data-metric-flip-03-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="data-metric-flip-03-tb"]');
       const cs   = getComputedStyle(root);
+
+      /* Native HyperFrames variables → override CSS custom properties */
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--metric-label", V.metricLabel);
+      setStr("--before-value", V.beforeValue);
+      setStr("--after-value",  V.afterValue);
+      setStr("--before-label", V.beforeLabel);
+      setStr("--after-label",  V.afterLabel);
+      setStr("--delta-label",  V.deltaLabel);
+      setRaw("--tb-accent",    V.accent);
+      setRaw("--tb-bg",        V.bg);
 
       root.querySelector("#mf03-label").textContent      = cs.getPropertyValue("--metric-label").trim().replace(/^["']|["']$/g,"");
       root.querySelector("#mf03-before-tag").textContent = cs.getPropertyValue("--before-label").trim().replace(/^["']|["']$/g,"");

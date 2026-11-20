@@ -8,7 +8,11 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"zoomLabel","type":"string","label":"Zoom label","default":"Zooming in"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#f97316"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -144,6 +148,13 @@
     window.__timelines["visual-zoom-indicator-06-tb"] = (function () {
       const root  = document.querySelector('[data-composition-id="visual-zoom-indicator-06-tb"]');
       const cs    = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--zoom-label", V.zoomLabel);
+      setRaw("--tb-accent",  V.accent);
+      setRaw("--tb-bg",      V.bg);
       const ring  = root.querySelector("#zi06-ring");
       const pulse = root.querySelector("#zi06-pulse");
       const dot   = root.querySelector("#zi06-dot");

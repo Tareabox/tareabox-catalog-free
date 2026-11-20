@@ -8,7 +8,15 @@
   Duration: 5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"ctStepNum","type":"string","label":"Step number","default":"02"},
+  {"id":"ctStepLabel","type":"string","label":"Step label","default":"Chapter"},
+  {"id":"ctTitle","type":"string","label":"Title","default":"Drop it into your project"},
+  {"id":"ctCmd","type":"string","label":"Command","default":"npx tareabox add yt-pip"},
+  {"id":"ctDuration","type":"string","label":"Duration meta","default":"~10 sec"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#06b6d4"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -234,6 +242,17 @@
     window.__timelines["layout-yt-code-theater-05-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="layout-yt-code-theater-05-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--ct-step-num",   V.ctStepNum);
+      setStr("--ct-step-label", V.ctStepLabel);
+      setStr("--ct-title",      V.ctTitle);
+      setStr("--ct-cmd",        V.ctCmd);
+      setStr("--ct-duration",   V.ctDuration);
+      setRaw("--tb-accent",     V.accent);
+      setRaw("--tb-bg",         V.bg);
       const fill = root.querySelector("#yct05-fill");
       const step = root.querySelector("#yct05-step");
       const cmd  = root.querySelector("#yct05-cmd");

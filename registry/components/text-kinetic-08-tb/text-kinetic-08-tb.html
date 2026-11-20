@@ -8,7 +8,13 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"word1","type":"string","label":"Word 1","default":"THINK"},
+  {"id":"word2","type":"string","label":"Word 2","default":"BUILD"},
+  {"id":"word3","type":"string","label":"Word 3","default":"SHIP"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#facc15"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0a"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -81,6 +87,22 @@
     window.__timelines["text-kinetic-08-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="text-kinetic-08-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--word1",     V.word1);
+      setStr("--word2",     V.word2);
+      setStr("--word3",     V.word3);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const w1   = root.querySelector("#k08-w1");
       const w2   = root.querySelector("#k08-w2");
       const w3   = root.querySelector("#k08-w3");

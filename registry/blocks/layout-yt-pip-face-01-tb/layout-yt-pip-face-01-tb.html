@@ -8,7 +8,12 @@
   Duration: 5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"pipStep","type":"string","label":"Step label","default":"Step 01"},
+  {"id":"pipTitle","type":"string","label":"Step title","default":"Hook them in 3 seconds"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#2563eb"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -168,6 +173,21 @@
     window.__timelines["layout-yt-pip-face-01-tb"] = (function () {
       const root  = document.querySelector('[data-composition-id="layout-yt-pip-face-01-tb"]');
       const cs    = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--pip-step",  V.pipStep);
+      setStr("--pip-title", V.pipTitle);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const badge = root.querySelector("#yp01-badge");
       const pip   = root.querySelector("#yp01-pip");
 

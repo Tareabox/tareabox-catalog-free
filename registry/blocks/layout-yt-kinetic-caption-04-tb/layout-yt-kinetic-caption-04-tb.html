@@ -8,7 +8,14 @@
   Duration: 5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"kcLabel","type":"string","label":"Label","default":"Hot Take"},
+  {"id":"kcLine1","type":"string","label":"Line 1","default":"Your layouts"},
+  {"id":"kcLine2","type":"string","label":"Line 2 (accent)","default":"are what sells."},
+  {"id":"kcSub","type":"string","label":"Sub text","default":"What top tutorials do differently"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#facc15"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -170,6 +177,16 @@
     window.__timelines["layout-yt-kinetic-caption-04-tb"] = (function () {
       const root  = document.querySelector('[data-composition-id="layout-yt-kinetic-caption-04-tb"]');
       const cs    = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--kc-label", V.kcLabel);
+      setStr("--kc-line1", V.kcLine1);
+      setStr("--kc-line2", V.kcLine2);
+      setStr("--kc-sub",   V.kcSub);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const bar   = root.querySelector("#yk04-bar");
       const label = root.querySelector("#yk04-label");
       const l1    = root.querySelector("#yk04-l1");

@@ -8,7 +8,13 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"progressLabel","type":"string","label":"Label","default":"Tutorial Progress"},
+  {"id":"progressSection","type":"string","label":"Section","default":"Part 3 of 5"},
+  {"id":"progressPct","type":"string","label":"Percent (0-100)","default":"60"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#06b6d4"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -135,6 +141,17 @@
     window.__timelines["visual-progress-bar-05-tb"] = (function () {
       const root    = document.querySelector('[data-composition-id="visual-progress-bar-05-tb"]');
       const cs      = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--progress-label",   V.progressLabel);
+      setStr("--progress-section", V.progressSection);
+      if (V.progressPct !== undefined && V.progressPct !== null && V.progressPct !== "") {
+        root.style.setProperty("--progress-pct", String(V.progressPct));
+      }
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const wrap    = root.querySelector("#pb05-wrap");
       const fill    = root.querySelector("#pb05-fill");
       const pctEl   = root.querySelector("#pb05-pct");

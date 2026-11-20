@@ -8,7 +8,12 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"line1","type":"string","label":"Line 1","default":"MOVE FAST"},
+  {"id":"line2","type":"string","label":"Line 2","default":"BREAK LIMITS"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#f97316"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0a"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -79,6 +84,21 @@
     window.__timelines["text-elastic-11-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="text-elastic-11-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--line1",     V.line1);
+      setStr("--line2",     V.line2);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const l1   = root.querySelector("#el11-l1");
       const l2   = root.querySelector("#el11-l2");
       const dot  = root.querySelector("#el11-dot");

@@ -8,7 +8,12 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"noteTitle","type":"string","label":"Title","default":"This only applies to v3+"},
+  {"id":"noteBody","type":"string","label":"Body","default":"Earlier versions use a different config format. Check the migration guide if you&#39;re upgrading."},
+  {"id":"accent","type":"color","label":"Accent color","default":"#2563eb"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -127,6 +132,14 @@
     window.__timelines["visual-callout-note-03-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="visual-callout-note-03-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--note-title", V.noteTitle);
+      setStr("--note-body",  V.noteBody);
+      setRaw("--tb-accent",  V.accent);
+      setRaw("--tb-bg",      V.bg);
       const card = root.querySelector("#cn03-card");
       root.querySelector("#cn03-title").textContent = cs.getPropertyValue("--note-title").trim().replace(/^["']|["']$/g,"");
       root.querySelector("#cn03-body").textContent  = cs.getPropertyValue("--note-body").trim().replace(/^["']|["']$/g,"");

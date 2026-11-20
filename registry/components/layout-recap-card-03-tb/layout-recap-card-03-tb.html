@@ -8,7 +8,14 @@
   Duration: 4 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"cardTitle","type":"string","label":"Card title","default":"Key Takeaways"},
+  {"id":"item1","type":"string","label":"Item 1","default":"Always validate inputs at the boundary layer"},
+  {"id":"item2","type":"string","label":"Item 2","default":"Keep components small and single-purpose"},
+  {"id":"item3","type":"string","label":"Item 3","default":"Test behavior, not implementation details"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#facc15"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -120,6 +127,23 @@
     window.__timelines["layout-recap-card-03-tb"] = (function () {
       const root = document.querySelector('[data-composition-id="layout-recap-card-03-tb"]');
       const cs   = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--card-title", V.cardTitle);
+      setStr("--item1",      V.item1);
+      setStr("--item2",      V.item2);
+      setStr("--item3",      V.item3);
+      setRaw("--tb-accent",  V.accent);
+      setRaw("--tb-bg",      V.bg);
       root.querySelector("#rc03-title").textContent = cs.getPropertyValue("--card-title").trim().replace(/^["']|["']$/g,"");
       root.querySelector("#rc03-t1").textContent    = cs.getPropertyValue("--item1").trim().replace(/^["']|["']$/g,"");
       root.querySelector("#rc03-t2").textContent    = cs.getPropertyValue("--item2").trim().replace(/^["']|["']$/g,"");

@@ -8,7 +8,12 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"tipTitle","type":"string","label":"Title","default":"Use keyboard shortcuts"},
+  {"id":"tipBody","type":"string","label":"Body","default":"Press Cmd+K to open the command palette from anywhere in the app."},
+  {"id":"accent","type":"color","label":"Accent color","default":"#facc15"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -124,6 +129,14 @@
     window.__timelines["visual-callout-tip-01-tb"] = (function () {
       const root  = document.querySelector('[data-composition-id="visual-callout-tip-01-tb"]');
       const cs    = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--tip-title", V.tipTitle);
+      setStr("--tip-body",  V.tipBody);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const card  = root.querySelector("#ct01-card");
       root.querySelector("#ct01-title").textContent = cs.getPropertyValue("--tip-title").trim().replace(/^["']|["']$/g,"");
       root.querySelector("#ct01-body").textContent  = cs.getPropertyValue("--tip-body").trim().replace(/^["']|["']$/g,"");

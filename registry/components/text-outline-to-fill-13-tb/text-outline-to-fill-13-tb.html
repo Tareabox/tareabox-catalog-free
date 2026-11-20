@@ -8,7 +8,11 @@
   Duration: 3.5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"headline","type":"string","label":"Headline","default":"LAUNCH"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#facc15"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0a"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -93,6 +97,20 @@
     window.__timelines["text-outline-to-fill-13-tb"] = (function () {
       const root      = document.querySelector('[data-composition-id="text-outline-to-fill-13-tb"]');
       const cs        = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--headline", V.headline);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const outlineEl   = root.querySelector("#otf13-outline");
       const filledEl    = root.querySelector("#otf13-filled");
       const clipRect    = root.querySelector("#otf13-clip-rect");

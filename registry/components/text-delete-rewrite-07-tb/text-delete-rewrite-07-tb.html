@@ -8,7 +8,12 @@
   Duration: 4 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"phraseA","type":"string","label":"Phrase A","default":"Manual process"},
+  {"id":"phraseB","type":"string","label":"Phrase B","default":"AUTOMATED"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#ef4444"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#0a0a0a"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -89,6 +94,21 @@
     window.__timelines["text-delete-rewrite-07-tb"] = (function () {
       const root    = document.querySelector('[data-composition-id="text-delete-rewrite-07-tb"]');
       const cs      = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--phrase-a",  V.phraseA);
+      setStr("--phrase-b",  V.phraseB);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const typedEl = root.querySelector(".typed");
       const cursor  = root.querySelector(".cursor");
       const headEl  = root.querySelector(".headline");

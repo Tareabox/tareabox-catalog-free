@@ -8,7 +8,13 @@
   Duration: 5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"ltName","type":"string","label":"Name","default":"Mary You"},
+  {"id":"ltRole","type":"string","label":"Role","default":"Founder · tareabox.com"},
+  {"id":"ltTopic","type":"string","label":"Topic badge","default":"YouTube Pack v1"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#f97316"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -155,6 +161,15 @@
     window.__timelines["layout-yt-lower-third-03-tb"] = (function () {
       const root  = document.querySelector('[data-composition-id="layout-yt-lower-third-03-tb"]');
       const cs    = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--lt-name",  V.ltName);
+      setStr("--lt-role",  V.ltRole);
+      setStr("--lt-topic", V.ltTopic);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
       const bar   = root.querySelector("#yl03-bar");
       const name  = root.querySelector("#yl03-name");
       const role  = root.querySelector("#yl03-role");

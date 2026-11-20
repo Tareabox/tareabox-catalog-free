@@ -8,7 +8,12 @@
   Duration: 3.5 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"line1","type":"string","label":"Line 1","default":"BUILD FAST"},
+  {"id":"line2","type":"string","label":"Line 2","default":"SHIP FASTER"},
+  {"id":"accent","type":"color","label":"Neon color","default":"#ec4899"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#080810"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -94,6 +99,22 @@
       const l1   = root.querySelector("#ng03-l1");
       const l2   = root.querySelector("#ng03-l2");
       const amb  = root.querySelector(".ambient");
+
+      /* Native HyperFrames variables → override CSS custom properties */
+      const V = (window.__hyperframes && window.__hyperframes.getVariables)
+        ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, '"' + String(val) + '"');
+      };
+      const setRaw = (cssVar, val) => {
+        if (val !== undefined && val !== null && val !== "")
+          root.style.setProperty(cssVar, String(val));
+      };
+      setStr("--line1", V.line1);
+      setStr("--line2", V.line2);
+      setRaw("--tb-accent", V.accent);
+      setRaw("--tb-bg",     V.bg);
 
       l1.textContent = cs.getPropertyValue("--line1").trim().replace(/^["']|["']$/g, "");
       l2.textContent = cs.getPropertyValue("--line2").trim().replace(/^["']|["']$/g, "");

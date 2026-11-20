@@ -8,7 +8,13 @@
   Duration: 3 seconds
   REQUIRES: gsap (CDN)
 -->
-<html lang="en">
+<html lang="en" data-composition-variables='[
+  {"id":"tsTime","type":"string","label":"Timestamp","default":"04:32"},
+  {"id":"tsChapter","type":"string","label":"Chapter","default":"Chapter 3"},
+  {"id":"tsTitle","type":"string","label":"Title","default":"Setting Up Authentication"},
+  {"id":"accent","type":"color","label":"Accent color","default":"#10b981"},
+  {"id":"bg","type":"string","label":"Background (color or \"transparent\")","default":"#09090b"}
+]'>
 <head>
   <meta charset="UTF-8" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -158,6 +164,15 @@
     window.__timelines["visual-timestamp-cue-07-tb"] = (function () {
       const root    = document.querySelector('[data-composition-id="visual-timestamp-cue-07-tb"]');
       const cs      = getComputedStyle(root);
+
+      const V = (window.__hyperframes && window.__hyperframes.getVariables) ? window.__hyperframes.getVariables() : {};
+      const setStr = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, '"' + String(val) + '"'); };
+      const setRaw = (cssVar, val) => { if (val !== undefined && val !== null && val !== "") root.style.setProperty(cssVar, String(val)); };
+      setStr("--ts-time",    V.tsTime);
+      setStr("--ts-chapter", V.tsChapter);
+      setStr("--ts-title",   V.tsTitle);
+      setRaw("--tb-accent",  V.accent);
+      setRaw("--tb-bg",      V.bg);
       const pill    = root.querySelector("#tc07-pill");
       const dot     = root.querySelector("#tc07-dot");
       const line    = root.querySelector("#tc07-line");
