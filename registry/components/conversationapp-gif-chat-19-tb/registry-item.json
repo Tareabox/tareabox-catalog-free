@@ -16,11 +16,6 @@
       "path": "conversationapp-gif-chat-19-tb.html",
       "target": "compositions/components/conversationapp-gif-chat-19-tb.html",
       "type": "hyperframes:snippet"
-    },
-    {
-      "path": "tb-media/tb-react-clap.mp4",
-      "target": "assets/tb-media/tb-react-clap.mp4",
-      "type": "hyperframes:asset"
     }
   ],
   "preview": {

@@ -15,41 +15,6 @@
       "path": "visual-gif-burst-10-tb.html",
       "target": "compositions/components/visual-gif-burst-10-tb.html",
       "type": "hyperframes:snippet"
-    },
-    {
-      "path": "tb-media/tb-react-omg.mp4",
-      "target": "assets/tb-media/tb-react-omg.mp4",
-      "type": "hyperframes:asset"
-    },
-    {
-      "path": "tb-media/tb-react-omg-2.mp4",
-      "target": "assets/tb-media/tb-react-omg-2.mp4",
-      "type": "hyperframes:asset"
-    },
-    {
-      "path": "tb-media/tb-react-omg-3.mp4",
-      "target": "assets/tb-media/tb-react-omg-3.mp4",
-      "type": "hyperframes:asset"
-    },
-    {
-      "path": "tb-media/tb-react-mind-blown.mp4",
-      "target": "assets/tb-media/tb-react-mind-blown.mp4",
-      "type": "hyperframes:asset"
-    },
-    {
-      "path": "tb-media/tb-react-mind-blown-2.mp4",
-      "target": "assets/tb-media/tb-react-mind-blown-2.mp4",
-      "type": "hyperframes:asset"
-    },
-    {
-      "path": "tb-media/tb-react-clap.mp4",
-      "target": "assets/tb-media/tb-react-clap.mp4",
-      "type": "hyperframes:asset"
-    },
-    {
-      "path": "tb-media/tb-react-clap-2.mp4",
-      "target": "assets/tb-media/tb-react-clap-2.mp4",
-      "type": "hyperframes:asset"
     }
   ],
   "preview": {

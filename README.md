@@ -177,7 +177,7 @@ or swap them for your own equivalents if you want a different look.
 |---|---|---|
 | `tb-tareabox-logo.png` | conversation app blocks (avatar slot) | Your own logo or brand mark |
 | `tb-natalie-digital-avatar.png` | tweet / DM blocks (profile picture slot) | Your own profile picture |
-| `tb-react-clap.mp4`, `tb-react-mind-blown.mp4`, `tb-react-omg.mp4` (and `-2`, `-3` variants) | GIF burst / sticker / meme blocks | Any reaction MP4 that fits your content (HyperFrames seeks MP4 deterministically, GIFs don't animate in render) |
+| Reaction clips (streamed from the Pexels CDN, not bundled) | GIF burst / sticker / meme blocks | Any reaction MP4 that fits your content — a public link or your own file in `tb-media/` (HyperFrames seeks MP4 deterministically, GIFs don't animate in render) |
 | `tb-luisa-audio.m4a` | `text-popup-words` block | Your own audio clip |
 
 Backgrounds, patterns, particle loops, sound effects, and other design-integral

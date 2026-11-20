@@ -15,11 +15,6 @@
       "path": "visual-gif-crumple-11-tb-v.html",
       "target": "compositions/components/visual-gif-crumple-11-tb-v.html",
       "type": "hyperframes:snippet"
-    },
-    {
-      "path": "tb-media/tb-react-mind-blown.mp4",
-      "target": "assets/tb-media/tb-react-mind-blown.mp4",
-      "type": "hyperframes:asset"
     }
   ],
   "preview": {
